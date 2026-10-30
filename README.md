@@ -31,6 +31,34 @@ Abra no navegador: **http://localhost:8000/**
 
 > A versão inicial usa Reveal.js, KaTeX e fontes via CDN; portanto, requer conexão com a internet para carregá-los. Para uso integralmente offline, é necessário armazenar essas dependências localmente.
 
+### Construção incremental e OneDrive (Windows)
+
+O gerador `tools/build.py` foi preparado para trabalhar com projetos dentro do **OneDrive**:
+
+- **Não remove a pasta `docs/`** para reconstruir o site; escreve somente o que mudou.
+- Arquivos inalterados são preservados sem alteração de data, evitando sincronizações desnecessárias.
+- Arquivos modificados são gravados primeiro como temporários e substituídos em uma operação atômica, com novas tentativas em caso de bloqueios temporários (`WinError 5`).
+- Remove apenas saídas antigas que deixaram de ser publicadas, incluindo aulas com `published: false`. Um manifesto em `docs/.site-build-manifest.json` controla os arquivos gerados.
+- Antes de atualizar `docs/`, prepara todos os HTMLs e os recursos necessários. Se houver um arquivo-fonte ausente ou inválido, o site anterior permanece intacto.
+
+Mantenha a pasta sincronizada normalmente; no **Explorador de Arquivos**, uma opção útil é clicar com o botão direito na pasta do projeto e escolher **Sempre manter neste dispositivo** (se disponível). Isso evita depender do download de arquivos sob demanda durante a construção. Um bloqueio persistente por OneDrive, antivírus ou editor ainda pode exigir fechar o arquivo afetado e repetir o comando.
+
+Para atualizar e validar:
+
+```powershell
+python tools/build.py
+python tools/validate.py
+python -m http.server 8000 --directory docs
+```
+
+Para executar os testes automatizados do construtor (sem dependências externas):
+
+```powershell
+python -m unittest discover -s tools -p "test_build.py" -v
+```
+
+**Se o build for interrompido por `WinError 5`**, verifique se a sincronização do OneDrive está momentaneamente ocupada, feche arquivos abertos dentro de `docs/` e rode `python tools/build.py` novamente. Não é necessário apagar a pasta nem tirar o projeto do OneDrive.
+
 ## 2. Estrutura modular do projeto
 
 ```text
@@ -75,7 +103,7 @@ estimacao-estado-sep-starter/
 | Fórmulas e interação do laboratório | `assets/js/experimentos.js` |
 | Opções Reveal.js (transição, escala, plugins) | `assets/js/slides.js` |
 
-**Nunca edite apenas `docs/`**: esses arquivos são sobrescritos sempre que `tools/build.py` é executado.
+**Nunca edite apenas `docs/`**: esses arquivos são sobrescritos sempre que `tools/build.py` é executado quando o conteúdo correspondente muda.
 
 ## 3. Como escrever uma aula em Markdown
 
@@ -114,6 +142,30 @@ Use **SVG** para figuras vetoriais, colocando arquivos em `assets/figuras/` e re
 2. Acrescente um objeto à lista `lessons` de `curso.json`, com `id`, `slug`, `title`, `subtitle`, `topics`, `minutes` e `demo: null`.
 3. Rode `py tools/build.py` e `py tools/validate.py`.
 4. O cartão inicial e a página `aulas/11-novo-tema.html` serão gerados automaticamente.
+
+### Controlar a liberação de cada aula
+
+Cada entrada de `lessons` em `curso.json` aceita a propriedade booleana **`published`**:
+
+```json
+{
+  "id": "03",
+  "slug": "03-wls",
+  "title": "Mínimos Quadrados Ponderados",
+  "subtitle": "Formulação e algoritmo iterativo",
+  "topics": ["WLS", "Gauss–Newton", "Exemplo CC interativo"],
+  "minutes": 80,
+  "demo": "wls",
+  "published": false
+}
+```
+
+- `"published": true` (ou campo ausente): aula acessível, com cartão clicável e slides gerados.
+- `"published": false`: cartão visível com indicador **EM BREVE**, mas **sem link, HTML nem Markdown publicados em `docs/`**. A navegação anterior/próxima também ignora aulas indisponíveis.
+
+Para liberar uma aula, altere `false` para `true`, envie o commit (`git add . && git commit -m "Liberar aula 03" && git push`) e aguarde o GitHub Actions publicar a versão atualizada. Para testar localmente: `py tools/build.py` e `py tools/validate.py`.
+
+**Atenção à privacidade do conteúdo:** esta opção controla apenas os **arquivos publicados no site**, não o acesso ao **repositório GitHub**. Se o repositório for público, qualquer pessoa poderá ler `conteudo/03-wls.md` e outros arquivos-fonte, mesmo com `published: false`, inclusive versões anteriores pelo histórico Git. Para impedir que alunos consultem o material antes da liberação, guarde os rascunhos **fora do repositório público** (por exemplo, em um repositório privado separado), e acrescente os arquivos-fonte à versão pública somente na data de liberação.
 
 ### Adicionar um laboratório interativo
 

@@ -4,3 +4,6 @@ __pycache__/
 .vscode/
 .env
 node_modules/
+
+# Arquivos temporários do gerador incremental (OneDrive/Windows)
+docs/**/.build-*.tmp

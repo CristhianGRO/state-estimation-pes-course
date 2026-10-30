@@ -34,12 +34,24 @@ for page in htmls:
         absolute=(page.parent/unquote(parts.path)).resolve()
         if not absolute.is_file():
             raise AssertionError(f'Link não encontrado em {page.relative_to(DOCS)}: {url}')
+index=(DOCS/'index.html').read_text(encoding='utf-8')
+published_count=0
 for lesson in LESSONS:
     slug=lesson['slug']
-    assert (DOCS/'aulas'/f'{slug}.html').is_file()
-    assert (DOCS/'conteudo'/f'{slug}.md').is_file()
-    md=(DOCS/'conteudo'/f'{slug}.md').read_text(encoding='utf-8')
+    published=lesson.get('published', True)
+    assert isinstance(published, bool), f'published deve ser true/false: {slug}'
+    html_path=DOCS/'aulas'/f'{slug}.html'
+    md_path=DOCS/'conteudo'/f'{slug}.md'
+    if not published:
+        assert not html_path.exists(), f'Aula indisponível foi publicada: {slug}'
+        assert not md_path.exists(), f'Markdown indisponível foi publicado: {slug}'
+        assert f'href="aulas/{slug}.html"' not in index, f'Link ativo para aula indisponível: {slug}'
+        continue
+    published_count += 1
+    assert html_path.is_file()
+    assert md_path.is_file()
+    md=md_path.read_text(encoding='utf-8')
     assert md.count('\n---\n')>=5, f'Aula tem poucos slides: {slug}'
     if lesson.get('demo'):
-        assert f'data-demo="{lesson["demo"]}"' in (DOCS/'aulas'/f'{slug}.html').read_text(encoding='utf-8')
-print(f'✓ Verificados {len(htmls)} arquivos HTML e {len(LESSONS)} aulas.')
+        assert f'data-demo="{lesson["demo"]}"' in html_path.read_text(encoding='utf-8')
+print(f'✓ Verificados {len(htmls)} arquivos HTML e {published_count}/{len(LESSONS)} aulas publicadas.')

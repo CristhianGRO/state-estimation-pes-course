@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "generated": [
+    ".nojekyll",
+    "assets/css/site.css",
+    "assets/css/slides.css",
+    "assets/favicon.svg",
+    "assets/js/experimentos.js",
+    "assets/js/site.js",
+    "assets/js/slides.js",
+    "aulas/01-introducao.html",
+    "aulas/02-modelagem.html",
+    "aulas/03-wls.html",
+    "aulas/04-observabilidade.html",
+    "aulas/05-erros-grosseiros.html",
+    "conteudo/01-introducao.md",
+    "conteudo/02-modelagem.md",
+    "conteudo/03-wls.md",
+    "conteudo/04-observabilidade.md",
+    "conteudo/05-erros-grosseiros.md",
+    "index.html"
+  ]
+}
