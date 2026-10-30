@@ -1,0 +1,13 @@
+<section data-demo="kalman" class="demo-slide" aria-label="Laboratório de filtro de Kalman escalar">
+  <div class="demo-head"><div><h2>Laboratório · Kalman escalar</h2><p>Predição e correção de um estado sintético de tensão ao longo do tempo</p></div><span class="lab-pill">INTERATIVO / 08</span></div>
+  <div class="demo-layout">
+    <div class="demo-box"><h3>Incerteza do processo e do sensor</h3>
+      <label for="kf-q">Variância Q: <output data-role="q-value">0,0020</output></label><input id="kf-q" data-role="q" type="range" min="0.0001" max="0.0100" step="0.0001" value="0.0020">
+      <label for="kf-r">Variância R: <output data-role="r-value">0,0050</output></label><input id="kf-r" data-role="r" type="range" min="0.0005" max="0.0300" step="0.0005" value="0.0050">
+      <div class="demo-actions"><button data-role="step" type="button">Avançar instante →</button><button data-role="reset" class="secondary" type="button">Reiniciar</button></div>
+      <div class="demo-metrics" style="margin-top:22px"><div class="metric"><small>INSTANTE</small><strong data-role="k">0</strong></div><div class="metric"><small>GANHO K</small><strong data-role="gain">—</strong></div><div class="metric"><small>ESTADO ESTIMADO</small><strong data-role="estimate">—</strong></div><div class="metric"><small>VARIÂNCIA POSTERIOR P</small><strong data-role="variance">—</strong></div></div>
+      <p class="demo-note">$x_{k+1}=x_k+w_k$ e $z_k=x_k+v_k$, com $F=H=1$. Sequências sintéticas fixas para comparação reproduzível. Alterações em Q e R afetam as próximas etapas; reinicie para comparar uma execução completa.</p>
+    </div>
+    <div class="demo-box"><h3>Verdade, medição e estimativa</h3><svg data-role="chart" viewBox="0 0 490 320" class="mini-chart" role="img" aria-label="Série temporal de estado verdadeiro, medição e estimativa de Kalman"></svg><p class="demo-note"><span style="color:#176e8c">━━</span> Verdade &nbsp; <span style="color:#ec9a28">━━</span> Medições &nbsp; <span style="color:#09a98c">━━</span> Estimativa Kalman</p></div>
+  </div>
+</section>

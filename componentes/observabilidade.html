@@ -1,0 +1,22 @@
+<section data-demo="observabilidade" class="demo-slide" aria-label="Laboratório de observabilidade">
+  <div class="demo-head"><div><h2>Laboratório · Observabilidade</h2><p>Ative e desative medidores e verifique o posto da Jacobiana</p></div><span class="lab-pill">INTERATIVO / 04</span></div>
+  <div class="demo-layout">
+    <div class="demo-box"><h3>Conjunto de medições disponíveis</h3>
+      <div class="checkbox-list">
+        <label><input type="checkbox" data-channel="P12" checked>Fluxo P₁₂ — ramo 1–2</label>
+        <label><input type="checkbox" data-channel="P13" checked>Fluxo P₁₃ — ramo 1–3</label>
+        <label><input type="checkbox" data-channel="P23" checked>Fluxo P₂₃ — ramo 2–3</label>
+        <label><input type="checkbox" data-channel="TH2">PMU: ângulo θ₂</label>
+      </div>
+      <div class="demo-actions"><button class="secondary" data-role="all" type="button">Todas as medições</button><button class="secondary" data-role="minimum" type="button">Conjunto mínimo</button></div>
+      <p class="demo-note">Estados: θ₂, θ₃. A barra 1 é a referência angular. O teste usa o posto de $H$ do modelo CC.</p>
+    </div>
+    <div class="demo-box"><h3>Diagnóstico do conjunto</h3>
+      <div class="demo-metrics"><div class="metric"><small>MEDIÇÕES ATIVAS</small><strong data-role="count">—</strong></div><div class="metric"><small>POSTO DE H</small><strong data-role="rank">—</strong></div></div>
+      <div style="margin:17px 0"><span class="status-chip" data-role="status">—</span></div>
+      <p><b>Medições críticas:</b> <span data-role="critical">—</span></p>
+      <p><b>Redundância escalar:</b> <span data-role="redundancy">—</span></p>
+      <p class="demo-note" data-role="explain">—</p>
+    </div>
+  </div>
+</section>

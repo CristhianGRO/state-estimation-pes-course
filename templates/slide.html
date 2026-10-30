@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071629">
+  <meta name="description" content="{{LESSON_TITLE}} — {{COURSE_TITLE}}">
+  <title>{{LESSON_ID}} · {{LESSON_TITLE}}</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/white.css">
+  <link rel="stylesheet" href="../assets/css/slides.css">
+</head>
+<body>
+  <div class="slide-toolbar"><a href="../index.html" aria-label="Voltar ao índice">← Índice</a><span>{{LESSON_ID}} / {{LESSON_SHORT}}</span><div class="toolbar-actions"><a href="{{PREV_LINK}}" {{PREV_DISABLED}} aria-label="Aula anterior">‹</a><a href="{{NEXT_LINK}}" {{NEXT_DISABLED}} aria-label="Próxima aula">›</a></div></div>
+  <div class="reveal"><div class="slides">
+    <section data-markdown="../conteudo/{{LESSON_SLUG}}.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*--\s*$" data-separator-notes="^Note:"></section>
+    {{DEMO_SECTION}}
+  </div></div>
+  <div class="lesson-footer"><span>ESTIMAÇÃO DE ESTADO · SISTEMAS ELÉTRICOS</span><span>Use as setas / Esc / S</span></div>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/markdown/markdown.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/math/math.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+  <script src="../assets/js/experimentos.js"></script>
+  <script src="../assets/js/slides.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<section data-demo="trifasico" class="demo-slide" aria-label="Laboratório de desequilíbrio trifásico">
+  <div class="demo-head"><div><h2>Laboratório · Desequilíbrio de tensão</h2><p>Magnitudes por fase e representação vetorial de um barramento trifásico</p></div><span class="lab-pill">INTERATIVO / 07</span></div>
+  <div class="demo-layout">
+    <div class="demo-box"><h3>Magnitudes das tensões de fase</h3>
+      <label for="dist-a">Fase A: <output data-role="val-a">1,00 pu</output></label><input id="dist-a" data-role="a" type="range" min="0.8" max="1.15" step="0.01" value="1.00">
+      <label for="dist-b">Fase B: <output data-role="val-b">0,94 pu</output></label><input id="dist-b" data-role="b" type="range" min="0.8" max="1.15" step="0.01" value="0.94">
+      <label for="dist-c">Fase C: <output data-role="val-c">1,04 pu</output></label><input id="dist-c" data-role="c" type="range" min="0.8" max="1.15" step="0.01" value="1.04">
+      <div class="demo-actions"><button class="secondary" data-role="balanced" type="button">Equilibrar magnitudes</button></div>
+      <p class="demo-note">Ângulos fixados em 0°, −120° e +120°. A métrica exibida é o desvio relativo máximo de magnitude em relação à média, **não o fator normativo de desequilíbrio por sequência negativa**.</p>
+    </div>
+    <div class="demo-box"><h3>Fasores de tensão</h3><svg data-role="chart" class="mini-chart" viewBox="0 0 420 290" role="img" aria-label="Tensões de fase no plano complexo"></svg><div class="demo-metrics" style="margin-top:12px"><div class="metric"><small>MAGNITUDE MÉDIA</small><strong data-role="mean">—</strong></div><div class="metric"><small>DESVIO RELATIVO MÁX.</small><strong data-role="imbalance">—</strong></div></div></div>
+  </div>
+</section>

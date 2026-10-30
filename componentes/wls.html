@@ -1,0 +1,22 @@
+<section data-demo="wls" class="demo-slide" aria-label="Laboratório de mínimos quadrados ponderados">
+  <div class="demo-head"><div><h2>Laboratório · Estimador WLS</h2><p>Rede CC de três barras · 3 medições de fluxo · 2 ângulos desconhecidos</p></div><span class="lab-pill">INTERATIVO / 03</span></div>
+  <div class="demo-layout">
+    <div class="demo-box"><h3>Rede e experimento</h3>
+      <svg class="lab-network" viewBox="0 0 510 230" role="img" aria-label="Rede CC triangular de três barras">
+        <line x1="245" y1="36" x2="95" y2="187"/><line x1="245" y1="36" x2="414" y2="187"/><line x1="95" y1="187" x2="414" y2="187"/>
+        <circle cx="245" cy="36" r="19"/><circle cx="95" cy="187" r="19"/><circle cx="414" cy="187" r="19"/>
+        <text x="241" y="42">1</text><text x="89" y="193">2</text><text x="408" y="193">3</text><text x="111" y="93">x₁₂=.20</text><text x="322" y="92">x₁₃=.25</text><text x="232" y="213">x₂₃=.40</text><text x="279" y="31" style="font-size:13px">θ₁ = 0</text>
+      </svg>
+      <label for="wls-delta">Desvio adicional em P₂₃: <output data-role="offset">+0,000 pu</output></label>
+      <input id="wls-delta" type="range" min="-0.20" max="0.20" step="0.005" value="0.000" data-role="slider">
+      <div class="demo-actions"><button class="secondary" data-role="reset" type="button">Restaurar medições</button></div>
+      <p class="demo-note">Referência sintética: θ₂ = −0,060 rad e θ₃ = −0,095 rad. As demais perturbações de medição são fixas. O desvio aplicado à terceira medição não representa necessariamente um erro gaussiano.</p>
+    </div>
+    <div class="demo-box"><h3>Resultados do estimador</h3>
+      <div class="demo-metrics"><div class="metric"><small>ÂNGULO ESTIMADO θ₂</small><strong data-role="theta2">—</strong></div><div class="metric"><small>ÂNGULO ESTIMADO θ₃</small><strong data-role="theta3">—</strong></div><div class="metric"><small>FUNÇÃO OBJETIVO J</small><strong data-role="cost">—</strong></div><div class="metric"><small>POSTO DE H</small><strong>2 / 2</strong></div></div>
+      <h3 style="margin-top:18px">Resíduos de medição, em pu</h3>
+      <div data-role="bars"></div>
+      <p class="demo-note">Solução de $\hat x=(H^TR^{-1}H)^{-1}H^TR^{-1}z$, com $\sigma=[0{,}020;0{,}025;0{,}020]$ pu.</p>
+    </div>
+  </div>
+</section>

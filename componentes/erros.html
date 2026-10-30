@@ -1,0 +1,13 @@
+<section data-demo="erros" class="demo-slide" aria-label="Laboratório de erros grosseiros">
+  <div class="demo-head"><div><h2>Laboratório · Erros grosseiros</h2><p>Normalização com covariância residual Ω, não apenas com o desvio-padrão σ</p></div><span class="lab-pill">INTERATIVO / 05</span></div>
+  <div class="demo-layout">
+    <div class="demo-box"><h3>Inserir erro em uma medição</h3>
+      <label for="bad-delta">Erro adicionado a P₂₃: <output data-role="offset">+0,000 pu</output></label><input type="range" id="bad-delta" data-role="slider" min="0" max="0.18" step="0.005" value="0.06">
+      <p><b>Conjunto de sensores:</b> P₁₂, P₁₃, P₂₃, θ₂ (PMU), θ₃ (PMU).</p>
+      <div class="demo-actions"><button type="button" data-role="remove">Remover canal suspeito</button><button type="button" data-role="reset" class="secondary">Restaurar</button></div>
+      <div class="demo-metrics" style="margin-top:23px"><div class="metric"><small>ÂNGULO θ₂</small><strong data-role="theta2">—</strong></div><div class="metric"><small>ÂNGULO θ₃</small><strong data-role="theta3">—</strong></div><div class="metric"><small>CUSTO J</small><strong data-role="cost">—</strong></div><div class="metric"><small>CANAL INVESTIGADO</small><strong data-role="suspect">—</strong></div></div>
+      <p class="demo-note">O botão retira o maior $|r_i^N|$ no conjunto completo e refaz o WLS. Em sistemas reais, a exclusão exige validação adicional, pois maiores resíduos não garantem a origem do erro.</p>
+    </div>
+    <div class="demo-box"><h3>Resíduos normalizados do WLS</h3><div data-role="bars"></div><div style="margin:13px 0"><span class="status-chip" data-role="status">—</span></div><p class="demo-note" data-role="description">—</p><p class="demo-note">Dados sintéticos de cinco canais, $m-n_x=3$. Limiar $|r_i^N|>3$ somente para demonstração; não corresponde a um teste global qui-quadrado.</p></div>
+  </div>
+</section>

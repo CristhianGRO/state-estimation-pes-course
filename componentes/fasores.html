@@ -1,0 +1,13 @@
+<section data-demo="fasores" class="demo-slide" aria-label="Laboratório de fasores">
+  <div class="demo-head"><div><h2>Laboratório · Fasores sincronizados</h2><p>Representação vetorial das tensões em coordenadas retangulares</p></div><span class="lab-pill">INTERATIVO / 06</span></div>
+  <div class="demo-layout">
+    <div class="demo-box"><h3>Parâmetros do experimento</h3>
+      <label for="phasor-angle">Rotação angular comum: <output data-role="angle">0°</output></label><input id="phasor-angle" data-role="rotation" type="range" min="-45" max="45" step="1" value="0">
+      <label for="phasor-b">Magnitude de Vb: <output data-role="magb">0,98 pu</output></label><input id="phasor-b" data-role="magb-slider" type="range" min="0.75" max="1.15" step="0.01" value="0.98">
+      <p>Fasores iniciais: $V_a=1\angle0^\circ$, $V_b=0.98\angle-120^\circ$, $V_c=1.02\angle120^\circ$.</p>
+      <div class="demo-actions"><button type="button" class="secondary" data-role="reset">Restaurar fasores</button></div>
+      <p class="demo-note">A rotação comum mantém as diferenças angulares. Para interpretar medições PMU, a convenção temporal e a referência de fase devem ser especificadas.</p>
+    </div>
+    <div class="demo-box"><h3>Plano complexo</h3><svg data-role="chart" class="mini-chart" viewBox="0 0 420 310" role="img" aria-label="Fasores trifásicos em plano complexo"></svg><p data-role="values" class="demo-note">—</p></div>
+  </div>
+</section>

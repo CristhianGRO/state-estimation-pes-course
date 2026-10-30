@@ -1,0 +1,24 @@
+{
+  "course": {
+    "code": "SEP · EE",
+    "title": "Estimação de Estado em Sistemas Elétricos de Potência",
+    "subtitle": "Da modelagem de medições à estimação dinâmica e coordenada",
+    "institution": "Curso de Engenharia Elétrica · Material didático aberto",
+    "author": "Equipe docente — personalizar em curso.json",
+    "year": "2026",
+    "description": "Material didático inicial sobre modelagem, observabilidade, estimadores WLS, erros grosseiros, PMUs e estimação dinâmica. Conteúdo original para estudo e adaptação.",
+    "repository_url": ""
+  },
+  "lessons": [
+    {"id":"01","slug":"01-introducao","title":"Introdução à estimação de estado","subtitle":"Por que estimar o estado da rede?","topics":["SCADA e EMS","Medições","Redundância"],"minutes":65,"demo":null},
+    {"id":"02","slug":"02-modelagem","title":"Modelagem das medições elétricas","subtitle":"Do circuito ao modelo matemático","topics":["Modelos CC e CA","Fluxos e injeções","Jacobiana"],"minutes":75,"demo":null},
+    {"id":"03","slug":"03-wls","title":"Mínimos Quadrados Ponderados","subtitle":"Formulação e algoritmo iterativo","topics":["WLS","Gauss–Newton","Exemplo CC interativo"],"minutes":80,"demo":"wls"},
+    {"id":"04","slug":"04-observabilidade","title":"Observabilidade do sistema","subtitle":"O que é possível estimar?","topics":["Posto da matriz H","Medições críticas","Projeto de medição"],"minutes":70,"demo":"observabilidade"},
+    {"id":"05","slug":"05-erros-grosseiros","title":"Erros grosseiros e resíduos","subtitle":"Detecção, identificação e limites","topics":["Função J","Resíduos normalizados","Injeção de erro"],"minutes":75,"demo":"erros"},
+    {"id":"06","slug":"06-pmu","title":"Medições fasoriais e estimação híbrida","subtitle":"Sincronismo e coordenadas retangulares","topics":["PMU","SCADA–PMU","Fasores"],"minutes":65,"demo":"fasores"},
+    {"id":"07","slug":"07-distribuicao","title":"Estimação em redes de distribuição","subtitle":"Desequilíbrio e baixa observabilidade","topics":["Trifásico","Pseudomedições","DSSE"],"minutes":70,"demo":"trifasico"},
+    {"id":"08","slug":"08-kalman","title":"Introdução à estimação dinâmica","subtitle":"Predição e correção no tempo","topics":["Modelo de estados","Filtro de Kalman","EKF"],"minutes":75,"demo":"kalman"},
+    {"id":"09","slug":"09-robusta","title":"Estimação robusta","subtitle":"Quando a distribuição gaussiana não basta","topics":["LAV","M-estimadores","IRLS"],"minutes":70,"demo":null},
+    {"id":"10","slug":"10-avancados","title":"Estimação coordenada e tópicos avançados","subtitle":"Integração transmissão–distribuição","topics":["TSO–DSO","Multitaxa","Lie Groups"],"minutes":80,"demo":null}
+  ]
+}
