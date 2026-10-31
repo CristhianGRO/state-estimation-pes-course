@@ -1,24 +1,197 @@
 {
   "course": {
-    "code": "SEP · EE",
-    "title": "Estimação de Estado em Sistemas Elétricos de Potência",
-    "subtitle": "Da modelagem de medições à estimação dinâmica e coordenada",
-    "institution": "Curso de Engenharia Elétrica · Material didático aberto",
-    "author": "Equipe docente — personalizar em curso.json",
+    "code": "SEL–5717 · EESEP",
+    "title": "State Estimation in Electric Power Systems",
+    "institution": "Graduate Electrical Engineering · EESC, University of São Paulo",
+    "author": "Msc. Cristhian G. da R. de Oliveira · EESC–USP",
     "year": "2026",
-    "description": "Material didático inicial sobre modelagem, observabilidade, estimadores WLS, erros grosseiros, PMUs e estimação dinâmica. Conteúdo original para estudo e adaptação.",
-    "repository_url": ""
+    "description": "Thirteen English-language lessons on power system state estimation, with LaTeX equations, original illustrations, assignments, and interactive laboratories grounded in the USP graduate course.",
+    "repository_url": "",
+    "language": "en",
+    "group": "Computational Analysis of Electric Power Systems Laboratory · EESC–USP"
   },
   "lessons": [
-    {"id":"01","slug":"01-introducao","title":"Introdução à estimação de estado","subtitle":"Por que estimar o estado da rede?","topics":["SCADA e EMS","Medições","Redundância"],"minutes":65,"demo":null,"published": true},
-    {"id":"02","slug":"02-modelagem","title":"Modelagem das medições elétricas","subtitle":"Do circuito ao modelo matemático","topics":["Modelos CC e CA","Fluxos e injeções","Jacobiana"],"minutes":75,"demo":null,"published": true},
-    {"id":"03","slug":"03-wls","title":"Mínimos Quadrados Ponderados","subtitle":"Formulação e algoritmo iterativo","topics":["WLS","Gauss–Newton","Exemplo CC interativo"],"minutes":80,"demo":"wls","published": true},
-    {"id":"04","slug":"04-observabilidade","title":"Observabilidade do sistema","subtitle":"O que é possível estimar?","topics":["Posto da matriz H","Medições críticas","Projeto de medição"],"minutes":70,"demo":"observabilidade","published": true},
-    {"id":"05","slug":"05-erros-grosseiros","title":"Erros grosseiros e resíduos","subtitle":"Detecção, identificação e limites","topics":["Função J","Resíduos normalizados","Injeção de erro"],"minutes":75,"demo":"erros","published": true},
-    {"id":"06","slug":"06-pmu","title":"Medições fasoriais e estimação híbrida","subtitle":"Sincronismo e coordenadas retangulares","topics":["PMU","SCADA–PMU","Fasores"],"minutes":65,"demo":"fasores","published": false},
-    {"id":"07","slug":"07-distribuicao","title":"Estimação em redes de distribuição","subtitle":"Desequilíbrio e baixa observabilidade","topics":["Trifásico","Pseudomedições","DSSE"],"minutes":70,"demo":"trifasico","published": false},
-    {"id":"08","slug":"08-kalman","title":"Introdução à estimação dinâmica","subtitle":"Predição e correção no tempo","topics":["Modelo de estados","Filtro de Kalman","EKF"],"minutes":75,"demo":"kalman","published": false},
-    {"id":"09","slug":"09-robusta","title":"Estimação robusta","subtitle":"Quando a distribuição gaussiana não basta","topics":["LAV","M-estimadores","IRLS"],"minutes":70,"demo":null,"published": false},
-    {"id":"10","slug":"10-avancados","title":"Estimação coordenada e tópicos avançados","subtitle":"Integração transmissão–distribuição","topics":["TSO–DSO","Multitaxa","Lie Groups"],"minutes":80,"demo":null,"published": false}
+    {
+      "id": "01",
+      "slug": "01-introducao",
+      "title": "Introduction to state estimation",
+      "subtitle": "Real-time operation and estimation stages",
+      "topics": [
+        "SCADA and EMS",
+        "Operating security",
+        "Measurement models"
+      ],
+      "minutes": 100,
+      "demo": null,
+      "published": true
+    },
+    {
+      "id": "02",
+      "slug": "02-modelagem",
+      "title": "Power flow and topology processing",
+      "subtitle": "Electrical models, sweeps, and topology",
+      "topics": [
+        "Power flow",
+        "Backward/forward sweep",
+        "Topology processor"
+      ],
+      "minutes": 100,
+      "demo": null,
+      "published": true
+    },
+    {
+      "id": "03",
+      "slug": "03-wls",
+      "title": "Statistics and linear WLS",
+      "subtitle": "The Pθ model and weighted least squares",
+      "topics": [
+        "Statistics",
+        "Pθ model",
+        "Linear WLS"
+      ],
+      "minutes": 100,
+      "demo": "lista-wls",
+      "published": true
+    },
+    {
+      "id": "04",
+      "slug": "04-erros-lineares",
+      "title": "Linear bad-data processing",
+      "subtitle": "Normalized residuals, recovery, and simulation",
+      "topics": [
+        "Largest normalized residual",
+        "Measurement recovery",
+        "Monte Carlo"
+      ],
+      "minutes": 100,
+      "demo": "lista-erros",
+      "published": true
+    },
+    {
+      "id": "05",
+      "slug": "05-wls-nao-linear",
+      "title": "Nonlinear WLS, decoupling, and UI",
+      "subtitle": "AC modeling and error interpretation",
+      "topics": [
+        "Gauss–Newton",
+        "Pθ–QV decoupling",
+        "Undetectability index"
+      ],
+      "minutes": 100,
+      "demo": "wls-ca",
+      "published": true
+    },
+    {
+      "id": "06",
+      "slug": "06-observabilidade",
+      "title": "Observability analysis and restoration",
+      "subtitle": "Concepts, islands, and pseudomeasurements",
+      "topics": [
+        "Observability",
+        "Observable islands",
+        "Restoration"
+      ],
+      "minutes": 100,
+      "demo": "plano-medicao",
+      "published": true
+    },
+    {
+      "id": "07",
+      "slug": "07-metodos-observabilidade",
+      "title": "Observability methods and redundancy",
+      "subtitle": "Topological and numerical analysis",
+      "topics": [
+        "Factorization paths",
+        "Numerical methods",
+        "Redundancy"
+      ],
+      "minutes": 100,
+      "demo": "plano-medicao",
+      "published": true
+    },
+    {
+      "id": "08",
+      "slug": "08-projeto-medicao",
+      "title": "Criticality and measurement planning",
+      "subtitle": "Critical sets and local redundancy",
+      "topics": [
+        "Critical measurements",
+        "Critical sets",
+        "Local redundancy"
+      ],
+      "minutes": 100,
+      "demo": "criticidade",
+      "published": true
+    },
+    {
+      "id": "09",
+      "slug": "09-pmu",
+      "title": "PMUs and measurement-set updates",
+      "subtitle": "Synchronized measurements and triangular factors",
+      "topics": [
+        "PMUs and PDCs",
+        "Qualitative updates",
+        "Triangular factors"
+      ],
+      "minutes": 100,
+      "demo": "pmu-hibrido",
+      "published": true
+    },
+    {
+      "id": "10",
+      "slug": "10-generalizado",
+      "title": "Generalized and parameter estimation",
+      "subtitle": "Topology, parameters, and model errors",
+      "topics": [
+        "Generalized estimation",
+        "Topology errors",
+        "Parameter validation"
+      ],
+      "minutes": 100,
+      "demo": null,
+      "published": true
+    },
+    {
+      "id": "11",
+      "slug": "11-distribuicao",
+      "title": "Distribution and three-phase demand",
+      "subtitle": "Pseudomeasurements, unbalance, and aggregation",
+      "topics": [
+        "Distribution networks",
+        "Three-phase demand",
+        "Pseudomeasurements"
+      ],
+      "minutes": 100,
+      "demo": "demanda",
+      "published": true
+    },
+    {
+      "id": "12",
+      "slug": "12-robusta-multiarea",
+      "title": "Robust and multi-area estimation",
+      "subtitle": "WLS limitations and coordination",
+      "topics": [
+        "Robust estimation",
+        "Leverage points",
+        "Multi-area coordination"
+      ],
+      "minutes": 100,
+      "demo": "robusto",
+      "published": true
+    },
+    {
+      "id": "13",
+      "slug": "13-dynamic-estimation",
+      "title": "Dynamic state estimation",
+      "subtitle": "State-space models, Kalman filtering, and temporal information",
+      "topics": [
+        "Kalman filter",
+        "Tracking and forecasting",
+        "Dynamic states"
+      ],
+      "minutes": 120,
+      "demo": "dynamic",
+      "published": true
+    }
   ]
 }

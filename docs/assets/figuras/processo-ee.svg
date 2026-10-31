@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 300" role="img" aria-labelledby="title desc">
+<title id="title">State estimation stages</title><desc id="desc">Measurements and switch status feed the topology processor. Observability analysis precedes WLS estimation and bad-data processing. The validated state feeds operational applications.</desc>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#008f96"/></marker></defs>
+<rect width="1100" height="300" rx="20" fill="#f1f7fa"/>
+<g fill="none" stroke="#008f96" stroke-width="3" marker-end="url(#a)"><path d="M207 150H235"/><path d="M422 150H450"/><path d="M637 150H665"/><path d="M852 150H880"/></g>
+<g fill="#09213a"><rect x="20" y="80" width="185" height="140" rx="15"/><rect x="235" y="80" width="185" height="140" rx="15"/><rect x="450" y="80" width="185" height="140" rx="15"/><rect x="665" y="80" width="185" height="140" rx="15"/><rect x="880" y="80" width="200" height="140" rx="15"/></g>
+<g fill="#fff" font-family="Arial,sans-serif" font-size="19" text-anchor="middle"><text x="112" y="132">Topology</text><text x="112" y="163">processor</text><text x="327" y="132">Observability</text><text x="327" y="163">analysis</text><text x="542" y="132">Estimator</text><text x="542" y="163">WLS</text><text x="757" y="132">Bad-data</text><text x="757" y="163">processing</text><text x="980" y="132">Validated state</text><text x="980" y="163">and applications</text></g>
+<g fill="#008f96" font-family="Arial,sans-serif" font-size="16"><text x="25" y="48">INPUT · measurements and device status</text><text x="25" y="268">Topology → available information → estimation → validation → operation</text></g></svg>

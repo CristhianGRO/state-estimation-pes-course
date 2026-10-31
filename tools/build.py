@@ -45,18 +45,18 @@ def lesson_card(lesson):
     slug = esc(lesson['slug'])
     tags = ''.join(f'<span>{esc(tag)}</span>' for tag in lesson['topics'])
     terms = esc(' '.join([lesson['title'], lesson['subtitle'], *lesson['topics']]).lower())
-    body = (f'<div class="card-head"><span class="lesson-n">AULA {esc(lesson["id"])}</span>'
+    body = (f'<div class="card-head"><span class="lesson-n">LESSON {esc(lesson["id"])}</span>'
             f'<span class="lesson-clock">{int(lesson["minutes"])} MIN</span></div>'
             f'<h3>{esc(lesson["title"])}</h3><p>{esc(lesson["subtitle"])}</p>'
             f'<div class="tag-row">{tags}</div>')
     if available:
-        label = 'COM LABORATÓRIO' if lesson.get('demo') else 'AULA TEÓRICA'
+        label = 'WITH LABORATORY' if lesson.get('demo') else 'THEORY LESSON'
         return (f'<a class="lesson-card" href="aulas/{slug}.html" data-search="{terms}">'
                 + body + f'<div class="card-bottom"><span>{label}</span>'
                 '<span aria-hidden="true">↗</span></div></a>')
     return (f'<article class="lesson-card lesson-card--locked" data-search="{terms}" '
-            f'aria-label="Aula {esc(lesson["id"])} ainda não disponível">' + body
-            + '<div class="card-bottom"><span>EM BREVE</span>'
+            f'aria-label="Lesson {esc(lesson["id"])} not yet available">' + body
+            + '<div class="card-bottom"><span>COMING SOON</span>'
             '<span aria-hidden="true">🔒</span></div></article>')
 
 
@@ -73,20 +73,21 @@ def output_files():
     if published:
         first = published[0]
         start = (f'<a class="cta" href="aulas/{esc(first["slug"])}.html">'
-                 f'Iniciar Aula {esc(first["id"])} <span aria-hidden="true">↗</span></a>')
+                 f'Start lesson {esc(first["id"])} <span aria-hidden="true">↗</span></a>')
     else:
-        start = '<span class="cta cta-disabled">Aulas em breve</span>'
+        start = '<span class="cta cta-disabled">Lessons coming soon</span>'
 
     demo_lesson = next((lesson for lesson in published if lesson.get('demo')), None)
     if demo_lesson:
         demo_cta = (f'<a class="cta small" href="aulas/{esc(demo_lesson["slug"])}.html">'
-                    f'Experimentar {esc(demo_lesson["title"])} ↗</a>')
+                    f'Explore {esc(demo_lesson["title"])} ↗</a>')
     else:
-        demo_cta = '<span class="cta small cta-disabled">Laboratórios em breve</span>'
+        demo_cta = '<span class="cta small cta-disabled">Laboratories coming soon</span>'
 
     main = (ROOT / 'templates/index.html').read_text(encoding='utf-8')
     main = render(main, {
         'DESCRIPTION': esc(course['description']), 'TITLE': esc(course['title']),
+        'GROUP': esc(course.get('group', course.get('institution','University of São Paulo'))),
         'CODE': esc(course['code']), 'YEAR': esc(course['year']),
         'SUBTITLE': esc(course['subtitle']), 'AUTHOR': esc(course['author']),
         'START_CTA': start, 'DEMO_CTA': demo_cta,

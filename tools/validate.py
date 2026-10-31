@@ -4,6 +4,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 import json
+import re
 
 ROOT=Path(__file__).resolve().parents[1]
 DOCS=ROOT/'docs'
@@ -15,7 +16,7 @@ class LinkChecker(HTMLParser):
         self.urls=[]
     def handle_starttag(self, tag, attrs):
         props=dict(attrs)
-        for key in ('href','src','data-markdown'):
+        for key in ('href','src','data-src','data-markdown'):
             if key in props and tag not in ('svg','animateMotion'):
                 self.urls.append(props[key])
 
@@ -25,6 +26,7 @@ htmls=list(DOCS.rglob('*.html'))
 for page in htmls:
     text=page.read_text(encoding='utf-8')
     assert '<!doctype html>' in text.lower(), f'HTML inválido: {page}'
+    assert '<html lang="en">' in text, f'Page language must be English: {page}'
     assert '{{' not in text, f'Placeholder não resolvido: {page}'
     parser=LinkChecker();parser.feed(text)
     for url in parser.urls:
@@ -51,7 +53,38 @@ for lesson in LESSONS:
     assert html_path.is_file()
     assert md_path.is_file()
     md=md_path.read_text(encoding='utf-8')
+    assert 'source-slide' not in md and 'assets/disciplinas/' not in md, f'Recorte de slide original: {slug}'
+    # Valida os recursos citados pelo Markdown, inclusive figuras vetoriais.
+    urls=re.findall(r'\]\(([^\s)]+)\)', md)
+    embedded=LinkChecker();embedded.feed(md)
+    urls.extend(embedded.urls)
+    for url in urls:
+        parts=urlparse(url)
+        if parts.scheme or parts.netloc or not parts.path:
+            continue
+        assert (html_path.parent/unquote(parts.path)).is_file(), f'Recurso da aula ausente: {slug}: {url}'
     assert md.count('\n---\n')>=5, f'Aula tem poucos slides: {slug}'
+    for line in md.splitlines():
+        if line.lstrip().startswith('|'):
+            for formula in re.findall(r'\$(.+?)\$',line):
+                assert '|' not in formula, f'Use \\lvert/\\rvert, \\lVert/\\rVert, or \\mid for math inside Markdown tables: {slug}'
     if lesson.get('demo'):
-        assert f'data-demo="{lesson["demo"]}"' in html_path.read_text(encoding='utf-8')
+        lesson_html=html_path.read_text(encoding='utf-8')
+        assert f'data-demo="{lesson["demo"]}"' in lesson_html
+        assert lesson_html.index('data-markdown=') < lesson_html.index('data-demo='), 'Laboratory must follow theory'
+        assert re.search(r'<section[^>]+data-demo=[\s\S]*?</section>\s*</div></div>',lesson_html), 'Laboratory must be the final slide'
+        assert 'data-demo=' not in md, 'Laboratories belong after the Markdown theory'
+sources=ROOT/'conteudo/fontes-2024.json'
+if sources.is_file():
+    manifest=json.loads(sources.read_text(encoding='utf-8'))
+    assert {s['lesson'] for s in manifest['sources']} == {l['id'] for l in LESSONS}, 'Fontes não cobrem a grade'
+    assert manifest.get('format')=='markdown-latex'
+    for source in manifest['sources']:
+        assert len(source['sha256']) == 64
+        assert 'slides' not in source, 'Inventário não deve publicar recortes dos PDFs'
+    assert len(manifest['lists']) == 8
+    for entry in manifest['lists']:
+        assert (ROOT/entry['asset']).is_file(), f"Lista ausente: {entry['asset']}"
+    assert not list((DOCS/'assets/disciplinas').rglob('*.webp')), 'Recortes antigos ainda publicados'
+    print(f'✓ Rastreabilidade: {len(manifest["sources"])} fontes, Markdown/LaTeX e 8 listas.')
 print(f'✓ Verificados {len(htmls)} arquivos HTML e {published_count}/{len(LESSONS)} aulas publicadas.')

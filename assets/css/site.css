@@ -8,3 +8,4 @@
 .lesson-card--locked .card-bottom span:first-child{color:#657487}
 .cta-disabled{background:#dfe6eb;color:#677a8b;cursor:default}
 .cta-disabled:hover{transform:none;background:#dfe6eb}
+.research-credit { padding-top: 18px; color: #60788e; font-size: 12px; letter-spacing: .025em; }

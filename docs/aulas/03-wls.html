@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#071629">
-  <meta name="description" content="Mínimos Quadrados Ponderados — Estimação de Estado em Sistemas Elétricos de Potência">
-  <title>03 · Mínimos Quadrados Ponderados</title>
+  <meta name="description" content="Statistics and linear WLS — State Estimation in Electric Power Systems">
+  <title>03 · Statistics and linear WLS</title>
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,42 +13,30 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/white.css">
   <link rel="stylesheet" href="../assets/css/slides.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css">
 </head>
 <body>
-  <div class="slide-toolbar"><a href="../index.html" aria-label="Voltar ao índice">← Índice</a><span>03 / Mínimos Quadrados Ponderados</span><div class="toolbar-actions"><a href="02-modelagem.html"  aria-label="Aula anterior">‹</a><a href="04-observabilidade.html"  aria-label="Próxima aula">›</a></div></div>
+  <div class="slide-toolbar"><a href="../index.html" aria-label="Back to the course index">← Course index</a><span>03 / Statistics and linear WLS</span><div class="toolbar-actions"><a href="02-modelagem.html"  aria-label="Previous lesson">‹</a><a href="04-erros-lineares.html"  aria-label="Next lesson">›</a></div></div>
   <div class="reveal"><div class="slides">
     <section data-markdown="../conteudo/03-wls.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*--\s*$" data-separator-notes="^Note:"></section>
-    <section data-demo="wls" class="demo-slide" aria-label="Laboratório de mínimos quadrados ponderados">
-  <div class="demo-head"><div><h2>Laboratório · Estimador WLS</h2><p>Rede CC de três barras · 3 medições de fluxo · 2 ângulos desconhecidos</p></div><span class="lab-pill">INTERATIVO / 03</span></div>
-  <div class="demo-layout">
-    <div class="demo-box"><h3>Rede e experimento</h3>
-      <svg class="lab-network" viewBox="0 0 510 230" role="img" aria-label="Rede CC triangular de três barras">
-        <line x1="245" y1="36" x2="95" y2="187"/><line x1="245" y1="36" x2="414" y2="187"/><line x1="95" y1="187" x2="414" y2="187"/>
-        <circle cx="245" cy="36" r="19"/><circle cx="95" cy="187" r="19"/><circle cx="414" cy="187" r="19"/>
-        <text x="241" y="42">1</text><text x="89" y="193">2</text><text x="408" y="193">3</text><text x="111" y="93">x₁₂=.20</text><text x="322" y="92">x₁₃=.25</text><text x="232" y="213">x₂₃=.40</text><text x="279" y="31" style="font-size:13px">θ₁ = 0</text>
-      </svg>
-      <label for="wls-delta">Desvio adicional em P₂₃: <output data-role="offset">+0,000 pu</output></label>
-      <input id="wls-delta" type="range" min="-0.20" max="0.20" step="0.005" value="0.000" data-role="slider">
-      <div class="demo-actions"><button class="secondary" data-role="reset" type="button">Restaurar medições</button></div>
-      <p class="demo-note">Referência sintética: θ₂ = −0,060 rad e θ₃ = −0,095 rad. As demais perturbações de medição são fixas. O desvio aplicado à terceira medição não representa necessariamente um erro gaussiano.</p>
-    </div>
-    <div class="demo-box"><h3>Resultados do estimador</h3>
-      <div class="demo-metrics"><div class="metric"><small>ÂNGULO ESTIMADO θ₂</small><strong data-role="theta2">—</strong></div><div class="metric"><small>ÂNGULO ESTIMADO θ₃</small><strong data-role="theta3">—</strong></div><div class="metric"><small>FUNÇÃO OBJETIVO J</small><strong data-role="cost">—</strong></div><div class="metric"><small>POSTO DE H</small><strong>2 / 2</strong></div></div>
-      <h3 style="margin-top:18px">Resíduos de medição, em pu</h3>
-      <div data-role="bars"></div>
-      <p class="demo-note">Solução de $\hat x=(H^TR^{-1}H)^{-1}H^TR^{-1}z$, com $\sigma=[0{,}020;0{,}025;0{,}020]$ pu.</p>
-    </div>
-  </div>
+    <section data-demo="lista-wls" class="course-lab" aria-label="Assignment 2 · Linear estimation">
+  <div class="demo-head"><div><h2>Assignment 2 · Linear estimation</h2><p>Exercise 1 · six power readings · two angles</p></div><span class="lab-pill">GUIDED EXPERIMENT</span></div>
+  <div class="demo-layout"><div class="demo-box"><h3>Weights and perturbation</h3><label><input type="checkbox" data-role="weighted" checked>Use Assignment 2 weights</label><label for="lab-sigma">P12 standard deviation: <output data-role="sigma-value"></output></label><input id="lab-sigma" data-role="sigma" type="range" min="0.002" max="0.03" step="0.001" value="0.008"><label for="lab-offset">Additional P12 bias: <output data-role="offset-value"></output></label><input id="lab-offset" data-role="offset" type="range" min="-0.4" max="0.4" step="0.005" value="0"><button type="button" class="secondary" data-role="reset">Restore data</button><table class="grid-table"><thead><tr><th scope="col">State</th><th scope="col">Estimate</th></tr></thead><tbody data-role="states"></tbody></table></div><div class="demo-box"><h3>Measurements and residuals</h3><table class="grid-table"><thead><tr><th scope="col">Channel</th><th scope="col">z (p.u.)</th><th scope="col">r (p.u.)</th><th scope="col">rN</th></tr></thead><tbody data-role="results"></tbody></table></div></div>
+  <p class="demo-note lab-summary" data-role="summary" role="status" aria-live="polite"></p>
+  <p class="demo-note">Assignment 2, Exercise 1. Start without bias and with σ(P12) = 0.008 p.u.; then investigate weighting and contamination.</p>
 </section>
 
   </div></div>
-  <div class="lesson-footer"><span>ESTIMAÇÃO DE ESTADO · SISTEMAS ELÉTRICOS</span><span>Use as setas / Esc / S</span></div>
+  <div class="lesson-footer"><span>STATE ESTIMATION · ELECTRIC POWER SYSTEMS</span><span>Arrow keys / Esc / S</span></div>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/markdown/markdown.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/math/math.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
+  <script src="../assets/js/math.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
-  <script src="../assets/js/experimentos.js"></script>
+  <script src="../assets/js/labs-disciplina.js"></script>
+  <script src="../assets/js/wls-ca.js"></script>
+  <script src="../assets/js/dynamic.js"></script>
   <script src="../assets/js/slides.js"></script>
 </body>
 </html>

@@ -1,0 +1,11 @@
+<section data-demo="wls-ca">
+  <div class="demo-head"><div><h2>AC WLS · Assignment 6, Exercise 1</h2><p>Radial three-bus network · π model · θ1 = 0 rad</p></div><span class="lab-pill">COURSE DATA</span></div>
+  <div class="demo-layout">
+    <div class="demo-box"><h3>Estimated state</h3><table class="grid-table"><thead><tr><th>Variable</th><th>Estimate</th></tr></thead><tbody data-role="states"></tbody></table>
+      <label>Additional P12 error: <span data-role="error-value"></span></label><input data-role="error" aria-label="Additional P12 error in standard deviations" type="range" min="-20" max="20" step="0.5" value="0">
+      <button data-role="reset">Restore original data</button><p data-role="summary" aria-live="polite"></p>
+    </div>
+    <div class="demo-box"><h3>Measurements and normalized residuals</h3><table class="grid-table"><thead><tr><th>Measurement</th><th>Value (p.u.)</th><th>rN</th></tr></thead><tbody data-role="residuals"></tbody></table></div>
+  </div>
+  <p class="demo-note">Coupled WLS with a central-difference Jacobian and step control. Diagonal R uses Assignment 6 standard deviations. Residual covariance is locally linearized. The teaching threshold 3 is not a global test with specified significance.</p>
+</section>

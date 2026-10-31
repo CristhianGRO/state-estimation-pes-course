@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#071629">
-  <meta name="description" content="Modelagem das medições elétricas — Estimação de Estado em Sistemas Elétricos de Potência">
-  <title>02 · Modelagem das medições elétricas</title>
+  <meta name="description" content="Power flow and topology processing — State Estimation in Electric Power Systems">
+  <title>02 · Power flow and topology processing</title>
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,20 +13,24 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/white.css">
   <link rel="stylesheet" href="../assets/css/slides.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.css">
 </head>
 <body>
-  <div class="slide-toolbar"><a href="../index.html" aria-label="Voltar ao índice">← Índice</a><span>02 / Modelagem das medições elétricas</span><div class="toolbar-actions"><a href="01-introducao.html"  aria-label="Aula anterior">‹</a><a href="03-wls.html"  aria-label="Próxima aula">›</a></div></div>
+  <div class="slide-toolbar"><a href="../index.html" aria-label="Back to the course index">← Course index</a><span>02 / Power flow and topology processing</span><div class="toolbar-actions"><a href="01-introducao.html"  aria-label="Previous lesson">‹</a><a href="03-wls.html"  aria-label="Next lesson">›</a></div></div>
   <div class="reveal"><div class="slides">
     <section data-markdown="../conteudo/02-modelagem.md" data-separator="^\s*---\s*$" data-separator-vertical="^\s*--\s*$" data-separator-notes="^Note:"></section>
     
   </div></div>
-  <div class="lesson-footer"><span>ESTIMAÇÃO DE ESTADO · SISTEMAS ELÉTRICOS</span><span>Use as setas / Esc / S</span></div>
+  <div class="lesson-footer"><span>STATE ESTIMATION · ELECTRIC POWER SYSTEMS</span><span>Arrow keys / Esc / S</span></div>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/markdown/markdown.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/math/math.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
+  <script src="../assets/js/math.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
-  <script src="../assets/js/experimentos.js"></script>
+  <script src="../assets/js/labs-disciplina.js"></script>
+  <script src="../assets/js/wls-ca.js"></script>
+  <script src="../assets/js/dynamic.js"></script>
   <script src="../assets/js/slides.js"></script>
 </body>
 </html>

@@ -1,0 +1,16 @@
+<section data-demo="dynamic" class="course-lab" aria-label="Dynamic estimation laboratory">
+  <div class="demo-head"><div><h2>Tracking versus snapshot estimation</h2><p>Lesson 13 · three-bus Pθ example · reproducible measurement noise</p></div><span class="lab-pill">GUIDED EXPERIMENT</span></div>
+  <div class="demo-layout">
+    <div class="demo-box"><h3>Transition model and sampling</h3>
+      <label for="dynamic-dt">Sampling interval</label><select id="dynamic-dt" data-role="dt"><option value="1">1 s · 1 Hz</option><option value="0.1">0.1 s · 10 Hz</option></select>
+      <label for="dynamic-q">Process-noise intensity: <output data-role="q-value"></output></label><input id="dynamic-q" data-role="q" type="range" min="-10" max="-4" step="0.5" value="-7">
+      <div class="demo-actions"><button type="button" data-role="step">Next observation</button><button type="button" data-role="run">Run full window</button><button type="button" class="secondary" data-role="reset">Restart</button></div>
+      <p>F = I; Q = qΔtI. A 25% operating-point step occurs at t = 20 s. Measurement standard deviations: 0.008 p.u. for flows, 0.010 p.u. for injections.</p>
+    </div>
+    <div class="demo-box"><h3>State estimates and uncertainty</h3><table class="grid-table"><thead><tr><th>State</th><th>True</th><th>WLS</th><th>Kalman</th><th>σ</th></tr></thead><tbody data-role="states"></tbody></table>
+      <svg class="mini-chart" data-role="chart" viewBox="0 0 560 215" role="img" aria-label="Bus 2 angle: true, snapshot WLS, and Kalman trajectories"></svg><p>Dark: true · gray: snapshot WLS · teal: Kalman. Angles and standard deviations are in radians.</p>
+    </div>
+  </div>
+  <p class="demo-note lab-summary" data-role="summary" role="status" aria-live="polite"></p>
+  <p class="demo-note">A tracking model, not a complete electromechanical simulator. The defined extension follows the lecture's steady/step scenarios. The step deliberately violates the smooth-transition assumption; changing Q or the sampling interval restarts the experiment.</p>
+</section>

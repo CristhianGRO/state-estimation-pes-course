@@ -1,225 +1,118 @@
-# Estimação de Estado em Sistemas Elétricos de Potência
+# State Estimation in Electric Power Systems
 
-Site acadêmico estático com dez aulas em **Reveal.js**, seis laboratórios interativos e estrutura para acrescentar novas aulas sem duplicar templates. Projeto inicial **original**, criado para adaptação didática; utiliza como referência de experiência de navegação o site SEL5917 (https://marofe.github.io/estimation-identification-filtering/), mas não replica seus slides.
+An English-language graduate course based on the 2024 teaching materials of Prof. João Bosco A. London Junior, EESC, University of São Paulo. The thirteen lessons connect real-time monitoring, static estimation, measurement planning, robust methods, and dynamic state estimation.
 
-## O que está incluído
+Computational Analysis of Electric Power Systems Laboratory · EESC–USP.
 
-- Página inicial responsiva com programa da disciplina, busca por tema e links individuais.
-- 10 apresentações editáveis em Markdown com navegação por teclado, equações LaTeX e apresentação em tela cheia.
-- 6 demonstrações interativas em JavaScript: WLS linear, observabilidade, resíduos normalizados/erro grosseiro, fasores, tensão trifásica e Kalman escalar.
-- Exemplo MATLAB/Octave de WLS para uma rede de três barras.
-- Gerador estático com **biblioteca padrão do Python**, sem `pip install`.
-- Workflow de **GitHub Actions** para geração e publicação automática no GitHub Pages.
+## Course organization
 
-**Limites:** os laboratórios usam modelos sintéticos didáticos. Não constituem simuladores CA/trifásicos completos nem devem ser utilizados para decisões operativas. O conteúdo inicial precisa ser revisto e expandido para uso como curso formal.
+The twelve numbered lessons retain their original sequence. Lesson 13 adapts the separate dynamic-estimation lecture by Dr. Julio A. D. Massignan and Prof. João Bosco A. London Junior, delivered on 3 December 2024.
 
-## 1. Visualizar localmente (Windows / VS Code)
+Every presentation contains theory and worked examples, references, a laboratory guide where applicable, and the interactive laboratory as its final slide. There are no screenshots or reproductions of the original teaching slides. Figures are original SVG illustrations, and equations remain editable LaTeX in Markdown.
 
-Extraia a pasta, abra o terminal na **raiz** do projeto e execute:
+| Lesson | Topic | Laboratory basis |
+|---|---|---|
+| 1 | Introduction and real-time operation | Theory |
+| 2 | Power flow and topology processing | Assignment 1 discussion |
+| 3 | Statistics and linear WLS | Assignment 2, Exercise 1 |
+| 4 | Linear bad-data processing | Assignment 3, Exercise 1 |
+| 5 | Nonlinear WLS, decoupling, and UI | Assignment 6, Exercise 1 |
+| 6 | Observability and restoration | Assignment 2 measurement plan |
+| 7 | Observability methods and redundancy | Assignment 2 measurement plan |
+| 8 | Criticality and local redundancy | Transformed matrix from Lesson 8 |
+| 9 | PMUs and measurement-set updates | Explicit PMU extension of Assignment 2 |
+| 10 | Generalized and parameter estimation | Theory and interpretation exercise |
+| 11 | Distribution and demand estimation | Demand-refinement example defined in the lesson |
+| 12 | Robust and multi-area estimation | Huber extension of Assignment 2 |
+| 13 | Dynamic estimation | Three-bus Kalman tracking extension of the source lecture |
 
-```powershell
-py tools/build.py
-py tools/validate.py
-py -m http.server 8000 --directory docs
-```
+The website, lessons, illustrations, controls, and numerical output are in English. Downloadable original assignment documents remain in Portuguese and are explicitly labeled. Bibliographic source titles retain their original names for traceability.
 
-Se o comando `py` não estiver disponível, substitua por `python`.
+## Run locally
 
-Abra no navegador: **http://localhost:8000/**
-
-> Não abra `docs/index.html` diretamente pelo explorador para testar os slides. Reveal.js carrega os arquivos Markdown por requisição HTTP, e o navegador pode bloquear requisições ao usar `file://`.
-
-> A versão inicial usa Reveal.js, KaTeX e fontes via CDN; portanto, requer conexão com a internet para carregá-los. Para uso integralmente offline, é necessário armazenar essas dependências localmente.
-
-### Construção incremental e OneDrive (Windows)
-
-O gerador `tools/build.py` foi preparado para trabalhar com projetos dentro do **OneDrive**:
-
-- **Não remove a pasta `docs/`** para reconstruir o site; escreve somente o que mudou.
-- Arquivos inalterados são preservados sem alteração de data, evitando sincronizações desnecessárias.
-- Arquivos modificados são gravados primeiro como temporários e substituídos em uma operação atômica, com novas tentativas em caso de bloqueios temporários (`WinError 5`).
-- Remove apenas saídas antigas que deixaram de ser publicadas, incluindo aulas com `published: false`. Um manifesto em `docs/.site-build-manifest.json` controla os arquivos gerados.
-- Antes de atualizar `docs/`, prepara todos os HTMLs e os recursos necessários. Se houver um arquivo-fonte ausente ou inválido, o site anterior permanece intacto.
-
-Mantenha a pasta sincronizada normalmente; no **Explorador de Arquivos**, uma opção útil é clicar com o botão direito na pasta do projeto e escolher **Sempre manter neste dispositivo** (se disponível). Isso evita depender do download de arquivos sob demanda durante a construção. Um bloqueio persistente por OneDrive, antivírus ou editor ainda pode exigir fechar o arquivo afetado e repetir o comando.
-
-Para atualizar e validar:
+Use Python 3 with no third-party packages for the normal build:
 
 ```powershell
-python tools/build.py
-python tools/validate.py
+python -X utf8 tools/build.py
+python -X utf8 tools/validate.py
 python -m http.server 8000 --directory docs
 ```
 
-Para executar os testes automatizados do construtor (sem dependências externas):
+Open [the local website](http://localhost:8000/). Serve the pages over HTTP; opening lesson HTML directly through `file://` prevents external Markdown loading in many browsers. Reveal.js, KaTeX, and fonts are loaded from pinned CDN URLs and require an internet connection.
+
+On Windows, `py` can replace `python`. UTF-8 mode avoids console-encoding problems. The incremental builder preserves unchanged files and retries temporary OneDrive locks. It does not delete the `docs/` directory.
+
+## Edit the course
+
+- `curso.json`: course metadata, ordered lesson catalog, laboratory selection, and release flags.
+- `conteudo/NN-name.md`: authoritative, editable lesson content.
+- `componentes/`: laboratory HTML fragments.
+- `assets/js/labs-disciplina.js`: assignment-linked numerical methods and controls.
+- `assets/js/wls-ca.js`: coupled AC WLS experiment.
+- `assets/js/dynamic.js`: reproducible Kalman tracking experiment.
+- `assets/js/math.js`: TeX-aware Markdown tokenization and explicit KaTeX rendering.
+- `assets/figuras/`: original vector illustrations.
+- `templates/`: shared homepage and presentation templates.
+- `docs/`: generated site; rebuild instead of editing these files directly.
+
+Separate slides with `---`. Write inline math between single dollar signs and display math between double dollar signs. Use ordinary LaTeX matrix row separators and subscripts: do not double-escape equations to work around Markdown. The custom tokenizer protects TeX before Markdown processes backslashes, underscores, braces, or HTML-sensitive characters. Failed formulas remain visible and are reported in the browser console.
+
+Inside Markdown tables, use `\lvert`/`\rvert` for absolute-value bars and `\mid` for conditional notation: bare pipes are Markdown column separators. The validator flags this conflict.
+
+Speaker notes begin with `Note:`. Keep laboratory guidance after the theory; the selected component is automatically appended as the final slide. The validator checks that the laboratory is last.
+
+For a new lesson, create its Markdown, add its catalog entry, and update the source/section inventory. A `published: false` lesson has a visible coming-soon card without publishing its HTML or Markdown. This controls the generated website, not access to source files in a public repository or Git history.
+
+To add a laboratory, first define the equations, data, assumptions, and reference results in the lesson. Create its component, implement a pure numerical core and a mounting function, register loading in `assets/js/slides.js`, and add independent numerical checks.
+
+## Sources and original materials
+
+External teaching materials are read only. All project changes stay inside this repository. `conteudo/fontes-2024.json` records source names and SHA-256 hashes: 28 PDFs, the separate 64-slide dynamic-estimation presentation, and eight original assignments. `tools/plano-disciplina.json` records the lesson order, source patterns, and section headings.
 
 ```powershell
-python -m unittest discover -s tools -p "test_build.py" -v
+python -X utf8 tools/importar_disciplina.py "PATH TO ORIGINAL MATERIALS"
 ```
 
-**Se o build for interrompido por `WinError 5`**, verifique se a sincronização do OneDrive está momentaneamente ocupada, feche arquivos abertos dentro de `docs/` e rode `python tools/build.py` novamente. Não é necessário apagar a pasta nem tirar o projeto do OneDrive.
+This command updates the inventory without rewriting lesson Markdown or publishing original slides. Optional `--extrair-texto` writes consultation text only under ignored `tmp/fontes/`; PDF extraction requires PyMuPDF. PowerPoint text extraction uses Python's standard library.
 
-## 2. Estrutura modular do projeto
-
-```text
-estimacao-estado-sep-starter/
-│
-├── curso.json                 ← dados da disciplina e catálogo das aulas
-├── conteudo/                  ← EDITE AQUI: um arquivo .md por aula
-│   ├── 01-introducao.md
-│   ├── 02-modelagem.md
-│   └── ...
-├── componentes/               ← fragmentos HTML dos laboratórios
-│   ├── wls.html
-│   ├── observabilidade.html
-│   └── ...
-├── templates/
-│   ├── index.html             ← página inicial, alterada uma só vez
-│   └── slide.html             ← molde HTML compartilhado das aulas
-├── assets/
-│   ├── css/site.css           ← estilo da página inicial
-│   ├── css/slides.css         ← estilo das apresentações e laboratórios
-│   ├── js/site.js             ← busca de aulas
-│   ├── js/slides.js           ← inicialização central do Reveal.js
-│   └── js/experimentos.js     ← cálculos e interações dos laboratórios
-├── exemplos/matlab/
-│   └── wls_tres_barras.m
-├── tools/
-│   ├── build.py               ← constrói o site em docs/
-│   └── validate.py            ← valida páginas e links internos
-├── docs/                      ← SITE GERADO, publicado no GitHub Pages
-└── .github/workflows/pages.yml
-```
-
-### Onde editar?
-
-| Objetivo | Arquivo a editar |
-|---|---|
-| Nome da disciplina, docente, ano, títulos e módulos | `curso.json` |
-| Conteúdo de uma aula existente | `conteudo/NN-nome.md` |
-| CSS e layout geral dos slides | `assets/css/slides.css` |
-| Aparência da página inicial | `assets/css/site.css` e `templates/index.html` |
-| HTML de um laboratório | `componentes/nome.html` |
-| Fórmulas e interação do laboratório | `assets/js/experimentos.js` |
-| Opções Reveal.js (transição, escala, plugins) | `assets/js/slides.js` |
-
-**Nunca edite apenas `docs/`**: esses arquivos são sobrescritos sempre que `tools/build.py` é executado quando o conteúdo correspondente muda.
-
-## 3. Como escrever uma aula em Markdown
-
-O separador `---` cria um novo slide. Este é um exemplo mínimo:
-
-```markdown
-# Modelagem de medidas
-
-### Aula NN · Título
-
-Uma introdução breve
-
----
-
-## Definição do problema
-
-A medida se relaciona ao estado por
-
-$$z=h(x)+e.$$
-
----
-
-## Perguntas para a turma
-
-- Qual é o significado de $e$?
-- O modelo $h$ é linear?
-```
-
-Após a edição, rode `py tools/build.py` e atualize o navegador. Também é possível inserir tabelas, imagens SVG, blocos de código e **Notas do apresentador** com o marcador `Note:` (em uma nova linha).
-
-Use **SVG** para figuras vetoriais, colocando arquivos em `assets/figuras/` e referenciando-os com caminhos relativos a `aulas/NN-nome.html` (por exemplo, `../assets/figuras/rede.svg`).
-
-### Adicionar uma aula
-
-1. Crie `conteudo/11-novo-tema.md`.
-2. Acrescente um objeto à lista `lessons` de `curso.json`, com `id`, `slug`, `title`, `subtitle`, `topics`, `minutes` e `demo: null`.
-3. Rode `py tools/build.py` e `py tools/validate.py`.
-4. O cartão inicial e a página `aulas/11-novo-tema.html` serão gerados automaticamente.
-
-### Controlar a liberação de cada aula
-
-Cada entrada de `lessons` em `curso.json` aceita a propriedade booleana **`published`**:
-
-```json
-{
-  "id": "03",
-  "slug": "03-wls",
-  "title": "Mínimos Quadrados Ponderados",
-  "subtitle": "Formulação e algoritmo iterativo",
-  "topics": ["WLS", "Gauss–Newton", "Exemplo CC interativo"],
-  "minutes": 80,
-  "demo": "wls",
-  "published": false
-}
-```
-
-- `"published": true` (ou campo ausente): aula acessível, com cartão clicável e slides gerados.
-- `"published": false`: cartão visível com indicador **EM BREVE**, mas **sem link, HTML nem Markdown publicados em `docs/`**. A navegação anterior/próxima também ignora aulas indisponíveis.
-
-Para liberar uma aula, altere `false` para `true`, envie o commit (`git add . && git commit -m "Liberar aula 03" && git push`) e aguarde o GitHub Actions publicar a versão atualizada. Para testar localmente: `py tools/build.py` e `py tools/validate.py`.
-
-**Atenção à privacidade do conteúdo:** esta opção controla apenas os **arquivos publicados no site**, não o acesso ao **repositório GitHub**. Se o repositório for público, qualquer pessoa poderá ler `conteudo/03-wls.md` e outros arquivos-fonte, mesmo com `published: false`, inclusive versões anteriores pelo histórico Git. Para impedir que alunos consultem o material antes da liberação, guarde os rascunhos **fora do repositório público** (por exemplo, em um repositório privado separado), e acrescente os arquivos-fonte à versão pública somente na data de liberação.
-
-### Adicionar um laboratório interativo
-
-1. Crie o fragmento `componentes/novo-demo.html` com um elemento raiz `<section data-demo="novo-demo"> ... </section>`.
-2. Crie uma função `mountNovoDemo(root)` em `assets/js/experimentos.js` que trabalhe **apenas** com elementos dentro de `root`.
-3. Registre `novo-demo: mountNovoDemo` no objeto `registry` no final do arquivo JavaScript.
-4. Aponte o campo `demo` da aula em `curso.json` para `"novo-demo"`.
-5. Regere o site. O laboratório será acrescentado após os slides convencionais daquela aula.
-
-A separação impede que uma apresentação copie o mesmo código de outra e facilita reutilização futura.
-
-## 4. Publicar com GitHub Pages (recomendado)
-
-1. No GitHub, crie um repositório público vazio; por exemplo `estimacao-estado-sep`.
-2. Na raiz deste projeto, execute:
+Regenerate the scripted English illustrations with:
 
 ```powershell
-git init
-git add .
-git commit -m "Versão inicial do site e das aulas"
-git branch -M main
-git remote add origin https://github.com/SEU-USUARIO/estimacao-estado-sep.git
-git push -u origin main
+python -X utf8 tools/gerar_figuras.py
 ```
 
-3. Abra **Settings → Pages → Build and deployment → Source → GitHub Actions**.
-4. O workflow `.github/workflows/pages.yml` gerará o site e fará a publicação após cada `push` para `main`. É possível acompanhar a execução na aba **Actions**.
-5. Depois da publicação, o endereço padrão será `https://SEU-USUARIO.github.io/estimacao-estado-sep/` (substitua seu usuário e o nome do repositório).
+Earlier draft content under `conteudo/complementos/` is not published automatically. Older synthetic demonstration components remain as legacy source and are not loaded by the current presentations.
 
-> Alternativa simples: em **Source → Deploy from a branch**, selecione a branch `main` e a pasta `/docs`. Nesse modo você precisa executar `py tools/build.py` **e adicionar os arquivos de `docs/` ao commit** para cada atualização. Recomenda-se escolher **um único** modo de publicação; este pacote já inclui GitHub Actions.
+## Numerical and rendering validation
 
-Documentação oficial: [Configurar publicação do Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
+```powershell
+node tools/test_labs_disciplina.cjs
+node tools/test_wls_ca.cjs
+node tools/test_dynamic.cjs
+node tools/test_math.cjs
+python -X utf8 -m unittest discover -s tools -p "test_build.py" -v
+python -X utf8 tools/validate.py
+```
 
-## 5. Verificações e validação científica
+Tests cover assignment reference values, power balances, rank, inclusion-minimal loss sets, local redundancy, measurement recovery, covariance updates, and stationarity. Dynamic tests check the 25% step timing, reproducible Gaussian measurement noise, positive-definite Joseph covariance updates, and an independent information-form cross-check.
 
-O pacote inclui verificações automáticas **estruturais** (`tools/validate.py`) e o exemplo MATLAB `exemplos/matlab/wls_tres_barras.m` para comparação numérica. A demonstração WLS usa:
+The Assignment 3 printed post-removal voltages differ by less than 0.001 V from recalculation using the stated matrix and readings. The lesson documents both. The laboratory solves the stated data rather than forcing agreement with the printed answer.
 
-$$H=\begin{bmatrix}-5&0\\0&-4\\2.5&-2.5\end{bmatrix},\quad \theta^{true}=\begin{bmatrix}-0.06\\-0.095\end{bmatrix}.$$
+The AC residual covariance is locally linearized. A normalized-residual threshold of 3 is a teaching choice, not a global significance level. Local-redundancy enumeration is restricted to small examples. The demand laboratory is a lossless aggregate adjustment. The dynamic laboratory is a Pθ tracking model, not a complete electromechanical simulator; its unexpected step deliberately tests transition-model mismatch. Its process covariance scales with sampling interval as Q = qΔtI.
 
-O laboratório de detecção de erros grosseiros usa cinco medidas e calcula o resíduo normalizado por $\Omega=R-HG^{-1}H^T$. O teste de posto e a classificação de medições críticas estão restritos ao modelo CC de dois ângulos. O laboratório de Kalman é escalar e não representa a dinâmica eletromecânica do SEP.
+For visual review, inspect representative long equations, matrices, cases, figures, and laboratory controls in the browser. In addition to checking for visible errors, compare each rendered formula's MathML annotation with its preserved `data-tex` source; silent Markdown damage can otherwise escape error-only checks.
 
-Antes de utilizar os materiais em sala, confira hipóteses, convenções, unidades, valores de variância, qualidade da visualização e exemplos com a bibliografia escolhida.
+## Publishing
 
-## 6. Próximos incrementos sugeridos
+The repository includes a GitHub Actions workflow for GitHub Pages. Configure **Settings → Pages → Source → GitHub Actions** and push the reviewed changes. Alternatively, publish the committed `docs/` directory from a branch; rebuild and include generated files for every update. Choose one deployment method.
 
-- Incluir figuras SVG de IEEE 14, 33 e 123 barras com destaque de medidores.
-- Acrescentar solução CA de WLS Gauss–Newton com derivadas de $P$ e $Q$ e comparação com MATPOWER.
-- Criar exercícios e notebooks Python/MATLAB ligados a cada aula.
-- Incorporar cenários de pseudomedições trifásicas, PMUs multitaxa e detecção robusta.
-- Acrescentar exportação PDF em um processo automatizado (Playwright/Chromium).
+This update prepares repository content; it does not itself deploy the website.
 
-## Créditos e licença
+## Credits
 
-- Framework de apresentações: [Reveal.js](https://revealjs.com/), com bibliotecas e suas licenças próprias.
-- Inspiração para a **estrutura de navegação e publicação**: [SEL5917](https://marofe.github.io/estimation-identification-filtering/), Prof. Marcos Rogério Fernandes.
-- Os textos, exemplos numéricos e implementações iniciais deste pacote foram redigidos para este projeto; não houve reprodução integral dos slides da disciplina de referência.
-- **Licença do conteúdo:** ainda não definida. Escolha expressamente a licença de distribuição antes de publicar material sob um regime de reutilização aberta (por exemplo, CC BY 4.0 para conteúdo; MIT para código, se desejado).
+- Course: Prof. João Bosco A. London Junior and collaborators, EESC–USP, 2024.
+- Dynamic-estimation lecture: Dr. Julio A. D. Massignan and Prof. João Bosco A. London Junior, 3 December 2024.
+- Teaching references: Bretas, London Jr., and Carvalho; Monticelli, *State Estimation in Electric Power Systems* (1999); Abur and Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004).
+- Presentation framework: [Reveal.js](https://revealjs.com/); mathematics: [KaTeX](https://katex.org/). Their own licenses apply.
+- Navigation/publication inspiration: [SEL5917](https://marofe.github.io/estimation-identification-filtering/), Prof. Marcos Rogério Fernandes.
+- Content license: not yet specified. No new open-content license is assigned by this adaptation.

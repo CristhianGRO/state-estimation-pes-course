@@ -1,112 +1,252 @@
-# Modelagem das medições elétricas
+# Power flow and topology processing
 
-### Aula 02 · Modelos CC, CA e sensibilidades
+### Lesson 02 · Electrical models, sweeps, and topology
 
-Do circuito elétrico à função de medição
-
----
-
-## Objetivos da aula
-
-- Construir as equações básicas de medição a partir de $Y_{bus}$.
-- Entender o modelo linearizado CC e suas hipóteses.
-- Relacionar cada medição a uma linha da Jacobiana.
-- Distinguir acoplamentos das variáveis $V$ e $\theta$.
+Graduate course · University of São Paulo · Prof. João Bosco A. London Junior
 
 ---
 
-## Convenções de rede
+## Lesson outline
 
-Adote $V_i=|V_i|e^{j\theta_i}$ e $Y_{bus}=G+jB$.
+1. Power flow review: model, equations, and solution.
+2. Sweep methods for radial feeders.
+3. Substation configuration, network configuration, and meter association.
 
-$$I=Y_{bus}V,\qquad S_i=P_i+jQ_i=V_i I_i^*.$$
-
-As medições de injeção e fluxo são expressas por funções não lineares dos estados de tensão.
-
-A orientação dos fluxos deve ser fixada antes de montar o vetor $z$.
+**Objective:** construct the electrical model used by the state estimator.
 
 ---
 
-## Injeções ativas e reativas
+## The power flow problem
 
-Com $\theta_{ik}=\theta_i-\theta_k$:
+Determine a network's steady-state condition for specified topology, demands, and generation.
 
-$$P_i=V_i\sum_{k=1}^{n}V_k\bigl(G_{ik}\cos\theta_{ik}+B_{ik}\sin\theta_{ik}\bigr),$$
-
-$$Q_i=V_i\sum_{k=1}^{n}V_k\bigl(G_{ik}\sin\theta_{ik}-B_{ik}\cos\theta_{ik}\bigr).$$
-
-As expressões são consistentes com $S_i=V_i(Y_{bus}V)_i^*$.
+The unknowns are complex voltages and unspecified powers. Equations express physical network laws; the basic formulation does not statistically fit redundant measurements.
 
 ---
 
-## Modelo de medição CA
+## Conventions and bases
 
-Organize as medidas na ordem desejada:
+$$\underline V_i=V_i e^{j\theta_i},\quad Y=G+jB,\quad S_i=P_i+jQ_i$$
 
-$$z=\begin{bmatrix}V^{meas}\\P_{ij}^{meas}\\Q_{ij}^{meas}\\P_i^{meas}\\Q_i^{meas}\end{bmatrix},\qquad
-h(x)=\begin{bmatrix}V(x)\\P_{ij}(x)\\Q_{ij}(x)\\P_i(x)\\Q_i(x)\end{bmatrix}.$$
+- Electrical quantities are per unit; angles in equations are in radians.
+- Positive injection: generation minus demand at a bus.
+- Flow $S_{ij}$ is positive from bus $i$ into branch $i$–$j$.
 
-Cada medição recebe uma variância (ou covariâncias cruzadas, quando aplicáveis) em $R$.
-
----
-
-## Jacobiana das medições
-
-$$H(x)=\frac{\partial h(x)}{\partial x}.$$
-
-Na parametrização polar, seus blocos combinam sensibilidades como
-
-$$\frac{\partial P}{\partial\theta},\quad\frac{\partial P}{\partial V},\quad\frac{\partial Q}{\partial\theta},\quad\frac{\partial Q}{\partial V}.$$
-
-A Jacobiana traduz variações nos estados em variações previstas nas medições.
+Do not confuse a branch's series susceptance with an entry of the nodal matrix $Y$.
 
 ---
 
-## Aproximação CC
+## The π line model
 
-Sob hipóteses aproximadas de tensões próximas a $1$ pu, diferenças angulares pequenas, perdas desprezíveis e reatâncias dominantes:
+![Line π circuit with series admittance and terminal shunts](../assets/figuras/linha-pi.svg)
 
-$$P_{ij}\approx\frac{\theta_i-\theta_j}{x_{ij}}.$$
+$$y_{ij}=\frac{1}{r_{ij}+jx_{ij}}=g_{ij}+jb_{ij}$$
 
-Se $\theta_1=0$, obtém-se um modelo linear:
-
-$$\boxed{z=H\theta+e}.$$
-
-A aproximação CC é didática e computacionalmente conveniente, mas não substitui a modelagem CA em análises gerais.
+$b_{ij}^{sh}$ represents **half** the line's total capacitive susceptance at each terminal.
 
 ---
 
-## Exemplo: rede CC de três barras
+## Building the admittance matrix
 
-Para $x_{12}=0.20$, $x_{13}=0.25$ e $x_{23}=0.40$ pu:
+For a branch without a transformer:
 
-$$\begin{bmatrix}P_{12}\\P_{13}\\P_{23}\end{bmatrix}=
-\underbrace{\begin{bmatrix}-5&0\\0&-4\\2.5&-2.5\end{bmatrix}}_{H}
-\begin{bmatrix}\theta_2\\\theta_3\end{bmatrix}.$$
+$$Y_{ij}=Y_{ji}=-y_{ij}$$
 
-O modelo será usado nos laboratórios das próximas aulas, com ângulos em radianos e potências em pu.
+$$Y_{ii}=y_i^{sh}+\sum_{j\in\mathcal N_i}(y_{ij}+jb_{ij}^{sh})$$
 
----
-
-## Linearização local no modelo CA
-
-Em torno da aproximação $x^{(k)}$:
-
-$$h(x^{(k)}+\Delta x)\approx h(x^{(k)})+H(x^{(k)})\Delta x.$$
-
-Assim, o vetor de inovações $z-h(x^{(k)})$ é relacionado às correções de estado $\Delta x$.
-
-**Ponto crítico:** atualizar a Jacobiana em cada iteração do WLS não linear.
+Transformer taps and phase shifts change these contributions. Build the matrix using the actual circuit model.
 
 ---
 
-## Exercício de modelagem
+## Bus power balances
 
-Para a rede de três barras:
+From $I=YV$ and $S_i=\underline V_i\underline I_i^*$:
 
-1. Determine $P_{12}$ para $\theta_2=-0.06$ rad.
-2. Determine $P_{23}$ para $\theta_3=-0.095$ rad.
-3. Explique o sinal do fluxo conforme a orientação adotada.
-4. Verifique as dimensões de $H$ e do vetor de estados.
+$$P_i=V_i\sum_jV_j(G_{ij}\cos\theta_{ij}+B_{ij}\sin\theta_{ij})$$
 
-**Próxima aula:** o estimador WLS resolve a inversão ruidosa desse modelo.
+$$Q_i=V_i\sum_jV_j(G_{ij}\sin\theta_{ij}-B_{ij}\cos\theta_{ij})$$
+
+Here, $\theta_{ij}=\theta_i-\theta_j$. Every term follows the net-injection convention.
+
+---
+
+## Bus types
+
+| Type | Specified | Determined |
+|---|---|---|
+| PQ | $P_i,Q_i$ | $V_i,\theta_i$ |
+| PV | $P_i,V_i$ | $Q_i,\theta_i$ |
+| Reference | $V_i,\theta_i$ | $P_i,Q_i$ |
+
+The reference bus fixes the angle origin and balances the power mismatch required to supply losses.
+
+---
+
+## Two calculation subsystems
+
+First determine non-reference bus angles and PQ bus voltage magnitudes:
+
+$$n_x=2n_{PQ}+n_{PV}$$
+
+Then calculate PV bus reactive powers, reference-bus powers, and branch flows. Reactive generation limits may require a bus-type change.
+
+---
+
+## Newton's method in one dimension
+
+To solve $f(x)=0$, linearize at $x^k$:
+
+$$f(x^k)+f'(x^k)\Delta x^k\simeq0$$
+
+$$x^{k+1}=x^k-\frac{f(x^k)}{f'(x^k)}$$
+
+The initial approximation and derivative affect convergence. A very small derivative makes the step problematic.
+
+---
+
+## Newton–Raphson for AC power flow
+
+Define the mismatches $\Delta P=P^{\mathrm{spec}}-P(V,\theta)$ and $\Delta Q=Q^{\mathrm{spec}}-Q(V,\theta)$.
+
+$$\begin{bmatrix}P_\theta&P_V\\Q_\theta&Q_V\end{bmatrix}
+\begin{bmatrix}\Delta\theta\\\Delta V\end{bmatrix}
+=\begin{bmatrix}\Delta P\\\Delta Q\end{bmatrix}$$
+
+Solve, update the state, and recalculate the mismatches. Specify an explicit stopping tolerance.
+
+---
+
+## Linearized power flow
+
+With $V_i\simeq1$, small angle differences, and negligible losses:
+
+$$P_{ij}\simeq\frac{\theta_i-\theta_j}{x_{ij}},\qquad P=B_{CC}\theta$$
+
+Remove the reference variable to solve the system. This model does not calculate the AC voltage-magnitude profile or reactive power balance.
+
+---
+
+## Why use sweeps on radial networks?
+
+The tree structure allows currents or powers to be accumulated from terminal nodes to the substation, with voltages updated in the opposite direction.
+
+Each iteration has two network passes. Radial topology provides a natural parent–child ordering.
+
+---
+
+## Current-summation sweep
+
+For a constant-power load:
+
+$$I_i^{\mathrm{load},k}=\left(\frac{S_i^{\mathrm{load}}}{V_i^k}\right)^*$$
+
+$$I_{ij}^k=I_j^{\mathrm{load},k}+\sum_{\ell\in \operatorname{children}(j)}I_{j\ell}^k$$
+
+During the forward sweep:
+
+$$V_j^{k+1}=V_i^{k+1}-z_{ij}I_{ij}^k$$
+
+Shunts and ZIP loads require additional contributions consistent with the circuit model.
+
+---
+
+## Power-summation sweep
+
+During the backward sweep, add downstream demands and branch losses:
+
+$$S_{ij}=S_j^{\mathrm{load}}+\sum_{\ell}S_{j\ell}+z_{ij}|I_{ij}|^2$$
+
+During the forward sweep, use flows and currents to update voltages. Because losses depend on voltages, the procedure is iterative.
+
+---
+
+## Sweep convergence criterion
+
+$$\max_i|V_i^{k+1}-V_i^k|<\varepsilon_V$$
+
+Also record power balance, the iteration limit, and voltage limits. A small increment alone does not replace checking physical balances.
+
+---
+
+## Topology processor: inputs and outputs
+
+**Inputs:** physical connectivity, switch/breaker status, equipment records, and physical meter associations.
+
+**Outputs:** electrical buses, in-service branches, energized islands, and measurement associations in the bus–branch model.
+
+The conventional estimator assumes this stage has been performed correctly.
+
+---
+
+## A bus section is not an electrical bus
+
+![Reduction of sections connected by a closed device](../assets/figuras/configurador.svg)
+
+Sections connected through ideal closed devices at the same voltage level may form one electrical bus. Opening a device does not always remove a line: the outcome depends on alternative paths.
+
+---
+
+## Stage 1 · Substation configuration
+
+1. Identify bus sections and internal devices.
+2. Group sections connected by closed devices.
+3. Associate line, transformer, load, and generator terminals.
+4. Determine the resulting electrical buses.
+
+Graph traversal or a disjoint-set structure can establish internal connectivity.
+
+---
+
+## Stage 2 · Network configuration
+
+Connect the buses identified within substations through in-service lines and transformers.
+
+Identify connected components and their sources. A component disconnected from the main grid may form an electrical island; whether it is energized depends on its sources.
+
+---
+
+## Stage 3 · Equipment and meter tabulation
+
+For each bus and branch, tabulate equipment, parameters, and associated channels.
+
+- Aggregate loads connected to the same bus.
+- Preserve the terminal and direction of every flow measurement.
+- Topological reduction changes the interpretation of injection measurements.
+
+A correct bus list with incorrectly associated meters still produces an incorrect model.
+
+---
+
+## Updating after a switching action
+
+A status change may affect only one substation, merge buses, or split an existing bus.
+
+Update the affected region, rebuild the required associations, and reassess observability. Reprocessing the entire network is straightforward, but can discard useful information from the previous case.
+
+---
+
+## Conventional and generalized models
+
+In the conventional approach, the topology processor reduces the network before the estimator computes the state.
+
+The generalized model retains substation details and represents devices explicitly, allowing topology inconsistencies to be addressed in an expanded formulation. Lesson 10 returns to this topic.
+
+---
+
+## Assignment 1 · From diagram to model
+
+[Consult the original Assignment 1 statements (Portuguese)](../assets/listas/lista-01.pdf)
+
+For each switching sequence, record the starting condition, section groups, resulting buses, active branches, and meter associations.
+
+For the power flow exercises, report bases, tolerances, losses, and balances. These results become the reference for measurement simulation in later lessons.
+
+---
+
+## Sources and further study
+
+- Aula 2 - Revisão de Fluxo de Carga - 2024.pdf
+- Aula 2 - Fluxo de Carga de Varredura Direta_Inversa - Estimação 2024.pdf
+- Aula 2 - Configurador de redes - Estimação 2024.pdf
+
+Educational adaptation in Markdown and LaTeX, with redrawn figures. The lesson and topic-block sequence is preserved; repeated animation steps are consolidated.

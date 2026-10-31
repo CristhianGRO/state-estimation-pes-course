@@ -1,12 +1,12 @@
-%% Exemplo didático de WLS CC (modelo linear de três barras)
+%% Lista 2 (2024), exercício 1: WLS CC de três barras
 % Executar no MATLAB / Octave. Não exige MATPOWER.
 clear; clc;
 
-H = [-5 0; 0 -4; 2.5 -2.5];
-theta_true = [-0.060; -0.095];     % rad
-sigma = [0.020; 0.025; 0.020];    % pu
+% Ordem dos canais: P12, P21, P13, P23, P1, P2; theta1 = 0 rad.
+H = [-25 0; 25 0; 0 -20; 12.5 -12.5; -25 -20; 37.5 -12.5];
+sigma = [0.008; 0.008; 0.008; 0.008; 0.010; 0.010]; % p.u.
 R = diag(sigma.^2);
-z = H*theta_true + [0.012; -0.010; 0.008];
+z = [6.2452; -6.234; 6.992; 1.13; 13.265; -5.0055];
 
 % Resolver sistema ponderado sem inverter explicitamente G
 G = H'*(R\H);
@@ -19,5 +19,8 @@ normalized_res = res ./ sqrt(diag(Omega));
 
 fprintf('theta2: %.6f rad\ntheta3: %.6f rad\nJ: %.6f\n', ...
     theta_hat(1), theta_hat(2), J);
-disp(table(z, res, normalized_res, ...
-    'VariableNames', {'Medicao','Residuo','ResiduoNormalizado'}));
+theta_ls = H\z;
+fprintf('LS: theta2 = %.6f rad; theta3 = %.6f rad\n', theta_ls(1), theta_ls(2));
+% Referencias impressas: WLS [-0.2504;-0.3484]; LS [-0.2504;-0.3488].
+disp('Colunas: medida, residuo e residuo normalizado');
+disp([z, res, normalized_res]);

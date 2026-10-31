@@ -1,104 +1,226 @@
-# Estimação por Mínimos Quadrados Ponderados
+# Statistics and linear WLS estimation
 
-### Aula 03 · Weighted Least Squares (WLS)
+### Lesson 03 · The Pθ model and weighted least squares
 
-O núcleo clássico da estimação de estado estática
-
----
-
-## Por que ponderar as medições?
-
-Duas medições da mesma grandeza podem possuir precisões diferentes.
-
-- Quanto menor a variância, maior a confiança estatística.
-- Quanto maior a variância, menor seu peso no ajuste.
-- Com correlações não desprezíveis, $R$ deixa de ser diagonal.
-
-$$W=R^{-1},\qquad \min_x (z-h(x))^T W(z-h(x)).$$
+Graduate course · University of São Paulo · Prof. João Bosco A. London Junior
 
 ---
 
-## Objetivo do WLS
+## Outline: statistics → regression → the Pθ model
 
-Defina o resíduo $r(x)=z-h(x)$.
+Relate meter quality to equation weighting and derive the linear estimator.
 
-$$\boxed{J(x)=r(x)^T R^{-1}r(x)}$$
-
-Sob erros gaussianos de média zero e covariância conhecida, minimizar $J$ equivale a maximizar a verossimilhança, a menos de constantes independentes de $x$.
-
-O estimador não faz todas as medidas coincidirem exatamente com o modelo.
+The final laboratory reproduces **Assignment 2, Exercise 1**, allowing comparison of weighted and unweighted solutions.
 
 ---
 
-## Equações normais — caso linear
+## Random variables and probability
 
-Para $z=Hx+e$:
+A discrete variable takes countable values; a continuous variable has a probability density function.
 
-$$H^TWH\hat x=H^TWz.$$
+$$\sum_kP(X=x_k)=1,\qquad \int_{-\infty}^{\infty}f_X(x)\,dx=1$$
 
-Se $H$ possui posto coluna completo, $W\succ0$ e a matriz ganho é inversível:
-
-$$\boxed{\hat x=(H^TWH)^{-1}H^TWz}.$$
-
-Na implementação numérica, prefira **fatorações** em vez de formar explicitamente a inversa.
+For a continuous variable, probability is an integral over an interval, not the density's value at a point.
 
 ---
 
-## Matriz ganho e incerteza
+## Mean, variance, and standard deviation
 
-$$G=H^TWH.$$
+$$\mu_X=E[X],\qquad \sigma_X^2=E[(X-\mu_X)^2]$$
 
-Para modelo linear com $R$ conhecida e hipóteses estatísticas usuais:
+The standard deviation $\sigma_X$ has the variable's units; variance has the square of those units.
 
-$$\mathrm{Cov}(\hat x)=G^{-1}.$$
-
-- Posto deficiente de $H$: não é possível estimar unicamente todos os estados.
-- Má condição de $G$: o resultado pode ser sensível a pequenas perturbações.
+**Example:** a power measurement with $\sigma=0.008$ p.u. has variance $0.000064$ p.u.$^2$.
 
 ---
 
-## WLS não linear: Gauss–Newton
+## Gaussian distribution
 
-A cada iteração $k$, resolva:
+$$f_X(x)=\frac{1}{\sigma\sqrt{2\pi}}
+\exp\left[-\frac{(x-\mu)^2}{2\sigma^2}\right]$$
 
-$$\bigl(H_k^TW H_k\bigr)\Delta x_k=H_k^TW\bigl(z-h(x_k)\bigr).$$
+The negative exponent ensures decaying tails. Standardization gives $U=(X-\mu)/\sigma\sim\mathcal N(0,1)$.
 
-$$x_{k+1}=x_k+\Delta x_k.$$
-
-Critério típico: $\|\Delta x_k\|_\infty < \varepsilon$, complementado por limite de iterações e verificações numéricas.
-
----
-
-## Etapas do algoritmo
-
-1. Construir $z$, $R$ e o modelo elétrico.
-2. Definir o estado inicial $x_0$.
-3. Calcular $h(x_k)$ e $H(x_k)$.
-4. Resolver o sistema linear das correções.
-5. Atualizar $x_k$ até convergência.
-6. Analisar os resíduos e a plausibilidade do estado.
+![Normal densities and the effect of standard deviation](../assets/figuras/gaussiana.svg)
 
 ---
 
-## Miniestudo: três barras
+## Random vectors and covariance
 
-Para a rede CC com referência $\theta_1=0$:
+$$\mu=E[z],\qquad R=E[(z-\mu)(z-\mu)^T]$$
 
-$$H=\begin{bmatrix}-5&0\\0&-4\\2.5&-2.5\end{bmatrix},\quad
-\theta=\begin{bmatrix}\theta_2\\\theta_3\end{bmatrix}.$$
+$R_{ii}$ is the variance of measurement $i$; $R_{ij}$ is the covariance between channels. For uncorrelated errors, $R$ is diagonal.
 
-Considere medidas de $P_{12}$, $P_{13}$ e $P_{23}$ com desvios-padrão informados.
-
-**Pergunta:** o que ocorre quando a medição $P_{23}$ apresenta viés crescente?
+Independence implies zero covariance; the converse is not generally true.
 
 ---
 
-## Demonstração interativa a seguir
+## Linear measurement model
 
-Altere o erro aplicado à medição $P_{23}$ e observe:
+$$z=Hx+e,\qquad E[e]=0,\qquad E[ee^T]=R$$
 
-- Alteração das estimativas angulares $\hat\theta_2$ e $\hat\theta_3$.
-- Crescimento da função objetivo $J$.
-- Resíduos de cada medição no ponto estimado.
+$H\in\mathbb R^{m\times n}$ relates $m$ measurements to $n$ state variables. Its rows depend on topology, parameters, and meter types and locations.
 
-O modelo é linear: o resultado é a solução WLS direta, não uma iteração de fluxo de potência.
+In this formulation, the state vector is an unknown deterministic quantity.
+
+---
+
+## Static and dynamic estimation
+
+A static estimator uses measurements from one acquisition window to estimate a network condition.
+
+A dynamic estimator also uses a temporal evolution model. This course develops the static formulation first; WLS does not require a dynamic model.
+
+---
+
+## Unweighted least squares
+
+$$J_{LS}(x)=\sum_i(z_i-h_i^Tx)^2=\|z-Hx\|_2^2$$
+
+Minimizing the sum of squared residuals finds a compromise between inconsistent equations. Equal channel weights assume compatible scaling and precision.
+
+---
+
+## LS normal equations
+
+$$\nabla J_{LS}(x)=-2H^T(z-Hx)=0$$
+
+$$H^TH\hat x=H^Tz$$
+
+The solution is unique when $H$ has full column rank. Redundant measurements do not make the equations exact; they support state estimation and residual assessment.
+
+---
+
+## Why use weights?
+
+For uncorrelated errors, each contribution is normalized by its variance:
+
+$$J_{WLS}(x)=\sum_i\frac{(z_i-h_i^Tx)^2}{\sigma_i^2}$$
+
+A more precise measurement receives greater weight. The correct weight is $1/\sigma_i^2$, not $1/\sigma_i$.
+
+---
+
+## WLS and maximum likelihood
+
+If $e\sim\mathcal N(0,R)$ and $R$ is known:
+
+$$-2\log L(x)=C+(z-Hx)^TR^{-1}(z-Hx)$$
+
+The term $C$ does not depend on $x$. Maximizing likelihood is therefore equivalent to minimizing the WLS objective.
+
+---
+
+## Weighted normal equations
+
+$$G\hat x=H^TR^{-1}z,\qquad G=H^TR^{-1}H$$
+
+$$\hat x=(H^TR^{-1}H)^{-1}H^TR^{-1}z$$
+
+The inverse makes the theoretical solution explicit. Numerically, solve using a factorization, QR, or another method appropriate to the conditioning.
+
+---
+
+## Existence and precision of the estimate
+
+For $R\succ0$ and $\operatorname{rank}(H)=n$:
+
+$$G\succ0,\qquad E[\hat x]=x$$
+
+$$\operatorname{Cov}(\hat x)=G^{-1}$$
+
+These properties assume a correct model and the specified errors. Topology or parameter errors can introduce bias.
+
+---
+
+## The hat matrix and fitted measurements
+
+$$\hat z=H\hat x=Kz$$
+
+$$K=H(H^TR^{-1}H)^{-1}H^TR^{-1}$$
+
+$K^2=K$: projecting an already projected vector leaves it unchanged. In the original coordinates, $K$ need not be symmetric; orthogonality uses the weighted inner product.
+
+---
+
+## Residual sensitivity
+
+$$r=z-\hat z=Sz,\qquad S=I-K$$
+
+$$SH=0,\qquad H^TR^{-1}r=0$$
+
+The residual is orthogonal to the columns of $H$ in the weighted metric. It is therefore not simply a copy of each meter's error.
+
+---
+
+## Residual covariance
+
+$$\Omega=E[rr^T]=SRS^T$$
+
+$$\Omega=R-H(H^TR^{-1}H)^{-1}H^T$$
+
+Even when measurement errors are uncorrelated, residuals are generally correlated. This matrix is essential to bad-data processing.
+
+---
+
+## The Pθ model and angle reference
+
+$$P_{ij}\simeq\frac{\theta_i-\theta_j}{x_{ij}}$$
+
+Set $\theta_1=0$. For a three-bus network, $x=[\theta_2\;\theta_3]^T$.
+
+An injection measurement sums incident branch contributions. Its row in $H$ can involve several angles.
+
+---
+
+## Assignment 2 · Three-bus network
+
+![Triangular network and measurements of the linear example](../assets/figuras/rede-lista2.svg)
+
+$x_{12}=0.04$, $x_{13}=0.05$, $x_{23}=0.08$ p.u. Bus 1 is the reference.
+
+Measurement order: $P_{12},P_{21},P_{13},P_{23},P_1,P_2$.
+
+---
+
+## Exercise 1: matrix and data
+
+$$H=\begin{bmatrix}-25&0\\25&0\\0&-20\\12.5&-12.5\\-25&-20\\37.5&-12.5\end{bmatrix}$$
+
+$$z=[6.2452,\;-6.234,\;6.992,\;1.13,\;13.265,\;-5.0055]^T$$
+
+Powers are per unit and angles are in radians. Check, for example, $P_1=P_{12}+P_{13}$ in the lossless model.
+
+---
+
+## Weights and reference results
+
+$$\sigma=[0.008,0.008,0.008,0.008,0.010,0.010]^T$$
+
+| Formulation | $\hat\theta_2$ (rad) | $\hat\theta_3$ (rad) |
+|---|---|---|
+| Unweighted | −0.2504 | −0.3488 |
+| Weighted | −0.2504 | −0.3484 |
+
+The assignment's reference values are rounded to four decimal places.
+
+---
+
+## Sources and further study
+
+- Aula 3 - Revisão de estatística - 20 08 2024.pdf
+- Aula 3 - Estimador de estado WLS linear - 20 08 2024.pdf
+
+Educational adaptation in Markdown and LaTeX, with redrawn figures. The lesson and topic-block sequence is preserved; repeated animation steps are consolidated.
+
+---
+
+## Laboratory guide · One network, two estimators
+
+1. Compare LS and WLS with the original data.
+2. Change the precision of $P_{12}$ and observe its influence.
+3. Add a bias to $P_{12}$ and compare residuals and objective values.
+
+**Question:** does increasing an incorrect reading's weight improve the estimate?
+
+[Complete original Assignment 2 (Portuguese)](../assets/listas/lista-02.pdf)

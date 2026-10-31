@@ -1,0 +1,265 @@
+{
+  "edition": "2024",
+  "sources": [
+    {
+      "lesson": "01",
+      "block": 1,
+      "file": "Aula 1 - Estimação - 2024.pdf",
+      "sha256": "26263ff4e6c6ab35a1bbad31fa3c1c6aed37f716cf1b6c9ea1ae57defcce88a4",
+      "pdf_pages": 16
+    },
+    {
+      "lesson": "02",
+      "block": 1,
+      "file": "Aula 2 - Revisão de Fluxo de Carga - 2024.pdf",
+      "sha256": "dffdb2555af772fc1007336c5e4d277611fb88eb74f6e63ff84288c28db2145f",
+      "pdf_pages": 8
+    },
+    {
+      "lesson": "02",
+      "block": 2,
+      "file": "Aula 2 - Fluxo de Carga de Varredura Direta_Inversa - Estimação 2024.pdf",
+      "sha256": "74a809f2723cae52d60e74f5c46e7b040e36f65b920941443f1292ea27ec6a34",
+      "pdf_pages": 6
+    },
+    {
+      "lesson": "02",
+      "block": 3,
+      "file": "Aula 2 - Configurador de redes - Estimação 2024.pdf",
+      "sha256": "5605a5aa652c6a4e8fdf72677b84df092c4a2cad69d35a7c253453f945d4022e",
+      "pdf_pages": 18
+    },
+    {
+      "lesson": "03",
+      "block": 1,
+      "file": "Aula 3 - Revisão de estatística - 20 08 2024.pdf",
+      "sha256": "53eba5adf47a333983d040b9bd6baa550cfb5d165ba7b44e8a97d68497dc88d0",
+      "pdf_pages": 9
+    },
+    {
+      "lesson": "03",
+      "block": 2,
+      "file": "Aula 3 - Estimador de estado WLS linear - 20 08 2024.pdf",
+      "sha256": "134807b041abece0f32244d280b00c1fd08a50547022f04930e3f13fa023dbbb",
+      "pdf_pages": 5
+    },
+    {
+      "lesson": "04",
+      "block": 1,
+      "file": "Aula 4 - Processamento de EG - EE linear definições e Teste do Maior RN - 27 08 2024.pdf",
+      "sha256": "19ad17afcaf699bc081ca0268d393c82203dc2cd09d2a41f541f3cfa7a992c41",
+      "pdf_pages": 11
+    },
+    {
+      "lesson": "04",
+      "block": 2,
+      "file": "Aula 4 - Processamento de EG - EE linear b_chapeu e JX - 27 08 2024.pdf",
+      "sha256": "b13ef46e165780cb515d8bf2b10255deabbf201fc694b3516e3b66b0653d21eb",
+      "pdf_pages": 5
+    },
+    {
+      "lesson": "04",
+      "block": 3,
+      "file": "Aula 4 - Sistemática para Teste e Simulação - 27 08 2024.pdf",
+      "sha256": "086f5624fc9351f0c68201d04edf55cf3ffb8267d628df487bf961605480297d",
+      "pdf_pages": 3
+    },
+    {
+      "lesson": "05",
+      "block": 1,
+      "file": "Aula 5 - Estimador WLS Não Linear - 10 09 2024.pdf",
+      "sha256": "a347482bb5dfb2958a1bc814dfbce080fbfaf7115627796467d9428bfedde153",
+      "pdf_pages": 7
+    },
+    {
+      "lesson": "05",
+      "block": 2,
+      "file": "Aula 5 - Estimador WLS Não Linear Desacoplado - 10 09 2024.pdf",
+      "sha256": "83fedfdf714b1d54b9f284b76b679214f29aba658e4bfa2063a1df406fd2ed35",
+      "pdf_pages": 4
+    },
+    {
+      "lesson": "05",
+      "block": 3,
+      "file": "Aula 5 - Erros Grosseiros - definições - EE não linear - 10 09 2024.pdf",
+      "sha256": "00137f319e861b1f3f31599dccd4984b0c1329f0f624c7a318dfeb80a679930e",
+      "pdf_pages": 9
+    },
+    {
+      "lesson": "05",
+      "block": 4,
+      "file": "Aula 5 - Índice UI - 10 09 2024.pdf",
+      "sha256": "38e8ff2c3a0784570d2f30da4f6dcc844a2266d5f8520d1f92ff7d40766fce04",
+      "pdf_pages": 15
+    },
+    {
+      "lesson": "06",
+      "block": 1,
+      "file": "Aula 6 - Observabilidade - Análise e Restauração da Observabilidade, definições e conceitos - Parte 1 - 17 09 2024 - Corrigida.pdf",
+      "sha256": "aa84690e333b053d53f16f0bcf5de9f440a1479407d98c67644936b389f619f2",
+      "pdf_pages": 33
+    },
+    {
+      "lesson": "07",
+      "block": 1,
+      "file": "Aula 7 - Observabilidade - Métodos - Parte 2 - 24 09 2024.pdf",
+      "sha256": "93c3bde1565f6bde51a459d0359868e1deeac86e1f137c71a1ae1e2654a04d99",
+      "pdf_pages": 24
+    },
+    {
+      "lesson": "07",
+      "block": 2,
+      "file": "Aula 7 - Impotância da Redundância de Medidas - 24 09 2024.pdf",
+      "sha256": "207867aff9c6001b5fa7b3d3fc70d583adcfc9d79eb65ad219ef0a64e7a67122",
+      "pdf_pages": 4
+    },
+    {
+      "lesson": "08",
+      "block": 1,
+      "file": "Aula 8 - Métodos para Identificação de MC e CCM - 01 10 2024.pdf",
+      "sha256": "2ed2d6811ef767de069e6cdad85490ec459e9330408d19e2ef04a3299a5b661c",
+      "pdf_pages": 8
+    },
+    {
+      "lesson": "08",
+      "block": 2,
+      "file": "Aula 8 - Método para identificação do NRL -01 10 2024.pdf",
+      "sha256": "864846f8161a2256bd58ccb5f2f7b226f5e92e76c5a74c662161a1908574f139",
+      "pdf_pages": 6
+    },
+    {
+      "lesson": "08",
+      "block": 3,
+      "file": "Aula 8 - Projeto e Fortalecimento de Sistemas de Medição -01 10 2024.pdf",
+      "sha256": "3300ec6f334a7ca3d15172dc5ee270a3e328025920a0d1a8c0e942eb93c8c701",
+      "pdf_pages": 12
+    },
+    {
+      "lesson": "09",
+      "block": 1,
+      "file": "Aula 9 -  Utilização de PMU para EESEP - 08 10 2024.pdf",
+      "sha256": "5d3fd93a970e8fd4f14ef88d7883fe3ecaf79a8289e08efb9ec06ba91286db11",
+      "pdf_pages": 11
+    },
+    {
+      "lesson": "09",
+      "block": 2,
+      "file": "Aula 9 - Atualização das Características Qualitativas - 08 10 2024.pdf",
+      "sha256": "58c5e5f9775371c957d128e5a9d02e7ed68356e73fa524c518a8403c1e7f0248",
+      "pdf_pages": 5
+    },
+    {
+      "lesson": "09",
+      "block": 3,
+      "file": "Aula 9 - Gauss_Fatores - 01 10 2024.pdf",
+      "sha256": "9ad3477d3d4f910cef05dc3f622452b56d26dde70b8d1c1907b2270bd89e3cc2",
+      "pdf_pages": 3
+    },
+    {
+      "lesson": "10",
+      "block": 1,
+      "file": "Aula 10 - Conceitos - Estimador Generalizado - 22 10 24.pdf",
+      "sha256": "919ccf5468e5e4ec34505f3527c3700a310e11e6fdad7f358e783c95aa809181",
+      "pdf_pages": 5
+    },
+    {
+      "lesson": "10",
+      "block": 2,
+      "file": "Aula 10 - Estimador de Estado e Parâmetros Madeleine - EDAO 2010 - 22 10 24 (1).pdf",
+      "sha256": "5570b18a8c1a506e3cd90995fd346fced44d707ca9997a5961c162d0c4559603",
+      "pdf_pages": 12
+    },
+    {
+      "lesson": "11",
+      "block": 1,
+      "file": "Aula 11 - Estimadores de Estado em Sistemas de Distribuição - 29 10 24.pdf",
+      "sha256": "c322015ffbcf0ad3b7e869943eda5c6fdbbffaff5f2f06dd151831a1c076eb01",
+      "pdf_pages": 17
+    },
+    {
+      "lesson": "11",
+      "block": 2,
+      "file": "Aula 11 - Estimador de Demanda Trifásico - Qual_Luana_disciplina - 29 10 24.pdf",
+      "sha256": "56cf7f4cd0326c4c5bc13238d14c7918b4d11e076d7a423e4d77ebb1c335943d",
+      "pdf_pages": 10
+    },
+    {
+      "lesson": "12",
+      "block": 1,
+      "file": "Aula 12 - Estimação Robusta Estatisticamente - 12 11 24.pdf",
+      "sha256": "657b8588aa9c64daceea742d7cf857deb95ee0a92b36f5edc23925ea9a861146",
+      "pdf_pages": 17
+    },
+    {
+      "lesson": "12",
+      "block": 2,
+      "file": "Aula 12 -  Estimação de Estado Multiárea - 12 11 24.pdf",
+      "sha256": "6a8a9befeeee7249f3a8cbe53edf283ce73ee42a08a376df2d29e311ba44540d",
+      "pdf_pages": 7
+    },
+    {
+      "lesson": "13",
+      "block": 1,
+      "file": "Aula - Estimação Dinâmica_vFinal.pptx",
+      "sha256": "eaf94207947d70544125d6f417e1ceaf399deb955a319ac2439d1c4e30aaea31",
+      "source_format": "pptx",
+      "slide_count": 64,
+      "authors": [
+        "Julio A. D. Massignan",
+        "João B. A. London Junior"
+      ],
+      "date": "2024-12-03"
+    }
+  ],
+  "lists": [
+    {
+      "number": 1,
+      "file": "1_lista_entregar (2024).pdf",
+      "asset": "assets/listas/lista-01.pdf",
+      "sha256": "246dc8535969b5ca546b3b63023fcdf5fb75d13d0d43661a42b21f043041dd4f"
+    },
+    {
+      "number": 2,
+      "file": "2_lista_entregar (2024).pdf",
+      "asset": "assets/listas/lista-02.pdf",
+      "sha256": "b13b0317967063bb82ab756d7a7313349d13960455a3a516bf69f9aeff3974b3"
+    },
+    {
+      "number": 3,
+      "file": "3_lista_entregar (2024).dotx.pdf",
+      "asset": "assets/listas/lista-03.pdf",
+      "sha256": "d188f36fa85abef15f1a0f78a9ccb2b4184543e09f02fe0bef7a07df5ae1e693"
+    },
+    {
+      "number": 4,
+      "file": "4_lista_entregar (2024).dotx.pdf",
+      "asset": "assets/listas/lista-04.pdf",
+      "sha256": "798997c60314d24994e1dd8b23a76ac98bbd05b400f122159878ca077b9ae378"
+    },
+    {
+      "number": 5,
+      "file": "5_lista_entregar (2024).pdf",
+      "asset": "assets/listas/lista-05.pdf",
+      "sha256": "11779dd156fafcb498a6773a12cea749824eabf22f6e31d375d1a251fd763101"
+    },
+    {
+      "number": 6,
+      "file": "6_lista_entregar (2024).dotx.pdf",
+      "asset": "assets/listas/lista-06.pdf",
+      "sha256": "378785787dbe9c62e75de6bdb3ce02ede16d10712aee557d1e1c3488abe3fc73"
+    },
+    {
+      "number": 7,
+      "file": "7_lista_entregar (2024).doc",
+      "asset": "assets/listas/lista-07.doc",
+      "sha256": "9f90fddc5ff24fd00a902ede650561f0c01779929b2304d1e1ae0d8ca97e6bab"
+    },
+    {
+      "number": 8,
+      "file": "8_lista_entregar (2024).pdf",
+      "asset": "assets/listas/lista-08.pdf",
+      "sha256": "933c12415182be7051178bf4415376e1d0a36d21f77ea973c97024a70d8334c5"
+    }
+  ],
+  "format": "markdown-latex"
+}
