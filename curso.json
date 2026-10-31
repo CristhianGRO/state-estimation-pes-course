@@ -2,9 +2,10 @@
   "course": {
     "code": "SEL–5717 · EESEP",
     "title": "State Estimation in Electric Power Systems",
-    "institution": "Graduate Electrical Engineering · EESC, University of São Paulo",
+    "institution": "EESC, University of São Paulo",
     "author": "Msc. Cristhian G. da R. de Oliveira · EESC–USP",
     "year": "2026",
+    "subtitle": "Website to support learning state estimation on power systems",
     "description": "Thirteen English-language lessons on power system state estimation, with LaTeX equations, original illustrations, assignments, and interactive laboratories grounded in the USP graduate course.",
     "repository_url": "",
     "language": "en",
