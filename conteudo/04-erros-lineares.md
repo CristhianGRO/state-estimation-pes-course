@@ -179,11 +179,13 @@ Not rejecting means insufficient evidence against the model, rather than proof t
 
 ## Significance means an upper-tail probability
 
-$$\Pr\{J(\hat x)>C\mid H_0\}=\alpha,\qquad \int_0^C f_{m-N}(t)\,dt=1-\alpha$$
+Under $H_0$, $f(t)$ is the chi-square density with $m-N$ degrees of freedom:
+
+$$\int_0^C f(t)\,dt=1-\alpha$$
 
 ![Chi-square density with six degrees of freedom and a five-percent rejection tail](../assets/figuras/chi-square-test.svg)
 
-For $m-N=6$ and $\alpha=0.05$, $C\simeq12.592$. Increasing $\alpha$ lowers the threshold, trading more false alarms for greater sensitivity.
+For $m-N=6$ and $\alpha=0.05$, $C\simeq12.592$. A larger $\alpha$ lowers the rejection threshold.
 
 <p class="reading-source">[BLC] Eqs. (6.14)–(6.16). Original figure for the Assignment 3 degrees of freedom.</p>
 
