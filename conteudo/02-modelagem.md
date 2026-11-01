@@ -243,6 +243,73 @@ For the power flow exercises, report bases, tolerances, losses, and balances. Th
 
 ---
 
+## Textbook foundations · A transformer branch model
+
+Let $y$ be series admittance, $jb_c/2$ the shunt admittance at each end, and $t=\tau e^{j\phi}$ an ideal complex tap on side $i$. With bus voltages $V_i,V_j$:
+
+$$I_{ij}=\frac{y+jb_c/2}{|t|^2}V_i-\frac{y}{t^*}V_j$$
+$$I_{ji}=-\frac{y}{t}V_i+(y+jb_c/2)V_j$$
+
+The tap convention is part of the model. Interchanging ends without transforming the tap changes the predicted measurements.
+
+<p class="reading-source">Reading: [AE04] §2.2; [M99] Chapter 4.</p>
+
+---
+
+## From a branch model to measurement functions
+
+Using the same orientation for currents and powers:
+
+$$S_{ij}=V_iI_{ij}^*,\qquad P_{ij}=\operatorname{Re}(S_{ij}),\qquad Q_{ij}=\operatorname{Im}(S_{ij})$$
+$$S_i=V_i\left(\sum_jY_{ij}V_j\right)^*$$
+
+Bus injection, branch flow, voltage magnitude, and current magnitude are different functions of the same state. Their Jacobian rows must follow these definitions, including charging and tap terms.
+
+**Check:** sum terminal powers to recover branch losses; opposite flow readings need not sum to zero in the AC model.
+
+<p class="reading-source">Reading: [AE04] §§2.2–2.5; [BLC] §§3.3–3.4.</p>
+
+---
+
+## Elimination differs from merging connected nodes
+
+Partition a linear network relation into retained buses $a$ and eliminated buses $b$. If $I_b=0$ and $Y_{bb}$ is nonsingular:
+
+$$\begin{bmatrix}I_a\\0\end{bmatrix}=\begin{bmatrix}Y_{aa}&Y_{ab}\\Y_{ba}&Y_{bb}\end{bmatrix}\begin{bmatrix}V_a\\V_b\end{bmatrix}$$
+$$Y_{\mathrm{red}}=Y_{aa}-Y_{ab}Y_{bb}^{-1}Y_{ba}$$
+
+This is a Schur complement. Closing an ideal switch instead imposes equal terminal voltages and merges connectivity nodes. A nonzero eliminated injection introduces an additional source term.
+
+<p class="reading-source">Reading: [M99] Chapters 5–6. Derivation uses the stated zero-injection assumption.</p>
+
+---
+
+## Measurement transformations also transform uncertainty
+
+A transformed reading $u=g(z)$ generally has, to first order:
+
+$$R_u\simeq J_gR_zJ_g^T,\qquad J_g=\left.\frac{\partial g}{\partial z}\right|_{z_0}$$
+
+For example, constructing a current from measured power and an estimated voltage changes both its variance and its dependence on other channels.
+
+Equivalent electrical equations do not automatically give statistically equivalent estimators when those changes are ignored.
+
+<p class="reading-source">Reading: [BLC] §§4.5 and 4.7; [AE04] §2.4. Covariance propagation is a first-order derivation.</p>
+
+---
+
+## Textbook reading for this lesson
+
+**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). §§2.2–2.5.
+
+**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). Chapters 4–6.
+
+**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). §§3.3–3.4, 4.5, 4.7.
+
+Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+
+---
+
 ## Sources and further study
 
 - Aula 2 - Revisão de Fluxo de Carga - 2024.pdf

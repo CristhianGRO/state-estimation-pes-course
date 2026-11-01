@@ -228,6 +228,69 @@ Compare initial/refined estimates, best/worst cases, and measured/calculated pow
 
 ---
 
+## Textbook foundations · Check the phase model first
+
+A balanced positive-sequence model presumes that one equivalent phase represents the operating system adequately.
+
+An unbalanced feeder can require explicit phase voltages, mutual coupling, connection types, and neutral effects appropriate to the network. Copying a transmission Jacobian three times does not introduce those couplings.
+
+The state, network equations, and measurement connections must describe the same physical representation before selecting an estimator.
+
+<p class="reading-source">Reading: [AE04] §2.2; [BLC] §§3.5, 4.7 and 5.6.</p>
+
+---
+
+## Pseudo-measurements carry modeling uncertainty
+
+Historical demand estimates differ from real-time independent meter readings. Common weather, customer classes, and allocation factors can create correlated errors.
+
+For a demand vector $d$ with covariance $D$, the uncertainty of an aggregate $a^Td$ is:
+
+$$\operatorname{Var}(a^Td)=a^TDa$$
+
+Ignoring off-diagonal terms can seriously misrepresent the aggregate uncertainty. A large count of allocated loads does not guarantee many independent observations.
+
+<p class="reading-source">Reading: [BLC] §4.7; [AE04] §2.4. Aggregate covariance derived from the measurement model.</p>
+
+---
+
+## The demand laboratory as Gaussian conditioning
+
+Let $d\sim\mathcal N(\mu,D)$ and observe $y=a^Td+\epsilon$, with independent $\epsilon\sim\mathcal N(0,s^2)$:
+
+$$\hat d=\mu+Da(a^TDa+s^2)^{-1}(y-a^T\mu)$$
+$$D_{\mathrm{post}}=D-Da(a^TDa+s^2)^{-1}a^TD$$
+
+For $a=\mathbf1$, $\mu=[10,20,15]^T$, $D=\operatorname{diag}(4,9,4)$, $y=54$, and $s^2=1$, the posterior mean is $[12,24.5,17]^T$.
+
+<p class="reading-source">Reading: [BLC] §§4.3 and 4.7; [M99] §5.11. Gaussian-conditioning derivation for this site's lossless demand example.</p>
+
+---
+
+## An uncertain total is not an exact balance constraint
+
+In the preceding example, the posterior total is 53.5 rather than 54 because the observed total also has uncertainty.
+
+As $s^2\to0$, the adjustment enforces $a^T\hat d=y$ exactly, and posterior uncertainty in that aggregate direction vanishes.
+
+Real feeder demand reconstruction also needs losses, voltage dependence, reactive power, and phase connections when material. The final laboratory isolates uncertainty-weighted allocation, rather than solving the complete feeder estimation problem.
+
+<p class="reading-source">Reading: [BLC] §§4.4 and 4.7; [AE04] §3.5. Limiting argument applied to the demand laboratory.</p>
+
+---
+
+## Textbook reading for this lesson
+
+**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). §§2.2, 2.4, 3.5.
+
+**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). §5.11.
+
+**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). §§3.5, 4.3–4.4, 4.7, 5.6.
+
+Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+
+---
+
 ## Sources and further study
 
 - Aula 11 - Estimadores de Estado em Sistemas de Distribuição - 29 10 24.pdf

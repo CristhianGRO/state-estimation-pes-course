@@ -285,6 +285,75 @@ The assignment identifies no bad measurement in this set.
 
 ---
 
+## Textbook foundations · What Gauss–Newton neglects
+
+For $J=\tfrac12r^TWr$, $r=z-h(x)$, $W=R^{-1}$, the exact Hessian is:
+
+$$\nabla^2J=H^TWH-\sum_i(Wr)_i\nabla^2h_i$$
+
+Gauss–Newton retains $H^TWH$. Small residuals and a useful initial state favor this approximation. Large residuals, poor scaling, or strong curvature can require damping and closer convergence checks.
+
+A small state increment alone does not establish that the model fits the data.
+
+<p class="reading-source">Reading: [M99] §2.6; [AE04] §2.6.</p>
+
+---
+
+## Exact zero injections as equality constraints
+
+For exact constraints $c(x)=0$, set $C=\partial c/\partial x$. A constrained Gauss–Newton step satisfies:
+
+$$\begin{bmatrix}H^TWH&C^T\\C&0\end{bmatrix}\begin{bmatrix}\Delta x\\\lambda\end{bmatrix}=\begin{bmatrix}H^TWr\\-c(x)\end{bmatrix}$$
+
+This enforces the linearized constraint without an arbitrarily tiny measurement variance. The saddle-point matrix is indefinite and needs a suitable factorization.
+
+A bus with an uncertain unmetered load is not an exact zero-injection bus.
+
+<p class="reading-source">Reading: [AE04] §3.5, PDF pp. 62–63; [BLC] §4.4.</p>
+
+---
+
+## The UI index in whitened geometry
+
+For diagonal $R$, take a bias $a$ in channel $i$. With orthogonal projector $\Pi$ and $\ell_i=\Pi_{ii}$:
+
+$$\|e_U\|_{R^{-1}}^2=\frac{a^2}{R_{ii}}\ell_i,\qquad \|e_D\|_{R^{-1}}^2=\frac{a^2}{R_{ii}}(1-\ell_i)$$
+$$UI_i=\frac{\|e_U\|_{R^{-1}}}{\|e_D\|_{R^{-1}}}=\sqrt{\frac{\ell_i}{1-\ell_i}}$$
+
+Here $e_U$ is absorbed by the state fit and $e_D$ remains in the residual. The two components are orthogonal in the weighted metric, not generally in ordinary coordinates.
+
+<p class="reading-source">Reading: [BLC] §§7.2–7.3, PDF pp. 173–179. This site explicitly uses the undetectable/detectable ratio.</p>
+
+Note: The manuscript's displayed ratios in §7.2 use reciprocal expressions in different places. To avoid relying on an ambiguous index label, this lesson defines both components and derives their norms. Its UI convention follows the course slides: absorbed component divided by residual component. Static geometric innovation must also be distinguished from the time-domain innovation in Lesson 13.
+
+---
+
+## Scaling, conditioning, and the AC laboratory
+
+Angles, voltage magnitudes, and measurement types have different scales. For a nonsingular diagonal state scaling $x=D\xi$:
+
+$$H_\xi=H_xD,\qquad \Delta x=D\Delta\xi$$
+
+Scaling can improve the numerical representation without creating observability. Compare convergence, weighted residuals, and the physical power balances after mapping the solution back.
+
+**Assignment 6:** changing a measurement's standard deviation changes the statistical problem; rescaling a state coordinate consistently does not.
+
+<p class="reading-source">Reading: [AE04] §§3.1–3.2; [M99] Chapter 13.</p>
+
+---
+
+## Textbook reading for this lesson
+
+**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). §§2.6, 3.1–3.2, 3.5.
+
+**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). §2.6 and Chapter 13.
+
+**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). §§4.4, 7.2–7.3.
+
+Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+
+---
+
 ## Sources and further study
 
 - Aula 5 - Estimador WLS Não Linear - 10 09 2024.pdf

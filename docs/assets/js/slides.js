@@ -18,5 +18,17 @@
     });
     window.SEPMath.render();
     Reveal.layout();
+    // Capture the modified shortcut before the speaker-notes binding for S.
+    document.addEventListener('keydown',event=>{
+      if(event.target.closest('input,textarea,select,[contenteditable="true"]'))return;
+      if(event.ctrlKey||event.metaKey||event.altKey)return;
+      const help=event.shiftKey&&event.key.toLowerCase()==='s';
+      if(help||event.key==='?'||event.keyCode===191){
+        event.preventDefault();event.stopImmediatePropagation();
+        if(help)Reveal.toggleHelp();
+      }
+    },true);
+    Reveal.registerKeyboardShortcut('Shift+S','Keyboard shortcuts');
+    if(window.SEPAnnotations)window.SEPAnnotations.mount(Reveal);
   }).catch(err => console.error('The presentation could not be initialized:', err));
 })();

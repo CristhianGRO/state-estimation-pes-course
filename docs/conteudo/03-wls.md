@@ -206,6 +206,75 @@ The assignment's reference values are rounded to four decimal places.
 
 ---
 
+## Textbook foundations · Whiten before projecting
+
+Factor $R=LL^T$ and define $A=L^{-1}H$, $b=L^{-1}z$. Then:
+
+$$\min_x(z-Hx)^TR^{-1}(z-Hx)=\min_x\|b-Ax\|_2^2$$
+
+Whitening turns the uncertainty ellipsoid into a sphere. For diagonal $R$, it simply divides each row and reading by its standard deviation.
+
+Solve triangular systems with $L$; explicitly forming $R^{-1}$ is unnecessary.
+
+<p class="reading-source">Reading: [AE04] §§2.6 and 3.2; [BLC] §4.4.</p>
+
+---
+
+## Thin QR and the cost of normal equations
+
+For full column rank, write $A=Q_1T$, where $Q_1^TQ_1=I$ and $T$ is nonsingular and upper triangular:
+
+$$T\hat x=Q_1^Tb,\qquad G=A^TA=T^TT$$
+$$\kappa_2(G)=\kappa_2(A)^2$$
+
+QR avoids explicitly squaring the condition number during matrix formation. It does not restore information lost through nearly dependent measurement rows.
+
+**Assignment 2:** very unequal standard deviations can make a mathematically observable system numerically difficult.
+
+<p class="reading-source">Reading: [AE04] §§3.1–3.2, PDF pp. 54–59; [BLC] §4.4, PDF pp. 81–87.</p>
+
+---
+
+## Why WLS has this covariance
+
+With deterministic $x$ and a correct linear model:
+
+$$\hat x-x=G^{-1}H^TR^{-1}e$$
+$$\operatorname{Cov}(\hat x-x)=G^{-1}H^TR^{-1}RR^{-1}HG^{-1}=G^{-1}$$
+
+WLS is the best linear unbiased estimator under the stated second-moment assumptions. Gaussian errors additionally make it a maximum-likelihood estimator; Gaussianity is not needed for the covariance calculation above.
+
+<p class="reading-source">Reading: [AE04] §§2.4–2.6; [M99] Chapter 2 and Appendix A.</p>
+
+---
+
+## Absolute precision and relative weights
+
+If every standard deviation is multiplied by $c>0$, the relative weights stay fixed:
+
+$$R'=c^2R,\qquad \hat x'=\hat x,\qquad J'=J/c^2$$
+$$\operatorname{Cov}'(\hat x)=c^2G^{-1}$$
+
+Thus the Assignment 2 estimate can stay identical while its reported uncertainty and statistical test change. Changing just one channel's precision also changes the estimate.
+
+Do not calibrate the assumed noise merely to force a desired goodness-of-fit decision.
+
+<p class="reading-source">Reading: [AE04] §§2.6 and 5.4; equations rederived for the course laboratory.</p>
+
+---
+
+## Textbook reading for this lesson
+
+**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). §§2.4–2.6, 3.1–3.2.
+
+**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). Chapter 2 and Appendix A.
+
+**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). §§4.3–4.4.
+
+Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+
+---
+
 ## Sources and further study
 
 - Aula 3 - Revisão de estatística - 20 08 2024.pdf

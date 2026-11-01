@@ -23,11 +23,11 @@
   <div class="demo-head"><div><h2>Assignment 3 · Identify and recover</h2><p>Exercise 1 · resistive circuit · nine readings, three states</p></div><span class="lab-pill">GUIDED EXPERIMENT</span></div>
   <div class="demo-layout"><div class="demo-box"><h3>Treating the suspect measurement</h3><label for="lab-weight">I21 weight</label><select id="lab-weight" data-role="weight"><option value="1" selected>1 · Exercise 1(a)</option><option value="10">10 · Exercise 1(b)</option></select><div class="demo-actions"><button data-mode="all" type="button">Original data</button><button data-mode="remove" type="button">Remove suspect</button><button data-mode="recover" type="button">Recover suspect</button></div><table class="grid-table"><thead><tr><th scope="col">State</th><th scope="col">Estimate</th></tr></thead><tbody data-role="states"></tbody></table></div><div class="demo-box"><h3>Readings and normalized residuals</h3><table class="grid-table"><thead><tr><th scope="col">Channel</th><th scope="col">Value (A or V)</th><th scope="col">rN</th></tr></thead><tbody data-role="results"></tbody></table></div></div>
   <p class="demo-note lab-summary" data-role="summary" role="status" aria-live="polite"></p>
-  <p class="demo-note">Assignment 3, Exercise 1: I21 = +49 A. Recovering one reading does not guarantee acceptable remaining residuals; consult the diagnosis and numerical discussion in the lesson.</p>
+  <p class="demo-note">Assignment 3: I21 = +49 A. As in the manuscript, rN = |r|/√Ωii. The signed physical correction ê = σb̂ is in amperes; b̂ is in standard deviations. Recovered data are not new independent measurements.</p>
 </section>
 
   </div></div>
-  <div class="lesson-footer"><span>STATE ESTIMATION · ELECTRIC POWER SYSTEMS</span><span>Arrow keys / Esc / S</span></div>
+  <div class="lesson-footer"><span>STATE ESTIMATION · ELECTRIC POWER SYSTEMS</span><span>Arrow keys / Shift+S shortcuts / A pen / T text</span></div>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/markdown/markdown.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.25/dist/katex.min.js"></script>
@@ -37,6 +37,7 @@
   <script src="../assets/js/labs-disciplina.js"></script>
   <script src="../assets/js/wls-ca.js"></script>
   <script src="../assets/js/dynamic.js"></script>
+  <script src="../assets/js/annotations.js"></script>
   <script src="../assets/js/slides.js"></script>
 </body>
 </html>

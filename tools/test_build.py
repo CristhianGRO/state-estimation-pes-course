@@ -27,7 +27,7 @@ class IncrementalBuildTests(unittest.TestCase):
 
     def run_script(self, name, should_succeed=True):
         result = subprocess.run(
-            [sys.executable, str(self.root / 'tools' / name)],
+            [sys.executable, '-X', 'utf8', str(self.root / 'tools' / name)],
             cwd=self.root, text=True, capture_output=True, encoding='utf-8'
         )
         if should_succeed:

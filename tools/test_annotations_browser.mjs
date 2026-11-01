@@ -1,0 +1,55 @@
+import {spawn} from 'node:child_process';
+import {writeFile,mkdir} from 'node:fs/promises';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+const root=process.cwd();await mkdir('tmp/qa-annotations',{recursive:true});
+const server=spawn('python',['-u','-m','http.server','8768','--bind','127.0.0.1','--directory',path.join(root,'docs')],{windowsHide:true,stdio:'ignore'});
+const chrome=spawn(process.env.CHROME_PATH||'C:/Program Files/Google/Chrome/Application/chrome.exe',['--headless','--disable-gpu','--no-first-run','--no-default-browser-check','--remote-debugging-port=9233','--window-size=1440,900','--user-data-dir='+path.join(root,'tmp/chrome-annotations-test')],{windowsHide:true,stdio:'ignore'});
+const delay=ms=>new Promise(r=>setTimeout(r,ms));let ws;
+try {
+ let tabs;for(let i=0;i<100;i++){try{tabs=await(await fetch('http://127.0.0.1:9233/json/list')).json();break;}catch{await delay(100);}}
+ assert.ok(tabs,'Chrome startup');ws=new WebSocket(tabs.find(t=>t.type==='page').webSocketDebuggerUrl);await new Promise(r=>ws.addEventListener('open',r,{once:true}));
+ let seq=0;const pending=new Map(),errors=[];
+ ws.addEventListener('message',e=>{const m=JSON.parse(e.data);if(m.id){const p=pending.get(m.id);pending.delete(m.id);m.error?p.reject(Error(JSON.stringify(m.error))):p.resolve(m.result);}else if(m.method==='Runtime.exceptionThrown')errors.push(m.params);});
+ const call=(method,params={})=>new Promise((resolve,reject)=>{const id=++seq;pending.set(id,{resolve,reject});ws.send(JSON.stringify({id,method,params}));});
+ const run=async expression=>{const r=await call('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true});if(r.exceptionDetails)throw Error(JSON.stringify(r.exceptionDetails));return r.result.value;};
+ const key=async(k,code,virtual,modifiers=0)=>{await call('Input.dispatchKeyEvent',{type:'keyDown',key:k,code,windowsVirtualKeyCode:virtual,modifiers});await call('Input.dispatchKeyEvent',{type:'keyUp',key:k,code,windowsVirtualKeyCode:virtual,modifiers});};
+ const ready=async()=>{for(let i=0;i<150;i++){await delay(100);if(await run('Boolean(window.Reveal?.isReady()&&window.SEPAnnotations&&document.querySelector(".annotation-toolbar"))'))return;}throw Error('Annotations not ready');};
+ await call('Page.enable');await call('Runtime.enable');await call('Page.navigate',{url:'http://127.0.0.1:8768/aulas/03-wls.html'});await ready();
+ await run(`localStorage.removeItem('sep-annotations:v1:'+location.pathname)`);await call('Page.reload');await ready();
+ await run('Reveal.configure({transition:"none"});Reveal.slide(2)');await delay(100);
+ await key('a','KeyA',65);assert.equal(await run('document.querySelector(".annotation-layer").dataset.mode'),'pen');
+ const rect=await run('(()=>{const r=document.querySelector(".annotation-layer").getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height};})()');
+ const x=rect.x+rect.width*.3,y=rect.y+rect.height*.45;
+ await call('Input.dispatchMouseEvent',{type:'mousePressed',x,y,button:'left',clickCount:1});
+ for(let i=1;i<=10;i++)await call('Input.dispatchMouseEvent',{type:'mouseMoved',x:x+i*6,y:y+Math.sin(i)*12,button:'left',buttons:1});
+ await call('Input.dispatchMouseEvent',{type:'mouseReleased',x:x+60,y,button:'left',clickCount:1});
+ assert.equal(await run('document.querySelectorAll(".annotation-layer polyline").length'),1);
+ await key('Escape','Escape',27);assert.equal(await run('document.querySelector(".annotation-layer").dataset.mode'),'off');
+ await key('ArrowRight','ArrowRight',39);await delay(100);assert.equal(await run('Reveal.getIndices().h'),3);assert.equal(await run('document.querySelectorAll(".annotation-layer polyline").length'),0);
+ await key('ArrowLeft','ArrowLeft',37);await delay(100);assert.equal(await run('document.querySelectorAll(".annotation-layer polyline").length'),1);
+ await key('t','KeyT',84);await call('Input.dispatchMouseEvent',{type:'mousePressed',x,y:y+65,button:'left',clickCount:1});await call('Input.dispatchMouseEvent',{type:'mouseReleased',x,y:y+65,button:'left',clickCount:1});
+ assert.equal(await run('document.activeElement.className'),'annotation-editor');
+ await call('Input.insertText',{text:'State estimate\n<safe text>'});await key('Enter','Enter',13,2);
+ assert.equal(await run('document.querySelector(".annotation-layer text").textContent'),'State estimate<safe text>');assert.equal(await run('document.querySelectorAll(".annotation-layer tspan").length'),2);
+ await key('Escape','Escape',27);await call('Page.reload');await ready();await run('Reveal.configure({transition:"none"});Reveal.slide(2)');await delay(100);
+ assert.equal(await run('document.querySelectorAll(".annotation-layer polyline").length'),1);assert.equal(await run('document.querySelectorAll(".annotation-layer text").length'),1);
+ await key('a','KeyA',65);await run('document.querySelector("[data-action=clear]").click()');assert.equal(await run('document.querySelector(".annotation-layer svg").children.length'),0);
+ await key('z','KeyZ',90,2);assert.equal(await run('document.querySelector(".annotation-layer svg").children.length'),2);
+ await key('e','KeyE',69);await call('Input.dispatchMouseEvent',{type:'mousePressed',x:x+30,y,button:'left',clickCount:1});await call('Input.dispatchMouseEvent',{type:'mouseReleased',x:x+30,y,button:'left',clickCount:1});assert.equal(await run('document.querySelectorAll(".annotation-layer polyline").length'),0);
+ await run('document.querySelector("[data-action=undo]").click()');assert.equal(await run('document.querySelectorAll(".annotation-layer polyline").length'),1);
+ // Touch/stylus use the same pointer path. Verify a touch gesture does not navigate.
+ await run('document.querySelector("[data-action=pen]").click()');const before=await run('Reveal.getIndices().h');
+ await call('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:x+150,y:y+80}]});await call('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:x+210,y:y+90}]});await call('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+ assert.equal(await run('Reveal.getIndices().h'),before);assert.equal(await run('document.querySelectorAll(".annotation-layer polyline").length'),2);
+ await key('Escape','Escape',27);await run('document.activeElement.blur()');await key('?','Slash',191,8);assert.equal(await run('Boolean(document.querySelector(".r-overlay-help"))'),false);
+ await key('S','KeyS',83,8);await delay(150);assert.ok(await run('document.querySelector(".r-overlay-help")?.textContent.includes("Toggle annotation pen")'));assert.ok(await run('document.querySelector(".r-overlay-help")?.textContent.includes("Shift+S")'));await key('Escape','Escape',27);
+ const screenshot=await call('Page.captureScreenshot',{format:'png'});await writeFile('tmp/qa-annotations/desktop.png',Buffer.from(screenshot.data,'base64'));
+ const alignment=await run('(()=>{const r=Reveal.getCurrentSlide().getBoundingClientRect();return (document.querySelector(".annotation-layer polyline").getBoundingClientRect().top-r.top)/(r.width/1280);})()');
+ await call('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});await run('document.querySelector("[data-action=pen]").click()');await delay(150);
+ assert.ok(await run('document.documentElement.scrollWidth<=innerWidth'));
+ const resizedAlignment=await run('(()=>{const r=Reveal.getCurrentSlide().getBoundingClientRect();return (document.querySelector(".annotation-layer polyline").getBoundingClientRect().top-r.top)/(r.width/1280);})()');assert.ok(Math.abs(alignment-resizedAlignment)<1,'Ink must stay aligned with slide content after resize');
+ const mobile=await call('Page.captureScreenshot',{format:'png'});await writeFile('tmp/qa-annotations/mobile.png',Buffer.from(mobile.data,'base64'));
+ assert.deepEqual(errors,[]);console.log('Passed: pen, text, safe rendering, keyboard help, navigation, persistence, clear/undo, eraser, touch, and mobile layout.');
+ await call('Browser.close');
+}finally{ws?.close();server.kill();chrome.kill();}

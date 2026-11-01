@@ -318,6 +318,72 @@ Check nonlinear model errors, non-Gaussian noise, timing, delayed inputs, covari
 
 ---
 
+## Textbook foundations · A prior is weighted information
+
+For a linear scan $z_k=H_kx_k+e_k$, an independent predicted state with covariance $P_k^-$ gives the objective:
+
+$$J_k(x)=\|z_k-H_kx\|_{R_k^{-1}}^2+\|x-\hat x_k^-\|_{(P_k^-)^{-1}}^2$$
+$$P_k^+=\left((P_k^-)^{-1}+H_k^TR_k^{-1}H_k\right)^{-1}$$
+
+This is WLS with an uncertain state prior. Monticelli develops tracking through an augmented model combining a new scan with information from the preceding estimate.
+
+<p class="reading-source">Reading: [M99] §§11.1.1–11.1.2, including PDF p. 296.</p>
+
+---
+
+## A sequence can also be estimated in one batch
+
+For independent Gaussian noises, $x_k=F_kx_{k-1}+w_k$, and an initial prior, the trajectory minimizes:
+
+$$\|x_0-\mu_0\|_{P_0^{-1}}^2+\sum_{k=0}^K\|z_k-H_kx_k\|_{R_k^{-1}}^2+\sum_{k=1}^K\|x_k-F_kx_{k-1}\|_{Q_k^{-1}}^2$$
+
+For positive-definite covariances, sequential Gaussian elimination yields the filtering marginal at the last time. Estimating earlier states using later measurements is smoothing.
+
+The filter and a correctly specified batch problem fuse the same information. Appending an already-used scan as if it were new double-counts it.
+
+<p class="reading-source">Reading: [M99] §§11.1–11.2. Batch formulation is a derivation connecting its multiple-scan model to least squares.</p>
+
+---
+
+## What repeated scans can and cannot identify
+
+For a constant state with $Q=0$, independent measurements accumulate precision:
+
+$$P_K^{-1}=P_0^{-1}+\sum_{k=0}^KH_k^TR_k^{-1}H_k$$
+
+Repeated identical scans improve precision only in the directions measured by $H$. A finite prior covariance can make the posterior nonsingular even when the measurements alone are unobservable.
+
+For known deterministic transitions, the measurement-only observability test instead stacks $H_k\Phi_{k,0}$, where $\Phi_{k,0}=F_k\cdots F_1$. This distinguishes measurement information from prior regularization.
+
+<p class="reading-source">Reading: [M99] §§2.4 and 11.1; measurement-only rank criterion derived for the stated transition model.</p>
+
+---
+
+## Innovation consistency and unexpected steps
+
+For the correctly specified linear Gaussian filter:
+
+$$\nu_k=z_k-H_k\hat x_k^-,\qquad S_k=H_kP_k^-H_k^T+R_k$$
+$$\nu_k^TS_k^{-1}\nu_k\sim\chi^2_m$$
+
+This uses the pre-update innovation covariance, not the post-fit residual covariance. The laboratory's unmodeled 25% step can violate these assumptions and produce a large innovation even with healthy sensors.
+
+For an iterated EKF, repeated linearization of one scan refines the same update; it must not assimilate that scan repeatedly as independent data.
+
+<p class="reading-source">Reading: [M99] §§11.1.2–11.1.3; [AE04] §§2.4 and 7.6.2. Consistency statistic derived for the stated Gaussian model.</p>
+
+---
+
+## Textbook reading for this lesson
+
+**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). §§2.4, 11.1–11.2.
+
+**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). §§2.4, 7.6.2.
+
+Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+
+---
+
 ## Source and attribution
 
 MASSIGNAN, Julio A. D.; LONDON JUNIOR, João B. A. *Introdução à Estimação de Estado Dinâmica em Sistemas Elétricos de Potência*. Separate SEL-5717 lecture, 3 December 2024; 64 source slides, supplied in Portuguese.

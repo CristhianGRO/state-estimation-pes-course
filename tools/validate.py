@@ -75,6 +75,20 @@ for lesson in LESSONS:
         assert re.search(r'<section[^>]+data-demo=[\s\S]*?</section>\s*</div></div>',lesson_html), 'Laboratory must be the final slide'
         assert 'data-demo=' not in md, 'Laboratories belong after the Markdown theory'
 sources=ROOT/'conteudo/fontes-2024.json'
+references=ROOT/'conteudo/bibliografia.json'
+if references.is_file():
+    bibliography=json.loads(references.read_text(encoding='utf-8'))
+    books={b['id']:b for b in bibliography['books']}
+    assert set(books)=={'AE04','M99','BLC'}, 'Incomplete textbook bibliography'
+    assert set(bibliography['lessons'])=={l['id'] for l in LESSONS}, 'Reading guides must cover every lesson'
+    assert all(len(b['sha256'])==64 and b['pdf_pages']>0 for b in books.values())
+    for lesson in LESSONS:
+        md=(ROOT/'conteudo'/f"{lesson['slug']}.md").read_text(encoding='utf-8')
+        assert '## Textbook foundations' in md and '## Textbook reading for this lesson' in md
+        citations=set(re.findall(r'\[(AE04|M99|BLC)\]',md))
+        assert citations=={r['book'] for r in bibliography['lessons'][lesson['id']]}, f"Reading guide mismatch: {lesson['id']}"
+        assert md.index('## Textbook foundations')<md.index('## Textbook reading for this lesson')
+    print('✓ Textbook bibliography and reading guides cover all 13 lessons.')
 if sources.is_file():
     manifest=json.loads(sources.read_text(encoding='utf-8'))
     assert {s['lesson'] for s in manifest['sources']} == {l['id'] for l in LESSONS}, 'Fontes não cobrem a grade'

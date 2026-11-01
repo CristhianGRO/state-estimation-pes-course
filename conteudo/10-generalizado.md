@@ -178,6 +178,74 @@ Which additional readings or temporal comparisons would distinguish these hypoth
 
 ---
 
+## Textbook foundations · Joint rank is the real requirement
+
+With uncertain parameters $p$, linearize both sets of unknowns:
+
+$$\Delta z\simeq H_x\Delta x+H_p\Delta p+e$$
+
+Full rank of $H_x$ does not establish identifiability of $p$. A parameter change may be indistinguishable from a state change.
+
+A parameter prior can stabilize the solution, but stability supplied by a prior must be distinguished from information supplied by measurements.
+
+<p class="reading-source">Reading: [AE04] §§7.6 and 7.9; [M99] §11.2.</p>
+
+---
+
+## Eliminate the state to expose parameter information
+
+Let $G_x=H_x^TWH_x$ be nonsingular. After eliminating $\Delta x$, the measurement information about $p$ is:
+
+$$\mathcal I_p=H_p^TWH_p-H_p^TWH_xG_x^{-1}H_x^TWH_p$$
+
+Equivalently, for $A_x=W^{1/2}H_x$ and $A_p=W^{1/2}H_p$:
+
+$$\mathcal I_p=A_p^T(I-\Pi_x)A_p$$
+
+Only parameter effects outside the state-sensitivity subspace are separable. An independent parameter prior adds its precision matrix to $\mathcal I_p$.
+
+<p class="reading-source">Reading: [M99] §11.2.1, PDF pp. 300–301; [AE04] §7.9.</p>
+
+---
+
+## Multiple operating points can separate parameters
+
+Consider $Q_k=d+fV_k^2+e_k$, with constant unknown $d,f$ and voltage treated as known in this illustration:
+
+$$H_p=\begin{bmatrix}1&V_1^2\\\vdots&\vdots\\1&V_s^2\end{bmatrix}$$
+
+If all voltages are equal, the columns are dependent: only $d+fV^2$ is identified. Distinct voltage magnitudes provide excitation; a very small voltage range can still leave poor conditioning.
+
+Repeated identical conditions improve the precision of an identifiable combination, without separating the two coefficients.
+
+<p class="reading-source">Reading: [M99] §11.2, PDF pp. 302–305. Simplified derivation inspired by its voltage-dependent load example.</p>
+
+---
+
+## Parameter and topology errors change the model
+
+A wrong line parameter changes measurement sensitivities and can distribute residuals across many channels. Removing the largest residual can discard a healthy measurement without correcting the model.
+
+An incorrect breaker status can change connectivity and the appropriate state description. Generalized estimation represents additional physical detail to test these alternatives.
+
+Validate a proposed correction through electrical consistency, sufficient parameter/topology information, and renewed residual analysis. A better fit alone can favor an overparameterized model.
+
+<p class="reading-source">Reading: [AE04] Chapters 7–8; [M99] Chapter 6; [BLC] §§2.4 and 7.5.</p>
+
+---
+
+## Textbook reading for this lesson
+
+**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). Chapters 7–8.
+
+**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). Chapter 6 and §11.2.
+
+**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). §§2.4, 7.5.
+
+Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+
+---
+
 ## Sources and further study
 
 - Aula 10 - Conceitos - Estimador Generalizado - 22 10 24.pdf

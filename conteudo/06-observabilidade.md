@@ -208,6 +208,72 @@ Next, compare how Monticelli & Wu and Bretas identify unobservable branches and 
 
 ---
 
+## Textbook foundations · Observability is a null-space test
+
+For a linear or locally linearized model:
+
+$$H\Delta x=0$$
+
+Any nonzero solution is a state perturbation invisible to all available measurements. Local observability requires this null space to contain only the permitted reference freedom, removed before testing rank.
+
+With positive-definite $R$, whitening does not change this null space. Greater confidence in the same readings cannot repair a structurally missing direction.
+
+<p class="reading-source">Reading: [AE04] Chapter 4; [M99] §§2.4 and 7.1; [BLC] §5.1.</p>
+
+---
+
+## Reference freedom and observable islands
+
+In a lossless angle model, each branch flow depends on an angle difference:
+
+$$P_{ij}=b_{ij}(\theta_i-\theta_j)$$
+
+Adding the same angle to all buses in a connected observable island changes none of these readings. Separate islands can have independent reference freedoms.
+
+A physically connected grid need not be observable: connectivity describes available electrical paths; observability also depends on where and what we measure.
+
+<p class="reading-source">Reading: [AE04] §§4.6–4.7; [BLC] §5.1.</p>
+
+---
+
+## Why injections complicate a graph argument
+
+For a flow row $h=b(e_i-e_j)^T$, the contribution $w h^Th$ resembles an edge Laplacian.
+
+An injection row combines several incident flows. Its outer product couples multiple neighboring angles, producing a different algebraic structure.
+
+Therefore, counting metered branches alone can miss information supplied by injections. Topological methods need rules that assign injection information consistently to the network.
+
+<p class="reading-source">Reading: [AE04] §§4.2–4.7; [M99] §7.1.</p>
+
+---
+
+## Structural rank and numerical rank
+
+Topological analysis asks whether the measurement pattern generically supports independent state information. Numerical analysis evaluates a particular Jacobian and parameter set.
+
+$$\sigma_{\min}(R^{-1/2}H)\approx0$$
+
+A small singular value signals a weakly constrained direction, even if exact rank is full. Scaling and tolerance affect its numerical diagnosis. Parameter cancellations can also defeat a generic pattern-based conclusion.
+
+Report the model, reference convention, and numerical threshold with an observability result.
+
+<p class="reading-source">Reading: [AE04] §§4.6–4.7; [M99] §§7.1.5 and 7.1.11.</p>
+
+---
+
+## Textbook reading for this lesson
+
+**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). Chapter 4.
+
+**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). §§2.4, 7.1.
+
+**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). §5.1.
+
+Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+
+---
+
 ## Sources and further study
 
 - Aula 6 - Observabilidade - Análise e Restauração da Observabilidade, definições e conceitos - Parte 1 - 17 09 2024 - Corrigida.pdf

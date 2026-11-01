@@ -183,6 +183,69 @@ Keep the physical model, references, covariance, and actual available configurat
 
 ---
 
+## Textbook foundations · Which angle reference?
+
+Conventional SCADA power measurements do not determine the common voltage-angle offset. A reference angle is therefore fixed, giving $2N-1$ polar state variables.
+
+Synchronized absolute phasor angles provide an external time-based reference. A model that retains these absolute angles can estimate $2N$ voltage coordinates.
+
+The final laboratory uses relative-angle information aligned with its SCADA reference. Its state dimension must not be interpreted as the general absolute-angle hybrid formulation.
+
+<p class="reading-source">Reading: [BLC] §§4.5 and 5.3, PDF pp. 87–88 and 145.</p>
+
+---
+
+## Polar-to-rectangular covariance
+
+For a phasor $V=v e^{j\theta}$ with small polar errors:
+
+$$J=\begin{bmatrix}\cos\theta&-v\sin\theta\\\sin\theta&v\cos\theta\end{bmatrix},\qquad R_{\mathrm{rect}}\simeq JR_{\mathrm{polar}}J^T$$
+
+Even independent magnitude and angle errors can yield correlated rectangular components. The covariance depends on the operating phasor and on angle units; angles in this Jacobian are radians.
+
+Using a diagonal rectangular covariance without checking these terms changes the statistical model.
+
+<p class="reading-source">Reading: [BLC] §4.5. First-order covariance transformation derived explicitly.</p>
+
+---
+
+## Shared timing uncertainty creates correlation
+
+As a small-error teaching model, let multiple phasor-angle channels share an unknown timing error $\delta t$:
+
+$$\delta\theta_i=\omega\delta t+\epsilon_i$$
+$$R_\theta=D+\omega^2\sigma_t^2\mathbf1\mathbf1^T$$
+
+Here $D$ describes independent channel noise. The common term cannot be averaged away as if each channel had an independent clock error.
+
+This covariance extension follows the same statistical principles as hybrid estimation; it is not an implemented timing estimator in the laboratory.
+
+<p class="reading-source">Reading: [BLC] §§4.3 and 4.5. Shared-clock model is an original covariance example.</p>
+
+---
+
+## Fusion requires independent new information
+
+Independent raw SCADA and PMU readings can be combined by stacking their models and using a block-diagonal covariance.
+
+A processed state estimate and the raw readings used to compute it are dependent. Treating both as independent observations counts the same information twice.
+
+The laboratory centers synthetic PMU readings on the baseline solution to isolate the effect of additional precision. It is a controlled illustration, not an independent validation of the baseline against field PMU data.
+
+<p class="reading-source">Reading: [BLC] §§4.3–4.5; [M99] §11.1. Independence caveat applied to the course experiment.</p>
+
+---
+
+## Textbook reading for this lesson
+
+**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). §§4.3–4.5, 5.3.
+
+**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). §11.1.
+
+Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+
+---
+
 ## Sources and further study
 
 - Aula 9 -  Utilização de PMU para EESEP - 08 10 2024.pdf

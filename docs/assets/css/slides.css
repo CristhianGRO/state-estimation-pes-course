@@ -27,3 +27,23 @@
 .reveal .math-error { color: #a92c28; background: #fff0ed; white-space: pre-wrap; font-family: Consolas,monospace; font-size: .65em; }
 .reveal section[data-demo="dynamic"] .mini-chart { max-height: 175px; }
 .reveal section[data-demo="dynamic"] .demo-box p { font-size: .5em; line-height: 1.4; margin: 10px 0; }
+.reveal p.reading-source { font-size: .46em; line-height: 1.4; color: var(--text); border-top: 1px solid var(--border); padding-top: 10px; margin-top: 22px; }
+.annotation-layer{position:fixed;z-index:20;pointer-events:none;overflow:hidden}
+.annotation-layer svg{display:block;width:100%;height:100%;pointer-events:none}
+.annotation-layer[data-mode="pen"] svg,.annotation-layer[data-mode="text"] svg,.annotation-layer[data-mode="erase"] svg{pointer-events:auto;touch-action:none;user-select:none}
+.annotation-layer[data-mode="pen"] svg{cursor:crosshair}
+.annotation-layer[data-mode="text"] svg{cursor:text}
+.annotation-layer[data-mode="erase"] svg{cursor:cell}
+.annotation-toolbar{position:fixed;top:47px;right:16px;z-index:60;display:flex;align-items:flex-start;gap:5px;max-width:calc(100vw - 32px);font:13px 'DM Sans',Arial,sans-serif;color:var(--ink)}
+.annotation-toolbar button,.annotation-toolbar select{font:inherit;color:var(--ink);background:#fff;border:1px solid #b9cbd9;border-radius:6px;padding:7px 10px;min-height:34px}
+.annotation-toolbar button{cursor:pointer;white-space:nowrap}
+.annotation-toolbar button:hover,.annotation-toolbar button[aria-pressed="true"]{background:#e0f6f5;border-color:var(--aqua)}
+.annotation-toolbar button:disabled{opacity:.45;cursor:default}
+.annotation-toolbar :focus-visible{outline:3px solid #3167bd;outline-offset:2px}
+.annotation-options{display:flex;align-items:center;justify-content:flex-end;gap:5px;flex-wrap:wrap;padding:6px;background:#f7fafcf5;border:1px solid var(--border);border-radius:8px;max-width:730px;box-shadow:0 4px 16px #09213a14}
+.annotation-options[hidden],.annotation-layer[hidden]{display:none}
+.annotation-options label{display:flex;align-items:center;gap:4px}
+.annotation-status{flex-basis:100%;font-size:11px;color:var(--text);text-align:right;padding:2px 4px}
+.annotation-editor{position:absolute;z-index:1;pointer-events:auto;width:25%;min-width:140px;max-height:28%;resize:none;line-height:1.25;font-family:'DM Sans',Arial,sans-serif;background:#fffffff2;border:2px solid var(--aqua);border-radius:4px;padding:4px;box-sizing:border-box}
+@media(max-width:600px){.annotation-toolbar{right:8px;max-width:calc(100vw - 16px);font-size:12px}.annotation-options{max-width:260px}.annotation-toolbar button,.annotation-toolbar select{padding:6px}.annotation-options label{font-size:11px}}
+@media print{.annotation-toolbar,.annotation-layer{display:none!important}}

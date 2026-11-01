@@ -212,6 +212,72 @@ Use the final laboratory to verify criticality and LRL in the course example. Th
 
 ---
 
+## Textbook foundations · Counts do not locate redundancy
+
+Two systems can have the same measurement-to-state ratio $m/n$ and very different vulnerabilities.
+
+One may lose observability after a single reading fails; another may survive several losses. Global counts do not reveal where independent information enters the model.
+
+The course's local redundancy levels describe loss contingencies around a channel. A leverage value describes its weighted influence in the current fit. They answer different questions.
+
+<p class="reading-source">Reading: [BLC] §5.2, PDF pp. 125–133; [AE04] §§4.8–4.9.</p>
+
+---
+
+## Critical sets explain ambiguous residual patterns
+
+For diagonal $R$, perfectly correlated standardized residuals satisfy:
+
+$$\frac{|\Omega_{ij}|}{\sqrt{\Omega_{ii}\Omega_{jj}}}=1$$
+
+The corresponding two-channel residual covariance block has rank one. A bias in either channel can generate the same normalized-residual magnitude pattern.
+
+Critical measurement sets generalize this loss of diagnostic separation. A large residual can identify a suspect set without distinguishing a unique faulty member.
+
+<p class="reading-source">Reading: [BLC] §5.2; [AE04] §§5.3–5.5. The displayed relation is the two-channel rank-one case.</p>
+
+---
+
+## Precision gain after observability is secured
+
+For a candidate independent measurement with row $h$ and weight $w$:
+
+$$\log\det G_+-\log\det G=\log(1+whG^{-1}h^T)$$
+
+For a locally Gaussian observable model, increasing information determinant reduces covariance-ellipsoid volume. This is one precision objective, not a substitute for contingency requirements.
+
+First define mandatory rank and loss-survival constraints; then compare admissible plans using precision, cost, and practical installation constraints.
+
+<p class="reading-source">Reading: [AE04] §4.9; [BLC] §5.4; [M99] §5.11. Information-volume criterion is a derived design extension.</p>
+
+---
+
+## A channel failure and a device failure differ
+
+A PMU, remote terminal unit, communication link, or shared power supply can remove several channels simultaneously.
+
+For a loss group $\mathcal C$, test:
+
+$$\operatorname{rank}(H_{\overline{\mathcal C}})=n$$
+
+**Laboratory extension:** compare the single-channel loss sets with a grouped loss of all readings from one device. The HΔ example's local redundancy levels describe its stated measurement contingencies; they do not certify every practical failure mode.
+
+<p class="reading-source">Reading: [BLC] §§5.2–5.5; [AE04] §4.9. Device grouping is a teaching extension of the rank criterion.</p>
+
+---
+
+## Textbook reading for this lesson
+
+**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). §§4.8–4.9, 5.3–5.5.
+
+**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). §5.11.
+
+**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). §§5.2–5.5.
+
+Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+
+---
+
 ## Sources and further study
 
 - Aula 8 - Métodos para Identificação de MC e CCM - 01 10 2024.pdf

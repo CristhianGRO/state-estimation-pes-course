@@ -73,7 +73,15 @@
       correction=original.r[suspect]/sensitivity;z[suspect]-=correction;
     }
     const result=linear(indices.map(i=>list3.H[i]),indices.map(i=>z[i]),indices.map(i=>sigma[i]));
-    return {...result,indices,z,suspect,correction,original};
+    const estimatedError=original.r[suspect]*sigma[suspect]**2/original.omega[suspect];
+    // Assignment 3 has 6 residual degrees of freedom, or 5 after one deletion.
+    // A reconstructed datum is data-dependent, so do not claim a new chi-square law.
+    const degreesOfFreedom=mode==='recover'?null:indices.length-3;
+    const criticalValue=({5:11.070497693516351,6:12.591587243743977})[degreesOfFreedom]??null;
+    const diagnosis={degreesOfFreedom,criticalValue,rejected:criticalValue===null?null:result.cost>criticalValue,
+      maxNormalizedResidual:Math.max(...result.rn.filter(Number.isFinite).map(Math.abs))};
+    return {...result,indices,z,sigma,suspect,correction,original,estimatedError,
+      standardizedError:estimatedError/sigma[suspect],diagnosis};
   }
   function qualitative(H,n) {
     const r=rank(H,n),m=H.length;
@@ -133,8 +141,11 @@
         } else if(kind==='lista-erros') {
           const result=estimateList3({weight21:Number(q('weight').value),mode});
           q('states').innerHTML=result.x.map((v,i)=>row([`V${i+1} (V)`,fmt(v)])).join('');
-          q('results').innerHTML=list3.names.map((name,i)=>{const j=result.indices.indexOf(i);return row([name,fmt(result.z[i],3),j<0?'removed':fmt(result.rn[j],3)]);}).join('');
-          q('summary').textContent=`Suspect in the original set: ${list3.names[result.suspect]}. ${mode==='recover'?`Correction of ${fmt(result.correction,3)} applied to the channel.`:mode==='remove'?'Channel removed and state re-estimated.':'All original readings retained.'} J = ${fmt(result.cost,3)}; ${result.indices.length-3} degrees of freedom.`;
+          q('results').innerHTML=list3.names.map((name,i)=>{const j=result.indices.indexOf(i);return row([name,fmt(result.z[i],3),j<0?'removed':fmt(Math.abs(result.rn[j]),3)]);}).join('');
+          const d=result.diagnosis;
+          q('summary').textContent=mode==='recover'
+            ? `I21 recovery: estimated error = ${fmt(result.estimatedError,3)} A; b̂ = ${fmt(result.standardizedError,3)} standard deviations. J = ${fmt(result.cost,3)}. Reconstructed data are dependent: these refitted residuals are illustrative; use the independent retained set for formal tests.`
+            : `Suspect in the original set: ${list3.names[result.suspect]}. ${mode==='remove'?'Channel removed.':'Original readings retained.'} J = ${fmt(result.cost,3)}; m − N = ${d.degreesOfFreedom}; C = ${fmt(d.criticalValue,3)} at α = 0.05: ${d.rejected?'reject H₀':'do not reject H₀'}. Largest rN = ${fmt(d.maxNormalizedResidual,3)} (β = 3).`;
           root.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===mode)));
         } else if(kind==='plano-medicao' || kind==='criticidade') {
           const dataset=kind==='criticidade'?nrlCase:list2,n=dataset.H[0].length;

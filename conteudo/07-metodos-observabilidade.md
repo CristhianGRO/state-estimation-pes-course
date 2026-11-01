@@ -180,6 +180,70 @@ The next lesson organizes criticality analysis using the transformed matrix $H_\
 
 ---
 
+## Textbook foundations · Elimination creates fill
+
+Gaussian elimination replaces remaining blocks by Schur complements. Eliminating one variable can couple all variables attached to it, creating nonzero entries absent from the original matrix.
+
+$$G_{\mathrm{next}}=G_{aa}-G_{ab}G_{bb}^{-1}G_{ba}$$
+
+An ordering can reduce fill and work without changing exact rank. A numerically weak pivot still needs scaling or a more suitable rank-revealing method.
+
+<p class="reading-source">Reading: [M99] §§5.3–5.6; [AE04] Chapter 4.</p>
+
+---
+
+## Compute selected uncertainty entries by solves
+
+Suppose $G=TT^T$ is a Cholesky factorization. Solve $Tv_i=H_i^T$ for each desired measurement row:
+
+$$H_iG^{-1}H_i^T=\|v_i\|_2^2$$
+$$\Omega_{ii}=R_{ii}-\|v_i\|_2^2$$
+
+This obtains residual variances without forming a dense inverse. It assumes the unconstrained, observable linearized estimator; exact constraints require the corresponding constrained covariance.
+
+<p class="reading-source">Reading: [AE04] §5.7, PDF pp. 129–130; [M99] §8.2.</p>
+
+---
+
+## A rank-one measurement update
+
+Add an independent scalar measurement with row $h$ and weight $w>0$ to an observable system:
+
+$$G_+=G+wh^Th$$
+$$G_+^{-1}=G^{-1}-\frac{wG^{-1}h^ThG^{-1}}{1+whG^{-1}h^T}$$
+
+The covariance reduction is positive semidefinite. A new reading can improve precision even when rank was already full. This formula assumes $G$ is initially nonsingular; it does not by itself handle restoration from an unobservable case.
+
+<p class="reading-source">Reading: [M99] §5.11; [BLC] §5.5. Formula specialized to one independent added reading.</p>
+
+---
+
+## Deletion reveals a critical measurement
+
+For an existing independent channel $i$, let $h=H_i$, $w=1/R_{ii}$, and $\ell_i=whG^{-1}h^T$:
+
+$$\det(G-wh^Th)=\det(G)(1-\ell_i)$$
+
+In exact arithmetic, deletion preserves observability when $\ell_i<1$ and destroys it when $\ell_i=1$. The same denominator appears in covariance downdates and bad-data recovery.
+
+This connects numerical factorization, criticality, and residual detectability. Near-critical cases need numerical care rather than an exact floating-point equality test.
+
+<p class="reading-source">Reading: [M99] §5.11 and Chapter 7; [AE04] §§4.8 and 5.1. Determinant identity rederived here.</p>
+
+---
+
+## Textbook reading for this lesson
+
+**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). Chapter 4 and §5.7.
+
+**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). §§5.3–5.6, 5.11, 8.2.
+
+**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). §5.5.
+
+Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+
+---
+
 ## Sources and further study
 
 - Aula 7 - Observabilidade - Métodos - Parte 2 - 24 09 2024.pdf

@@ -17,8 +17,30 @@ assert.equal(lab.rank([lab.list2.H[0],lab.list2.H[2]],2),2);
 assert.throws(()=>lab.linear([[1,0],[2,0]],[1,2],[1,1]),/Unobservable/);
 const original=lab.estimateList3();
 assert.equal(original.suspect,1);
+assert.equal(original.diagnosis.degreesOfFreedom,6);
+assert.equal(original.diagnosis.rejected,true);
+close(original.diagnosis.criticalValue,12.591587243743977);
 close(Math.abs(original.rn[1]),81.372,5e-4);
 const removed=lab.estimateList3({mode:'remove'}),recovered=lab.estimateList3({mode:'recover'});
+assert.equal(removed.diagnosis.degreesOfFreedom,5);
+assert.equal(removed.diagnosis.rejected,false);
+close(removed.diagnosis.criticalValue,11.070497693516351);
+assert.equal(recovered.diagnosis.criticalValue,null,'Do not calibrate dependent reconstructed data as fresh observations');
+assert.equal(recovered.diagnosis.rejected,null);
+close(recovered.estimatedError,3704/37);
+close(recovered.standardizedError,recovered.estimatedError/recovered.sigma[recovered.suspect]);
+const stronger=lab.estimateList3({weight21:10,mode:'recover'});
+close(stronger.estimatedError,recovered.estimatedError);
+close(stronger.standardizedError,Math.sqrt(10)*recovered.standardizedError);
+// Independent density integration verifies the two tabulated chi-square quantiles.
+for(const df of [5,6]) {
+ const C=df===5?removed.diagnosis.criticalValue:original.diagnosis.criticalValue;
+ const gamma=df===5?3*Math.sqrt(Math.PI)/4:2;
+ const density=x=>x**(df/2-1)*Math.exp(-x/2)/(2**(df/2)*gamma);
+ const n=10000,h=C/n;let sum=density(0)+density(C);
+ for(let i=1;i<n;i++)sum+=(i%2?4:2)*density(i*h);
+ close(sum*h/3,.95,2e-8);
+}
 // Solução exata racional independente: [2042/185, 2193/370, 5193/370] V.
 vector(removed.x,[2042/185,2193/370,5193/370],1e-10);
 vector(recovered.x,removed.x,1e-10);

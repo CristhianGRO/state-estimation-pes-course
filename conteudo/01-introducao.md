@@ -860,6 +860,73 @@ This lesson was **rewritten and expanded** for teaching, with original examples 
 
 ---
 
+## Textbook foundations · Three different questions
+
+**Observability:** do these measurements distinguish the modeled states?
+
+**Precision:** how strongly do noisy measurements constrain each observable direction?
+
+**Model validity:** do the topology, parameters, and operating assumptions describe the actual network?
+
+A full-rank estimator can be inaccurate because of poor precision or an incorrect model. A small residual alone answers none of these questions completely.
+
+<p class="reading-source">Reading: [AE04] Chapters 2, 4, 7–8; [BLC] Chapters 2, 5–6.</p>
+
+---
+
+## What a covariance statement assumes
+
+For a linear measurement model with known covariance:
+
+$$z=Hx+e,\qquad \mathbb E[e]=0,\qquad \mathbb E[ee^T]=R\succ0$$
+$$\operatorname{Cov}(\hat x-x)=(H^TR^{-1}H)^{-1}$$
+
+This expression assumes full column rank and a correct model. For AC estimation it is normally a local approximation at the estimated operating point.
+
+Unmodeled bias is not represented by merely reporting a smaller diagonal of this covariance.
+
+<p class="reading-source">Reading: [AE04] §§2.4–2.6; [BLC] §4.3.</p>
+
+---
+
+## Real-time modeling is a chain of decisions
+
+Switching-device indications determine electrical connectivity. Connectivity and equipment parameters determine the network model. The model determines the measurement functions.
+
+$$\text{device status}\longrightarrow\text{network model}\longrightarrow h(x)\longrightarrow\hat x$$
+
+An analog residual can therefore indicate a faulty sensor, an incorrect parameter, or an incorrect topology. Diagnosis must compare these hypotheses rather than equating every mismatch with a bad analog reading.
+
+<p class="reading-source">Reading: [M99] Chapters 1 and 6; [BLC] §2.4.</p>
+
+---
+
+## Two meanings of robustness
+
+**Numerical robustness** concerns roundoff, scaling, conditioning, and reliable matrix factorizations.
+
+**Statistical robustness** concerns departures from the assumed error distribution, contamination, and influential observations.
+
+QR can improve a least-squares computation without protecting it from outliers. A robust loss can reduce outlier influence while still requiring a stable numerical solver.
+
+These distinctions guide the numerical methods in Lessons 3–5 and the robust estimators in Lesson 12.
+
+<p class="reading-source">Reading: [AE04] Chapters 3 and 6; [M99] Chapters 9 and 13.</p>
+
+---
+
+## Textbook reading for this lesson
+
+**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). Chapters 2, 4, 7–8.
+
+**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). Chapters 1 and 6.
+
+**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). Chapters 2, 5–6.
+
+Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+
+---
+
 ## Sources and further study
 
 - Aula 1 - Estimação - 2024.pdf

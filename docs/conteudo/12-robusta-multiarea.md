@@ -214,6 +214,68 @@ The course has connected modeling and topology, estimation, bad-data processing,
 
 ---
 
+## Textbook foundations · From a loss to estimating equations
+
+For independent channels, define $u_i=r_i/\sigma_i$ and minimize $\sum_i\rho(u_i)$. With $\psi=\rho'$:
+
+$$H^T\operatorname{diag}(\sigma_i^{-1})\psi(u)=0$$
+$$w_i^{\mathrm{IRLS}}=\frac{1}{\sigma_i^2}\frac{\psi(u_i)}{u_i}$$
+
+For Huber loss, $\psi(u)=\operatorname{clip}(u,-c,c)$; the ratio at zero is defined by its limit, 1. IRLS repeatedly solves the corresponding weighted problem.
+
+<p class="reading-source">Reading: [AE04] §§6.4–6.4.2; [BLC] §4.6.</p>
+
+---
+
+## Huber loss: what the guarantee covers
+
+Huber loss is convex in a linear residual, so the linear-model objective is convex. An AC residual $z-h(x)$ generally produces a nonconvex objective even with the same loss.
+
+Clipping large residuals controls their direct score contribution. It does not automatically control the influence of a high-leverage observation whose fitted residual is small.
+
+**Laboratory:** inject a bias and vary the channel's precision. Compare parameter error as well as the final residual and robust weight.
+
+<p class="reading-source">Reading: [AE04] §§6.3–6.4; [BLC] §4.6 and Appendix A.</p>
+
+---
+
+## Breakdown and uncertainty need separate definitions
+
+A finite-sample replacement breakdown point can be defined as the smallest fraction of replaced observations that can drive an estimate arbitrarily far. Other texts report the largest tolerated fraction; state the convention before quoting a number.
+
+Bounded residual scores alone do not ensure high breakdown when the design contains vulnerable leverage directions.
+
+After robust fitting, simply inverting the final weighted gain generally does not provide a calibrated sampling covariance. Appropriate robust uncertainty analysis must account for the loss, weights, and error model.
+
+<p class="reading-source">Reading: [AE04] §§6.2–6.4; [BLC] Appendices A–B. Uncertainty caution follows from data-dependent weights.</p>
+
+---
+
+## Multi-area coordination as boundary elimination
+
+For one area's quadratic linearization, partition internal variables $u$ and boundary variables $v$:
+
+$$\begin{bmatrix}G_{uu}&G_{uv}\\G_{vu}&G_{vv}\end{bmatrix}\begin{bmatrix}\Delta u\\\Delta v\end{bmatrix}=\begin{bmatrix}b_u\\b_v\end{bmatrix}$$
+$$S_v=G_{vv}-G_{vu}G_{uu}^{-1}G_{uv},\qquad \tilde b_v=b_v-G_{vu}G_{uu}^{-1}b_u$$
+
+The area can pass reduced boundary information to a coordinator. Shared measurements and priors must be counted once. Local elimination requires nonsingular internal blocks and a consistent common model.
+
+<p class="reading-source">Reading: course multi-area lecture; [M99] §§5.3 and 5.11. This is a derived coordination example, not a claim of a dedicated textbook multi-area chapter.</p>
+
+---
+
+## Textbook reading for this lesson
+
+**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). §§6.2–6.4.2.
+
+**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). §§5.3, 5.11.
+
+**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). §4.6 and Appendices A–B.
+
+Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+
+---
+
 ## Sources and further study
 
 - Aula 12 - Estimação Robusta Estatisticamente - 12 11 24.pdf

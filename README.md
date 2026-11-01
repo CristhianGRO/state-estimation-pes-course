@@ -83,13 +83,24 @@ python -X utf8 tools/gerar_figuras.py
 
 Earlier draft content under `conteudo/complementos/` is not published automatically. Older synthetic demonstration components remain as legacy source and are not loaded by the current presentations.
 
-## Numerical and rendering validation
+## Textbook foundations
+
+All 13 lessons include textbook foundations and a lesson-specific reading guide. The additions develop whitening and QR, uncertainty and residual geometry, exact constraints, rank and criticality, hybrid measurement covariance, parameter identifiability, demand conditioning, robust estimation, and multiple-scan filtering. They preserve the original lesson sequence and the final laboratory position.
+
+Lesson 4 follows the manuscript's notation: N state variables, nonnegative normalized residuals, and b-hat as an error in standard deviations. Its chi-square test starts from the explicit WLS summation and develops the degrees of freedom, significance, and decision threshold. The Assignment 3 laboratory reports the 95% chi-square thresholds for six original or five post-removal degrees of freedom. A recovered datum is data-dependent, so its displayed refit is not presented as a new independent-data hypothesis test.
+
+The three supplied references are identified in [the bibliography inventory](conteudo/bibliografia.json), including authors, file hashes, and reading sections for each lesson. **[AE04]** denotes Abur and Gómez Expósito (2004), **[M99]** Monticelli (1999), and **[BLC]** Bretas, London Jr., and Carvalho. The manuscript cover states 2019; the supplied filename identifies the 18 September 2020 version. Page locators explicitly marked “PDF” count file pages starting at 1, rather than printed pagination.
+
+The explanations and equations are written in the site's notation. Derived teaching extensions are labeled separately from direct textbook topics. In particular, the shared-clock covariance, boundary Schur complement, and dynamic consistency statistic explain applications of the cited foundations; they are not represented as verbatim textbook examples. The UI ratio is defined explicitly as undetectable/detectable to avoid reciprocal index conventions. The source PDFs are read in place and are not republished.
+
+## Numerical and rendering checks
 
 ```powershell
 node tools/test_labs_disciplina.cjs
 node tools/test_wls_ca.cjs
 node tools/test_dynamic.cjs
 node tools/test_math.cjs
+node tools/test_theory.cjs
 python -X utf8 -m unittest discover -s tools -p "test_build.py" -v
 python -X utf8 tools/validate.py
 ```
@@ -102,7 +113,15 @@ The AC residual covariance is locally linearized. A normalized-residual threshol
 
 For visual review, inspect representative long equations, matrices, cases, figures, and laboratory controls in the browser. In addition to checking for visible errors, compare each rendered formula's MathML annotation with its preserved `data-tex` source; silent Markdown damage can otherwise escape error-only checks.
 
-## Publishing
+## Annotating presentations
+
+Every lesson has an **Annotate** button. Press **A** to toggle the pen, **T** to place a text note, or **E** for the eraser. These shortcuts also appear in the **Shift+S** keyboard help. Draw with a mouse, touch, or stylus; choose the ink color and line width in the toolbar. In text mode, click the slide, type, and press **Ctrl+Enter** (or **⌘Enter**) to save. Clicking outside the editor also saves; **Esc** cancels an unfinished text note. Outside the editor, **Esc** ends annotation mode and restores slide interaction.
+
+**Undo** / **Ctrl+Z** (or **⌘Z**) restores the previous annotation action while annotation mode is active. **Clear slide** affects only the current slide and can be undone. Completed annotations remain visible when drawing is off, follow their slide, and are saved locally in the current browser for each lesson. They do not sync between devices or become part of the repository. The toolbar reports when browser storage is unavailable. Browser storage clearing removes saved annotations; the undo history lasts only for the current page session.
+
+For browser regression checks, run `node tools/test_annotations_browser.mjs` after building the site. It requires Node.js 22+ and Chrome; set `CHROME_PATH` if Chrome is installed outside the default Windows location. The test uses a separate browser profile under the ignored `tmp/` directory.
+
+## Deployment
 
 The repository includes a GitHub Actions workflow for GitHub Pages. Configure **Settings → Pages → Source → GitHub Actions** and push the reviewed changes. Alternatively, publish the committed `docs/` directory from a branch; rebuild and include generated files for every update. Choose one deployment method.
 

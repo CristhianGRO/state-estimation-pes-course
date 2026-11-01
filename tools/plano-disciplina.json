@@ -68,7 +68,26 @@
       "Core references — I",
       "Core references — II",
       "Source of the lesson structure",
+      "Textbook foundations · Three different questions",
+      "What a covariance statement assumes",
+      "Real-time modeling is a chain of decisions",
+      "Two meanings of robustness",
+      "Textbook reading for this lesson",
       "Sources and further study"
+    ],
+    "readings": [
+      {
+        "book": "AE04",
+        "sections": "Chapters 2, 4, 7–8"
+      },
+      {
+        "book": "M99",
+        "sections": "Chapters 1 and 6"
+      },
+      {
+        "book": "BLC",
+        "sections": "Chapters 2, 5–6"
+      }
     ]
   },
   {
@@ -103,7 +122,26 @@
       "Updating after a switching action",
       "Conventional and generalized models",
       "Assignment 1 · From diagram to model",
+      "Textbook foundations · A transformer branch model",
+      "From a branch model to measurement functions",
+      "Elimination differs from merging connected nodes",
+      "Measurement transformations also transform uncertainty",
+      "Textbook reading for this lesson",
       "Sources and further study"
+    ],
+    "readings": [
+      {
+        "book": "AE04",
+        "sections": "§§2.2–2.5"
+      },
+      {
+        "book": "M99",
+        "sections": "Chapters 4–6"
+      },
+      {
+        "book": "BLC",
+        "sections": "§§3.3–3.4, 4.5, 4.7"
+      }
     ]
   },
   {
@@ -134,8 +172,27 @@
       "Assignment 2 · Three-bus network",
       "Exercise 1: matrix and data",
       "Weights and reference results",
+      "Textbook foundations · Whiten before projecting",
+      "Thin QR and the cost of normal equations",
+      "Why WLS has this covariance",
+      "Absolute precision and relative weights",
+      "Textbook reading for this lesson",
       "Sources and further study",
       "Laboratory guide · One network, two estimators"
+    ],
+    "readings": [
+      {
+        "book": "AE04",
+        "sections": "§§2.4–2.6, 3.1–3.2"
+      },
+      {
+        "book": "M99",
+        "sections": "Chapter 2 and Appendix A"
+      },
+      {
+        "book": "BLC",
+        "sections": "§§4.3–4.4"
+      }
     ]
   },
   {
@@ -148,28 +205,64 @@
     ],
     "sections": [
       "Lesson outline",
+      "Notation used throughout this lesson",
       "Ordinary noise and gross errors",
+      "Detection differs from identification",
+      "From estimation to residuals",
       "The residual is not the measurement error",
-      "Global test using the objective function",
-      "Residual covariance and normalization",
-      "Largest normalized residual test",
+      "Residual covariance: the matrix needed for testing",
+      "Useful properties of the residual matrices",
+      "Chi-square: a sum of squared standardized variables",
+      "The WLS index: first write the summation",
+      "Distribution of the minimized index",
+      "Textbook foundations · Degrees of freedom",
+      "Null hypothesis and the upper-tail decision",
+      "Significance means an upper-tail probability",
+      "Global detection: an executable procedure",
+      "What a large or small J can mean",
+      "Normalized residual: the manuscript's definition",
+      "Signed and absolute normalized residuals",
+      "Largest normalized residual: selection and threshold",
+      "Why the largest normalized residual works locally",
       "Removal and re-estimation cycle",
-      "Estimating a single gross error",
-      "Measurement recovery",
-      "Critical measurements: a structural limitation",
-      "Multiple errors and interaction",
+      "The b-hat test: physical and standardized error",
+      "Connecting b-hat to the normalized residual",
+      "Recovering a measurement with the correct sign",
+      "Removal and recovery: what the identity proves",
+      "Critical measurements and critical pairs",
+      "Multiple gross errors: three configurations",
+      "A local threshold is not a global false-alarm rate",
       "Assignment 3 · Direct-current circuit",
       "Nine measurement equations",
       "Assignment 3: readings and weights",
-      "Expected identification result",
+      "Circuit example: the global test rejects",
+      "Circuit example: identify I21",
+      "Circuit example: recompute both decisions",
+      "Circuit example: recover I21",
+      "Why a recovered datum is not a fresh observation",
       "Numerical cross-check of the circuit",
       "A systematic simulation workflow",
       "Generating synthetic measurements",
       "Noise, gross errors, and reproducibility",
       "Performance metrics",
       "Assess the test, not just the estimate",
+      "Textbook reading for this lesson",
       "Sources and further study",
-      "Recovery experiment"
+      "Laboratory guide · Detection, identification, recovery"
+    ],
+    "readings": [
+      {
+        "book": "AE04",
+        "sections": "§§5.1–5.8"
+      },
+      {
+        "book": "M99",
+        "sections": "§§8.2–8.3"
+      },
+      {
+        "book": "BLC",
+        "sections": "§§6.4–6.5.3; PDF pp. 158–166"
+      }
     ]
   },
   {
@@ -208,8 +301,27 @@
       "Assignment 6 · The AC laboratory network",
       "π-model parameters",
       "Data and reference solution",
+      "Textbook foundations · What Gauss–Newton neglects",
+      "Exact zero injections as equality constraints",
+      "The UI index in whitened geometry",
+      "Scaling, conditioning, and the AC laboratory",
+      "Textbook reading for this lesson",
       "Sources and further study",
       "AC laboratory guide"
+    ],
+    "readings": [
+      {
+        "book": "AE04",
+        "sections": "§§2.6, 3.1–3.2, 3.5"
+      },
+      {
+        "book": "M99",
+        "sections": "§2.6 and Chapter 13"
+      },
+      {
+        "book": "BLC",
+        "sections": "§§4.4, 7.2–7.3"
+      }
     ]
   },
   {
@@ -241,7 +353,26 @@
       "Critical measurements and redundancy",
       "Assignment 5 · Measurement planning",
       "Preparing for the next lesson's methods",
+      "Textbook foundations · Observability is a null-space test",
+      "Reference freedom and observable islands",
+      "Why injections complicate a graph argument",
+      "Structural rank and numerical rank",
+      "Textbook reading for this lesson",
       "Sources and further study"
+    ],
+    "readings": [
+      {
+        "book": "AE04",
+        "sections": "Chapter 4"
+      },
+      {
+        "book": "M99",
+        "sections": "§§2.4, 7.1"
+      },
+      {
+        "book": "BLC",
+        "sections": "§5.1"
+      }
     ]
   },
   {
@@ -270,7 +401,26 @@
       "Measurement and RTU contingencies",
       "Assignment 5 verification guide",
       "Consolidation questions",
+      "Textbook foundations · Elimination creates fill",
+      "Compute selected uncertainty entries by solves",
+      "A rank-one measurement update",
+      "Deletion reveals a critical measurement",
+      "Textbook reading for this lesson",
       "Sources and further study"
+    ],
+    "readings": [
+      {
+        "book": "AE04",
+        "sections": "Chapter 4 and §5.7"
+      },
+      {
+        "book": "M99",
+        "sections": "§§5.3–5.6, 5.11, 8.2"
+      },
+      {
+        "book": "BLC",
+        "sections": "§5.5"
+      }
     ]
   },
   {
@@ -302,7 +452,26 @@
       "Costs and planning criteria",
       "Minimal, reinforced, and resilient plans",
       "Assignment-linked activity",
+      "Textbook foundations · Counts do not locate redundancy",
+      "Critical sets explain ambiguous residual patterns",
+      "Precision gain after observability is secured",
+      "A channel failure and a device failure differ",
+      "Textbook reading for this lesson",
       "Sources and further study"
+    ],
+    "readings": [
+      {
+        "book": "AE04",
+        "sections": "§§4.8–4.9, 5.3–5.5"
+      },
+      {
+        "book": "M99",
+        "sections": "§5.11"
+      },
+      {
+        "book": "BLC",
+        "sections": "§§5.2–5.5"
+      }
     ]
   },
   {
@@ -332,8 +501,23 @@
       "Elimination, normalization, and backward solution",
       "Symmetric positive-definite case",
       "Lesson synthesis",
+      "Textbook foundations · Which angle reference?",
+      "Polar-to-rectangular covariance",
+      "Shared timing uncertainty creates correlation",
+      "Fusion requires independent new information",
+      "Textbook reading for this lesson",
       "Sources and further study",
       "Hybrid laboratory guide"
+    ],
+    "readings": [
+      {
+        "book": "BLC",
+        "sections": "§§4.3–4.5, 5.3"
+      },
+      {
+        "book": "M99",
+        "sections": "§11.1"
+      }
     ]
   },
   {
@@ -362,7 +546,26 @@
       "Error spreading and false suspicion",
       "Studies presented in the course",
       "Interpretation exercise",
+      "Textbook foundations · Joint rank is the real requirement",
+      "Eliminate the state to expose parameter information",
+      "Multiple operating points can separate parameters",
+      "Parameter and topology errors change the model",
+      "Textbook reading for this lesson",
       "Sources and further study"
+    ],
+    "readings": [
+      {
+        "book": "AE04",
+        "sections": "Chapters 7–8"
+      },
+      {
+        "book": "M99",
+        "sections": "Chapter 6 and §11.2"
+      },
+      {
+        "book": "BLC",
+        "sections": "§§2.4, 7.5"
+      }
     ]
   },
   {
@@ -397,8 +600,27 @@
       "WLS demand adjustment",
       "Example result and uncertainty",
       "Assessment presented in the source material",
+      "Textbook foundations · Check the phase model first",
+      "Pseudo-measurements carry modeling uncertainty",
+      "The demand laboratory as Gaussian conditioning",
+      "An uncertain total is not an exact balance constraint",
+      "Textbook reading for this lesson",
       "Sources and further study",
       "Laboratory guide · Refinement and weights"
+    ],
+    "readings": [
+      {
+        "book": "AE04",
+        "sections": "§§2.2, 2.4, 3.5"
+      },
+      {
+        "book": "M99",
+        "sections": "§5.11"
+      },
+      {
+        "book": "BLC",
+        "sections": "§§3.5, 4.3–4.4, 4.7, 5.6"
+      }
     ]
   },
   {
@@ -431,8 +653,27 @@
       "Distributed coordination",
       "Distribution-system applications",
       "Connecting to dynamic estimation",
+      "Textbook foundations · From a loss to estimating equations",
+      "Huber loss: what the guarantee covers",
+      "Breakdown and uncertainty need separate definitions",
+      "Multi-area coordination as boundary elimination",
+      "Textbook reading for this lesson",
       "Sources and further study",
       "Laboratory guide · Contaminating Assignment 2"
+    ],
+    "readings": [
+      {
+        "book": "AE04",
+        "sections": "§§6.2–6.4.2"
+      },
+      {
+        "book": "M99",
+        "sections": "§§5.3, 5.11"
+      },
+      {
+        "book": "BLC",
+        "sections": "§4.6 and Appendices A–B"
+      }
     ]
   },
   {
@@ -471,8 +712,23 @@
       "Forecasting-aided state estimation",
       "Tracking state estimation",
       "Applications and practical limitations",
+      "Textbook foundations · A prior is weighted information",
+      "A sequence can also be estimated in one batch",
+      "What repeated scans can and cannot identify",
+      "Innovation consistency and unexpected steps",
+      "Textbook reading for this lesson",
       "Source and attribution",
       "Final laboratory: prediction versus snapshots"
+    ],
+    "readings": [
+      {
+        "book": "M99",
+        "sections": "§§2.4, 11.1–11.2"
+      },
+      {
+        "book": "AE04",
+        "sections": "§§2.4, 7.6.2"
+      }
     ]
   }
 ]
