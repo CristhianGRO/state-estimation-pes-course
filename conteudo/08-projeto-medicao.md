@@ -220,7 +220,7 @@ One may lose observability after a single reading fails; another may survive sev
 
 The course's local redundancy levels describe loss contingencies around a channel. A leverage value describes its weighted influence in the current fit. They answer different questions.
 
-<p class="reading-source">Reading: [BLC] §5.2, PDF pp. 125–133; [AE04] §§4.8–4.9.</p>
+<p class="reading-source">Reading: [1] §5.2, PDF pp. 125–133; [2] §§4.8–4.9.</p>
 
 ---
 
@@ -234,7 +234,7 @@ The corresponding two-channel residual covariance block has rank one. A bias in 
 
 Critical measurement sets generalize this loss of diagnostic separation. A large residual can identify a suspect set without distinguishing a unique faulty member.
 
-<p class="reading-source">Reading: [BLC] §5.2; [AE04] §§5.3–5.5. The displayed relation is the two-channel rank-one case.</p>
+<p class="reading-source">Reading: [1] §5.2; [2] §§5.3–5.5. The displayed relation is the two-channel rank-one case.</p>
 
 ---
 
@@ -248,7 +248,7 @@ For a locally Gaussian observable model, increasing information determinant redu
 
 First define mandatory rank and loss-survival constraints; then compare admissible plans using precision, cost, and practical installation constraints.
 
-<p class="reading-source">Reading: [AE04] §4.9; [BLC] §5.4; [M99] §5.11. Information-volume criterion is a derived design extension.</p>
+<p class="reading-source">Reading: [2] §4.9; [1] §5.4; [3] §5.11. Information-volume criterion is a derived design extension.</p>
 
 ---
 
@@ -262,19 +262,19 @@ $$\operatorname{rank}(H_{\overline{\mathcal C}})=n$$
 
 **Laboratory extension:** compare the single-channel loss sets with a grouped loss of all readings from one device. The HΔ example's local redundancy levels describe its stated measurement contingencies; they do not certify every practical failure mode.
 
-<p class="reading-source">Reading: [BLC] §§5.2–5.5; [AE04] §4.9. Device grouping is a teaching extension of the rank criterion.</p>
+<p class="reading-source">Reading: [1] §§5.2–5.5; [2] §4.9. Device grouping is a teaching extension of the rank criterion.</p>
 
 ---
 
-## Textbook reading for this lesson
+## References
 
-**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). §§4.8–4.9, 5.3–5.5.
+**[1]** N. G. Bretas, J. B. A. London Jr., and B. E. B. de Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência*, course manuscript, 2019, supplied version Sep. 18, 2020. §§5.2–5.5.
 
-**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). §5.11.
+**[2]** A. Abur and A. Gómez Expósito, *Power System State Estimation: Theory and Implementation*. Marcel Dekker, 2004. §§4.8–4.9, 5.3–5.5.
 
-**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). §§5.2–5.5.
+**[3]** A. Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach*. Kluwer Academic Publishers, 1999. §5.11.
 
-Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+PDF page numbers count file pages starting at 1.
 
 ---
 

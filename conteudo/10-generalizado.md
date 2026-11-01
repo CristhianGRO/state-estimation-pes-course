@@ -188,7 +188,7 @@ Full rank of $H_x$ does not establish identifiability of $p$. A parameter change
 
 A parameter prior can stabilize the solution, but stability supplied by a prior must be distinguished from information supplied by measurements.
 
-<p class="reading-source">Reading: [AE04] §§7.6 and 7.9; [M99] §11.2.</p>
+<p class="reading-source">Reading: [1] §§7.6 and 7.9; [2] §11.2.</p>
 
 ---
 
@@ -204,7 +204,7 @@ $$\mathcal I_p=A_p^T(I-\Pi_x)A_p$$
 
 Only parameter effects outside the state-sensitivity subspace are separable. An independent parameter prior adds its precision matrix to $\mathcal I_p$.
 
-<p class="reading-source">Reading: [M99] §11.2.1, PDF pp. 300–301; [AE04] §7.9.</p>
+<p class="reading-source">Reading: [2] §11.2.1, PDF pp. 300–301; [1] §7.9.</p>
 
 ---
 
@@ -218,7 +218,7 @@ If all voltages are equal, the columns are dependent: only $d+fV^2$ is identifie
 
 Repeated identical conditions improve the precision of an identifiable combination, without separating the two coefficients.
 
-<p class="reading-source">Reading: [M99] §11.2, PDF pp. 302–305. Simplified derivation inspired by its voltage-dependent load example.</p>
+<p class="reading-source">Reading: [2] §11.2, PDF pp. 302–305. Simplified derivation inspired by its voltage-dependent load example.</p>
 
 ---
 
@@ -230,19 +230,19 @@ An incorrect breaker status can change connectivity and the appropriate state de
 
 Validate a proposed correction through electrical consistency, sufficient parameter/topology information, and renewed residual analysis. A better fit alone can favor an overparameterized model.
 
-<p class="reading-source">Reading: [AE04] Chapters 7–8; [M99] Chapter 6; [BLC] §§2.4 and 7.5.</p>
+<p class="reading-source">Reading: [1] Chapters 7–8; [2] Chapter 6; [3] §§2.4 and 7.5.</p>
 
 ---
 
-## Textbook reading for this lesson
+## References
 
-**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). Chapters 7–8.
+**[1]** A. Abur and A. Gómez Expósito, *Power System State Estimation: Theory and Implementation*. Marcel Dekker, 2004. Chapters 7–8.
 
-**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). Chapter 6 and §11.2.
+**[2]** A. Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach*. Kluwer Academic Publishers, 1999. Chapter 6 and §11.2.
 
-**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). §§2.4, 7.5.
+**[3]** N. G. Bretas, J. B. A. London Jr., and B. E. B. de Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência*, course manuscript, 2019, supplied version Sep. 18, 2020. §§2.4, 7.5.
 
-Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+PDF page numbers count file pages starting at 1.
 
 ---
 

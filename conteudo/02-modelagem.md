@@ -252,7 +252,7 @@ $$I_{ji}=-\frac{y}{t}V_i+(y+jb_c/2)V_j$$
 
 The tap convention is part of the model. Interchanging ends without transforming the tap changes the predicted measurements.
 
-<p class="reading-source">Reading: [AE04] §2.2; [M99] Chapter 4.</p>
+<p class="reading-source">Reading: [1] §2.2; [2] Chapter 4.</p>
 
 ---
 
@@ -267,7 +267,7 @@ Bus injection, branch flow, voltage magnitude, and current magnitude are differe
 
 **Check:** sum terminal powers to recover branch losses; opposite flow readings need not sum to zero in the AC model.
 
-<p class="reading-source">Reading: [AE04] §§2.2–2.5; [BLC] §§3.3–3.4.</p>
+<p class="reading-source">Reading: [1] §§2.2–2.5; [3] §§3.3–3.4.</p>
 
 ---
 
@@ -280,7 +280,7 @@ $$Y_{\mathrm{red}}=Y_{aa}-Y_{ab}Y_{bb}^{-1}Y_{ba}$$
 
 This is a Schur complement. Closing an ideal switch instead imposes equal terminal voltages and merges connectivity nodes. A nonzero eliminated injection introduces an additional source term.
 
-<p class="reading-source">Reading: [M99] Chapters 5–6. Derivation uses the stated zero-injection assumption.</p>
+<p class="reading-source">Reading: [2] Chapters 5–6. Derivation uses the stated zero-injection assumption.</p>
 
 ---
 
@@ -294,19 +294,19 @@ For example, constructing a current from measured power and an estimated voltage
 
 Equivalent electrical equations do not automatically give statistically equivalent estimators when those changes are ignored.
 
-<p class="reading-source">Reading: [BLC] §§4.5 and 4.7; [AE04] §2.4. Covariance propagation is a first-order derivation.</p>
+<p class="reading-source">Reading: [3] §§4.5 and 4.7; [1] §2.4. Covariance propagation is a first-order derivation.</p>
 
 ---
 
-## Textbook reading for this lesson
+## References
 
-**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). §§2.2–2.5.
+**[1]** A. Abur and A. Gómez Expósito, *Power System State Estimation: Theory and Implementation*. Marcel Dekker, 2004. §§2.2–2.5.
 
-**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). Chapters 4–6.
+**[2]** A. Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach*. Kluwer Academic Publishers, 1999. Chapters 4–6.
 
-**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). §§3.3–3.4, 4.5, 4.7.
+**[3]** N. G. Bretas, J. B. A. London Jr., and B. E. B. de Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência*, course manuscript, 2019, supplied version Sep. 18, 2020. §§3.3–3.4, 4.5, 4.7.
 
-Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+PDF page numbers count file pages starting at 1.
 
 ---
 

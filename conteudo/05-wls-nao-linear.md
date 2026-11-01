@@ -295,7 +295,7 @@ Gauss–Newton retains $H^TWH$. Small residuals and a useful initial state favor
 
 A small state increment alone does not establish that the model fits the data.
 
-<p class="reading-source">Reading: [M99] §2.6; [AE04] §2.6.</p>
+<p class="reading-source">Reading: [1] §2.6; [2] §2.6.</p>
 
 ---
 
@@ -309,7 +309,7 @@ This enforces the linearized constraint without an arbitrarily tiny measurement 
 
 A bus with an uncertain unmetered load is not an exact zero-injection bus.
 
-<p class="reading-source">Reading: [AE04] §3.5, PDF pp. 62–63; [BLC] §4.4.</p>
+<p class="reading-source">Reading: [2] §3.5, PDF pp. 62–63; [3] §4.4.</p>
 
 ---
 
@@ -322,7 +322,7 @@ $$UI_i=\frac{\|e_U\|_{R^{-1}}}{\|e_D\|_{R^{-1}}}=\sqrt{\frac{\ell_i}{1-\ell_i}}$
 
 Here $e_U$ is absorbed by the state fit and $e_D$ remains in the residual. The two components are orthogonal in the weighted metric, not generally in ordinary coordinates.
 
-<p class="reading-source">Reading: [BLC] §§7.2–7.3, PDF pp. 173–179. This site explicitly uses the undetectable/detectable ratio.</p>
+<p class="reading-source">Reading: [3] §§7.2–7.3, PDF pp. 173–179. This site explicitly uses the undetectable/detectable ratio.</p>
 
 Note: The manuscript's displayed ratios in §7.2 use reciprocal expressions in different places. To avoid relying on an ambiguous index label, this lesson defines both components and derives their norms. Its UI convention follows the course slides: absorbed component divided by residual component. Static geometric innovation must also be distinguished from the time-domain innovation in Lesson 13.
 
@@ -338,19 +338,19 @@ Scaling can improve the numerical representation without creating observability.
 
 **Assignment 6:** changing a measurement's standard deviation changes the statistical problem; rescaling a state coordinate consistently does not.
 
-<p class="reading-source">Reading: [AE04] §§3.1–3.2; [M99] Chapter 13.</p>
+<p class="reading-source">Reading: [2] §§3.1–3.2; [1] Chapter 13.</p>
 
 ---
 
-## Textbook reading for this lesson
+## References
 
-**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). §§2.6, 3.1–3.2, 3.5.
+**[1]** A. Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach*. Kluwer Academic Publishers, 1999. §2.6 and Chapter 13.
 
-**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). §2.6 and Chapter 13.
+**[2]** A. Abur and A. Gómez Expósito, *Power System State Estimation: Theory and Implementation*. Marcel Dekker, 2004. §§2.6, 3.1–3.2, 3.5.
 
-**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). §§4.4, 7.2–7.3.
+**[3]** N. G. Bretas, J. B. A. London Jr., and B. E. B. de Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência*, course manuscript, 2019, supplied version Sep. 18, 2020. §§4.4, 7.2–7.3.
 
-Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+PDF page numbers count file pages starting at 1.
 
 ---
 

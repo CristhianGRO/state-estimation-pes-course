@@ -216,7 +216,7 @@ Whitening turns the uncertainty ellipsoid into a sphere. For diagonal $R$, it si
 
 Solve triangular systems with $L$; explicitly forming $R^{-1}$ is unnecessary.
 
-<p class="reading-source">Reading: [AE04] §§2.6 and 3.2; [BLC] §4.4.</p>
+<p class="reading-source">Reading: [1] §§2.6 and 3.2; [2] §4.4.</p>
 
 ---
 
@@ -231,7 +231,7 @@ QR avoids explicitly squaring the condition number during matrix formation. It d
 
 **Assignment 2:** very unequal standard deviations can make a mathematically observable system numerically difficult.
 
-<p class="reading-source">Reading: [AE04] §§3.1–3.2, PDF pp. 54–59; [BLC] §4.4, PDF pp. 81–87.</p>
+<p class="reading-source">Reading: [1] §§3.1–3.2, PDF pp. 54–59; [2] §4.4, PDF pp. 81–87.</p>
 
 ---
 
@@ -244,7 +244,7 @@ $$\operatorname{Cov}(\hat x-x)=G^{-1}H^TR^{-1}RR^{-1}HG^{-1}=G^{-1}$$
 
 WLS is the best linear unbiased estimator under the stated second-moment assumptions. Gaussian errors additionally make it a maximum-likelihood estimator; Gaussianity is not needed for the covariance calculation above.
 
-<p class="reading-source">Reading: [AE04] §§2.4–2.6; [M99] Chapter 2 and Appendix A.</p>
+<p class="reading-source">Reading: [1] §§2.4–2.6; [3] Chapter 2 and Appendix A.</p>
 
 ---
 
@@ -259,19 +259,19 @@ Thus the Assignment 2 estimate can stay identical while its reported uncertainty
 
 Do not calibrate the assumed noise merely to force a desired goodness-of-fit decision.
 
-<p class="reading-source">Reading: [AE04] §§2.6 and 5.4; equations rederived for the course laboratory.</p>
+<p class="reading-source">Reading: [1] §§2.6 and 5.4; equations rederived for the course laboratory.</p>
 
 ---
 
-## Textbook reading for this lesson
+## References
 
-**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). §§2.4–2.6, 3.1–3.2.
+**[1]** A. Abur and A. Gómez Expósito, *Power System State Estimation: Theory and Implementation*. Marcel Dekker, 2004. §§2.4–2.6, 3.1–3.2.
 
-**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). Chapter 2 and Appendix A.
+**[2]** N. G. Bretas, J. B. A. London Jr., and B. E. B. de Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência*, course manuscript, 2019, supplied version Sep. 18, 2020. §§4.3–4.4.
 
-**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). §§4.3–4.4.
+**[3]** A. Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach*. Kluwer Academic Publishers, 1999. Chapter 2 and Appendix A.
 
-Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+PDF page numbers count file pages starting at 1.
 
 ---
 

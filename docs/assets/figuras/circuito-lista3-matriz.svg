@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 380" role="img" aria-labelledby="title desc">
+<title id="title">Three-node resistive circuit and branch conductances</title>
+<desc id="desc">Node 1 is above nodes 2 and 3. Branch 1–2 has resistance 0.1 ohm and conductance 10 siemens; branch 1–3 has 0.2 ohm and 5 siemens; branch 2–3 has 0.1 ohm and 10 siemens. Current Iij is oriented from node i to node j.</desc>
+<rect width="640" height="380" rx="20" fill="#f1f7fa"/>
+<g stroke="#008f96" stroke-width="4" fill="none"><path d="M320 65L100 270H540Z"/></g>
+<g fill="#e4f8f6" stroke="#008f96" stroke-width="3"><circle cx="320" cy="65" r="25"/><circle cx="100" cy="270" r="25"/><circle cx="540" cy="270" r="25"/></g>
+<g font-family="Arial,sans-serif" text-anchor="middle" fill="#09213a" font-size="24"><text x="320" y="73">1</text><text x="100" y="278">2</text><text x="540" y="278">3</text></g>
+<g font-family="Arial,sans-serif" text-anchor="middle" fill="#09213a" font-size="21">
+<text x="112" y="137">R₁₂ = 0.1 Ω</text><text x="112" y="167" fill="#007e84">g₁₂ = 10 S</text>
+<text x="528" y="137">R₁₃ = 0.2 Ω</text><text x="528" y="167" fill="#007e84">g₁₃ = 5 S</text>
+<text x="320" y="315">R₂₃ = 0.1 Ω</text><text x="320" y="345" fill="#007e84">g₂₃ = 10 S</text>
+</g></svg>

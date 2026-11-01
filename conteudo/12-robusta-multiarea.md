@@ -223,7 +223,7 @@ $$w_i^{\mathrm{IRLS}}=\frac{1}{\sigma_i^2}\frac{\psi(u_i)}{u_i}$$
 
 For Huber loss, $\psi(u)=\operatorname{clip}(u,-c,c)$; the ratio at zero is defined by its limit, 1. IRLS repeatedly solves the corresponding weighted problem.
 
-<p class="reading-source">Reading: [AE04] §§6.4–6.4.2; [BLC] §4.6.</p>
+<p class="reading-source">Reading: [1] §§6.4–6.4.2; [2] §4.6.</p>
 
 ---
 
@@ -235,7 +235,7 @@ Clipping large residuals controls their direct score contribution. It does not a
 
 **Laboratory:** inject a bias and vary the channel's precision. Compare parameter error as well as the final residual and robust weight.
 
-<p class="reading-source">Reading: [AE04] §§6.3–6.4; [BLC] §4.6 and Appendix A.</p>
+<p class="reading-source">Reading: [1] §§6.3–6.4; [2] §4.6 and Appendix A.</p>
 
 ---
 
@@ -247,7 +247,7 @@ Bounded residual scores alone do not ensure high breakdown when the design conta
 
 After robust fitting, simply inverting the final weighted gain generally does not provide a calibrated sampling covariance. Appropriate robust uncertainty analysis must account for the loss, weights, and error model.
 
-<p class="reading-source">Reading: [AE04] §§6.2–6.4; [BLC] Appendices A–B. Uncertainty caution follows from data-dependent weights.</p>
+<p class="reading-source">Reading: [1] §§6.2–6.4; [2] Appendices A–B. Uncertainty caution follows from data-dependent weights.</p>
 
 ---
 
@@ -260,19 +260,19 @@ $$S_v=G_{vv}-G_{vu}G_{uu}^{-1}G_{uv},\qquad \tilde b_v=b_v-G_{vu}G_{uu}^{-1}b_u$
 
 The area can pass reduced boundary information to a coordinator. Shared measurements and priors must be counted once. Local elimination requires nonsingular internal blocks and a consistent common model.
 
-<p class="reading-source">Reading: course multi-area lecture; [M99] §§5.3 and 5.11. This is a derived coordination example, not a claim of a dedicated textbook multi-area chapter.</p>
+<p class="reading-source">Reading: course multi-area lecture; [3] §§5.3 and 5.11. This is a derived coordination example, not a claim of a dedicated textbook multi-area chapter.</p>
 
 ---
 
-## Textbook reading for this lesson
+## References
 
-**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). §§6.2–6.4.2.
+**[1]** A. Abur and A. Gómez Expósito, *Power System State Estimation: Theory and Implementation*. Marcel Dekker, 2004. §§6.2–6.4.2.
 
-**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). §§5.3, 5.11.
+**[2]** N. G. Bretas, J. B. A. London Jr., and B. E. B. de Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência*, course manuscript, 2019, supplied version Sep. 18, 2020. §4.6 and Appendices A–B.
 
-**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). §4.6 and Appendices A–B.
+**[3]** A. Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach*. Kluwer Academic Publishers, 1999. §§5.3, 5.11.
 
-Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+PDF page numbers count file pages starting at 1.
 
 ---
 

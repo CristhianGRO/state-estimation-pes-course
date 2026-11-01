@@ -236,7 +236,7 @@ An unbalanced feeder can require explicit phase voltages, mutual coupling, conne
 
 The state, network equations, and measurement connections must describe the same physical representation before selecting an estimator.
 
-<p class="reading-source">Reading: [AE04] §2.2; [BLC] §§3.5, 4.7 and 5.6.</p>
+<p class="reading-source">Reading: [1] §2.2; [2] §§3.5, 4.7 and 5.6.</p>
 
 ---
 
@@ -250,7 +250,7 @@ $$\operatorname{Var}(a^Td)=a^TDa$$
 
 Ignoring off-diagonal terms can seriously misrepresent the aggregate uncertainty. A large count of allocated loads does not guarantee many independent observations.
 
-<p class="reading-source">Reading: [BLC] §4.7; [AE04] §2.4. Aggregate covariance derived from the measurement model.</p>
+<p class="reading-source">Reading: [2] §4.7; [1] §2.4. Aggregate covariance derived from the measurement model.</p>
 
 ---
 
@@ -263,7 +263,7 @@ $$D_{\mathrm{post}}=D-Da(a^TDa+s^2)^{-1}a^TD$$
 
 For $a=\mathbf1$, $\mu=[10,20,15]^T$, $D=\operatorname{diag}(4,9,4)$, $y=54$, and $s^2=1$, the posterior mean is $[12,24.5,17]^T$.
 
-<p class="reading-source">Reading: [BLC] §§4.3 and 4.7; [M99] §5.11. Gaussian-conditioning derivation for this site's lossless demand example.</p>
+<p class="reading-source">Reading: [2] §§4.3 and 4.7; [3] §5.11. Gaussian-conditioning derivation for this site's lossless demand example.</p>
 
 ---
 
@@ -275,19 +275,19 @@ As $s^2\to0$, the adjustment enforces $a^T\hat d=y$ exactly, and posterior uncer
 
 Real feeder demand reconstruction also needs losses, voltage dependence, reactive power, and phase connections when material. The final laboratory isolates uncertainty-weighted allocation, rather than solving the complete feeder estimation problem.
 
-<p class="reading-source">Reading: [BLC] §§4.4 and 4.7; [AE04] §3.5. Limiting argument applied to the demand laboratory.</p>
+<p class="reading-source">Reading: [2] §§4.4 and 4.7; [1] §3.5. Limiting argument applied to the demand laboratory.</p>
 
 ---
 
-## Textbook reading for this lesson
+## References
 
-**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). §§2.2, 2.4, 3.5.
+**[1]** A. Abur and A. Gómez Expósito, *Power System State Estimation: Theory and Implementation*. Marcel Dekker, 2004. §§2.2, 2.4, 3.5.
 
-**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). §5.11.
+**[2]** N. G. Bretas, J. B. A. London Jr., and B. E. B. de Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência*, course manuscript, 2019, supplied version Sep. 18, 2020. §§3.5, 4.3–4.4, 4.7, 5.6.
 
-**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). §§3.5, 4.3–4.4, 4.7, 5.6.
+**[3]** A. Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach*. Kluwer Academic Publishers, 1999. §5.11.
 
-Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+PDF page numbers count file pages starting at 1.
 
 ---
 

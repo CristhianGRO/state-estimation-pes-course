@@ -47,3 +47,24 @@
 .annotation-editor{position:absolute;z-index:1;pointer-events:auto;width:25%;min-width:140px;max-height:28%;resize:none;line-height:1.25;font-family:'DM Sans',Arial,sans-serif;background:#fffffff2;border:2px solid var(--aqua);border-radius:4px;padding:4px;box-sizing:border-box}
 @media(max-width:600px){.annotation-toolbar{right:8px;max-width:calc(100vw - 16px);font-size:12px}.annotation-options{max-width:260px}.annotation-toolbar button,.annotation-toolbar select{padding:6px}.annotation-options label{font-size:11px}}
 @media print{.annotation-toolbar,.annotation-layer{display:none!important}}
+.reveal .circuit-matrix-layout{display:grid;grid-template-columns:1.15fr .85fr;gap:36px;align-items:center}
+.reveal .circuit-matrix-layout>div{min-width:0}
+.reveal .circuit-matrix-layout img{display:block;width:100%;max-height:320px;margin:0 auto}
+.reveal .circuit-matrix-layout p{font-size:.68em;line-height:1.4}
+.reveal .circuit-matrix-layout .tex-math[data-display="true"]{font-size:.86em;margin:.35em 0}
+.reveal section[data-demo="lista-erros"] .demo-layout{margin-top:16px;gap:22px}
+.reveal section[data-demo="lista-erros"] .demo-box{padding:18px}
+.reveal section[data-demo="lista-erros"] .demo-actions{gap:6px;margin-top:12px}
+.reveal section[data-demo="lista-erros"] .demo-actions button{font-size:.48em;padding:8px 11px}
+.reveal section[data-demo="lista-erros"] button:disabled{opacity:.45;cursor:not-allowed}
+.reveal section[data-demo="lista-erros"] .demo-layout{grid-template-columns:.95fr 1.25fr}
+.reveal section[data-demo="lista-erros"] .error-settings{display:grid;grid-template-columns:1.4fr 1fr;gap:10px}
+.reveal section[data-demo="lista-erros"] .error-settings select{width:100%;font-size:.47em;padding:5px 2px}
+.reveal section[data-demo="lista-erros"] .error-settings label{font-size:.47em;margin:10px 0 5px}
+.reveal section[data-demo="lista-erros"] .error-slider{display:flex;align-items:center;gap:6px;min-width:150px}
+.reveal section[data-demo="lista-erros"] .error-slider input{flex:1;min-width:70px;width:100px;margin:0;min-height:24px}
+.reveal section[data-demo="lista-erros"] .error-slider output{min-width:40px;text-align:right;font-variant-numeric:tabular-nums}
+.reveal section[data-demo="lista-erros"] .grid-table td,.reveal section[data-demo="lista-erros"] .grid-table th{padding:4px 6px}
+.reveal section[data-demo="lista-erros"] .removed-reading td{color:#7b8995}
+.reveal section[data-demo="lista-erros"] .suspect-reading td{background:#fff0d7}
+.reveal section[data-demo="lista-erros"] [data-role="history"]{min-height:32px;margin:10px 0!important}

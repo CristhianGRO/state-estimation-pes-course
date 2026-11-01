@@ -188,7 +188,7 @@ $$G_{\mathrm{next}}=G_{aa}-G_{ab}G_{bb}^{-1}G_{ba}$$
 
 An ordering can reduce fill and work without changing exact rank. A numerically weak pivot still needs scaling or a more suitable rank-revealing method.
 
-<p class="reading-source">Reading: [M99] §§5.3–5.6; [AE04] Chapter 4.</p>
+<p class="reading-source">Reading: [1] §§5.3–5.6; [2] Chapter 4.</p>
 
 ---
 
@@ -201,7 +201,7 @@ $$\Omega_{ii}=R_{ii}-\|v_i\|_2^2$$
 
 This obtains residual variances without forming a dense inverse. It assumes the unconstrained, observable linearized estimator; exact constraints require the corresponding constrained covariance.
 
-<p class="reading-source">Reading: [AE04] §5.7, PDF pp. 129–130; [M99] §8.2.</p>
+<p class="reading-source">Reading: [2] §5.7, PDF pp. 129–130; [1] §8.2.</p>
 
 ---
 
@@ -214,7 +214,7 @@ $$G_+^{-1}=G^{-1}-\frac{wG^{-1}h^ThG^{-1}}{1+whG^{-1}h^T}$$
 
 The covariance reduction is positive semidefinite. A new reading can improve precision even when rank was already full. This formula assumes $G$ is initially nonsingular; it does not by itself handle restoration from an unobservable case.
 
-<p class="reading-source">Reading: [M99] §5.11; [BLC] §5.5. Formula specialized to one independent added reading.</p>
+<p class="reading-source">Reading: [1] §5.11; [3] §5.5. Formula specialized to one independent added reading.</p>
 
 ---
 
@@ -228,19 +228,19 @@ In exact arithmetic, deletion preserves observability when $\ell_i<1$ and destro
 
 This connects numerical factorization, criticality, and residual detectability. Near-critical cases need numerical care rather than an exact floating-point equality test.
 
-<p class="reading-source">Reading: [M99] §5.11 and Chapter 7; [AE04] §§4.8 and 5.1. Determinant identity rederived here.</p>
+<p class="reading-source">Reading: [1] §5.11 and Chapter 7; [2] §§4.8 and 5.1. Determinant identity rederived here.</p>
 
 ---
 
-## Textbook reading for this lesson
+## References
 
-**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). Chapter 4 and §5.7.
+**[1]** A. Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach*. Kluwer Academic Publishers, 1999. §§5.3–5.6, 5.11, 8.2.
 
-**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). §§5.3–5.6, 5.11, 8.2.
+**[2]** A. Abur and A. Gómez Expósito, *Power System State Estimation: Theory and Implementation*. Marcel Dekker, 2004. Chapter 4 and §5.7.
 
-**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). §5.5.
+**[3]** N. G. Bretas, J. B. A. London Jr., and B. E. B. de Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência*, course manuscript, 2019, supplied version Sep. 18, 2020. §5.5.
 
-Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+PDF page numbers count file pages starting at 1.
 
 ---
 

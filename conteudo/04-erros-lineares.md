@@ -14,7 +14,7 @@ Graduate course · University of São Paulo · Prof. João Bosco A. London Junio
 4. The $\hat b$ test, removal, and measurement recovery.
 5. Assignment 3 and reproducible simulation.
 
-Notation follows the course manuscript [BLC], §§6.4–6.5. The laboratory concludes the lesson.
+The laboratory concludes the lesson.
 
 ---
 
@@ -54,7 +54,7 @@ The $J(\hat x)$ test aggregates the discrepancy across the whole set. The larges
 
 Neither test supplies missing redundancy. Critical measurements and critical sets impose structural limits.
 
-<p class="reading-source">[BLC] §6.5, PDF p. 160.</p>
+<p class="reading-source">[1] §6.5, PDF p. 160.</p>
 
 ---
 
@@ -67,7 +67,7 @@ $$\Delta\hat x=G^{-1}H^TR^{-1}\Delta z,\qquad \Delta\hat z=H\Delta\hat x=K\Delta
 
 $H$ has $m$ rows and $N$ independent columns after fixing the reference. For the strictly linear circuit example, the same relations apply directly to $z$ and $x$.
 
-<p class="reading-source">[BLC] §6.4, Eqs. (6.1)–(6.3), PDF p. 158.</p>
+<p class="reading-source">[1] §6.4, Eqs. (6.1)–(6.3), PDF p. 158.</p>
 
 ---
 
@@ -79,7 +79,7 @@ Since $KH=H$, we have $SH=0$: the residual removes the fitted state component. A
 
 ![Error, projection, and residual component](../assets/figuras/projecao-wls.svg)
 
-<p class="reading-source">[BLC] §6.4, Eqs. (6.4)–(6.7).</p>
+<p class="reading-source">[1] §6.4, Eqs. (6.4)–(6.7).</p>
 
 ---
 
@@ -92,7 +92,7 @@ $$\Omega=R-HG^{-1}H^T,\qquad \Omega_{ii}=R_{ii}S_{ii}$$
 
 The diagonal identity assumes diagonal $R$. Independent measurement errors generally produce correlated residuals because the state fit uses the readings jointly.
 
-<p class="reading-source">[BLC] §6.4, Eqs. (6.9)–(6.10), PDF p. 159.</p>
+<p class="reading-source">[1] §6.4, Eqs. (6.9)–(6.10), PDF p. 159.</p>
 
 ---
 
@@ -104,7 +104,7 @@ $S$ is generally not symmetric in ordinary coordinates. In contrast, $\Omega$ is
 
 For positive residual variances, $\rho_{ij}=\Omega_{ij}/\sqrt{\Omega_{ii}\Omega_{jj}}$ expresses residual correlation. Large $|\rho_{ij}|$ indicates strong interaction; comparing raw covariance magnitudes across different measurement units can be misleading.
 
-<p class="reading-source">[BLC] §6.4; [AE04] §5.1.</p>
+<p class="reading-source">[1] §6.4; [2] §5.1.</p>
 
 ---
 
@@ -117,20 +117,20 @@ $$\mathbb E[Y]=\nu,\qquad \operatorname{Var}(Y)=2\nu$$
 
 $Y$ is nonnegative and generally asymmetric. Its number of degrees of freedom, $\nu$, determines both the distribution and the detection threshold.
 
-<p class="reading-source">[BLC] §6.5.1, PDF p. 160.</p>
+<p class="reading-source">[1] §6.5.1, PDF p. 160.</p>
 
 ---
 
 ## The WLS index: first write the summation
 
-Assume independent errors $e_i\sim\mathcal N(0,\sigma_i^2)$, with known positive variances. Following the manuscript:
+For independent errors $e_i\sim\mathcal N(0,\sigma_i^2)$ with known positive variances, the WLS index is:
 
 $$J(\hat{x})=\sum_{i=1}^{m}\frac{[z_i-h_i(\hat{x})]^2}{\sigma_i^2}$$
 $$=\sum_{i=1}^{m}\frac{r_i^2}{R_{ii}}=r^TR^{-1}r$$
 
 Each summand measures a squared discrepancy relative to the corresponding measurement-error variance. The sum is dimensionless, allowing different measurement types to contribute on a common scale.
 
-<p class="reading-source">[BLC] §6.5.1, Eqs. (6.11) and (6.17), PDF pp. 160–162.</p>
+<p class="reading-source">[1] §6.5.1, Eqs. (6.11) and (6.17), PDF pp. 160–162.</p>
 
 ---
 
@@ -145,7 +145,7 @@ $m$ is the number of available readings; $N$ is the number of estimated state va
 
 For nonlinear AC estimation, this calibration is based on a local linear approximation.
 
-<p class="reading-source">[BLC] Eqs. (6.11)–(6.12); [AE04] §5.4.</p>
+<p class="reading-source">[1] Eqs. (6.11)–(6.12); [2] §5.4.</p>
 
 ---
 
@@ -159,7 +159,7 @@ Only $m-N$ independent Gaussian directions remain after fitting. The residual co
 
 If $m=N$ and $H$ is nonsingular, every reading is fitted exactly: $r=0$ and $J=0$. There is then no residual redundancy for this detection test.
 
-<p class="reading-source">[BLC] §6.5.1; [AE04] §§5.1 and 5.4. Projection derivation in this site's notation.</p>
+<p class="reading-source">[1] §6.5.1; [2] §§5.1 and 5.4.</p>
 
 ---
 
@@ -173,7 +173,7 @@ $$J(\hat x)\leq C\ \Rightarrow\ \text{do not reject }H_0$$
 
 Not rejecting means insufficient evidence against the model, rather than proof that every channel is free of gross errors.
 
-<p class="reading-source">[BLC] §6.5.1, Eqs. (6.13)–(6.14).</p>
+<p class="reading-source">[1] §6.5.1, Eqs. (6.13)–(6.14).</p>
 
 ---
 
@@ -187,7 +187,7 @@ $$\int_0^C f(t)\,dt=1-\alpha$$
 
 For $m-N=6$ and $\alpha=0.05$, $C\simeq12.592$. A larger $\alpha$ lowers the rejection threshold.
 
-<p class="reading-source">[BLC] Eqs. (6.14)–(6.16). Original figure for the Assignment 3 degrees of freedom.</p>
+<p class="reading-source">[1] Eqs. (6.14)–(6.16).</p>
 
 ---
 
@@ -201,7 +201,7 @@ For $m-N=6$ and $\alpha=0.05$, $C\simeq12.592$. A larger $\alpha$ lowers the rej
 
 After removal, recompute the fit and threshold. The old degrees of freedom no longer describe the retained set.
 
-<p class="reading-source">[BLC] §6.5.1, detection procedure, PDF pp. 162–163.</p>
+<p class="reading-source">[1] §6.5.1, detection procedure, PDF pp. 162–163.</p>
 
 ---
 
@@ -213,21 +213,21 @@ A small value can reflect healthy data, overestimated uncertainty, little redund
 
 Multiplying every stated standard deviation by $c$ leaves the fitted state unchanged but divides $J$ by $c^2$. Absolute noise calibration therefore matters for the test.
 
-<p class="reading-source">[BLC] §§6.3–6.5; [AE04] §§5.3–5.4.</p>
+<p class="reading-source">[1] §§6.3–6.5; [2] §§5.3–5.4.</p>
 
 ---
 
-## Normalized residual: the manuscript's definition
+## Normalized residual
 
 For each channel with $\Omega_{ii}>0$:
 
 $$r_i^N=\frac{|r_i|}{\sqrt{\Omega_{ii}}}=\frac{|r_i|}{\sqrt{R_{ii}S_{ii}}}$$
 
-Following [BLC], **the normalized residual is nonnegative**. The residual $r_i$ itself retains the sign needed for measurement recovery.
+**The normalized residual is nonnegative**. The residual $r_i$ itself retains the sign needed for measurement recovery.
 
 Dividing by $\sigma_i$ alone ignores how much the estimator absorbs from that channel. The residual standard deviation is $\sqrt{\Omega_{ii}}$.
 
-<p class="reading-source">[BLC] §6.5.2, Eq. (6.18), PDF p. 163.</p>
+<p class="reading-source">[1] §6.5.2, Eq. (6.18), PDF p. 163.</p>
 
 ---
 
@@ -238,9 +238,9 @@ Introduce the signed auxiliary quantity $u_i=r_i/\sqrt{\Omega_{ii}}$. Under the 
 $$u_i\sim\mathcal N(0,1),\qquad r_i^N=|u_i|$$
 $$\Pr\{r_i^N>\beta\}=2[1-\Phi(\beta)]$$
 
-$\Phi$ is the standard normal cumulative distribution. Since $r_i^N\geq0$, its distribution is folded normal, rather than a signed standard normal. This distinction resolves an ambiguity when reading the probability statement alongside the manuscript's absolute-value definition.
+$\Phi$ is the standard normal cumulative distribution. The signed quantity $u_i$ is standard normal; its absolute value $r_i^N$ has a folded normal distribution supported on nonnegative values.
 
-<p class="reading-source">[BLC] §6.5.2; the convention of Eq. (6.18) is retained explicitly.</p>
+<p class="reading-source">[1] §6.5.2, Eq. (6.18).</p>
 
 ---
 
@@ -249,11 +249,11 @@ $\Phi$ is the standard normal cumulative distribution. Since $r_i^N\geq0$, its d
 $$r_{\max}^N=\max_{i:\Omega_{ii}>0}r_i^N,\qquad k\in\operatorname*{arg\,max}_{i:\Omega_{ii}>0}r_i^N$$
 $$r_k^N>\beta\ \Rightarrow\ \text{measurement }k\text{ is suspect}$$
 
-The manuscript uses $\beta=3$ as a common choice. Investigate ties and criticality before removing the selected reading.
+A common choice is $\beta=3$.
 
 $C$ is a chi-square threshold for a **global sum**; $\beta$ applies to a **normalized channel discrepancy**. The two thresholds describe different statistics.
 
-<p class="reading-source">[BLC] §6.5.2, algorithm, PDF p. 164.</p>
+<p class="reading-source">[1] §6.5.2, algorithm, PDF p. 164.</p>
 
 ---
 
@@ -266,7 +266,7 @@ $$r_j^N=\frac{|\Omega_{jk}|\,|a_k|}{R_{kk}\sqrt{\Omega_{jj}}}\leq\frac{\sqrt{\Om
 
 The inequality follows from $\Omega_{jk}^2\leq\Omega_{jj}\Omega_{kk}$ and requires positive residual variances. Critical-pair ties prevent unique identification; noise in the other channels makes observed rankings probabilistic.
 
-<p class="reading-source">[BLC] Eq. (6.19); [AE04] §5.5, PDF p. 127.</p>
+<p class="reading-source">[1] Eq. (6.19); [2] §5.5, PDF p. 127.</p>
 
 ---
 
@@ -280,7 +280,7 @@ The inequality follows from $\Omega_{jk}^2\leq\Omega_{jj}\Omega_{kk}$ and requir
 
 Stop when no further evidence appears, or when redundancy and model limitations prevent a defensible next removal. An incorrect diagnosis can discard a healthy reading.
 
-<p class="reading-source">[BLC] §6.5.2, with the observability safeguard stated explicitly.</p>
+<p class="reading-source">[1] §6.5.2.</p>
 
 ---
 
@@ -290,11 +290,11 @@ Under the single-error approximation, $r_i\simeq S_{ii}e_i$. Define:
 
 $$\hat e_i=\frac{r_i}{S_{ii}}=\frac{R_{ii}r_i}{\Omega_{ii}},\qquad \hat b_i=\frac{\hat e_i}{\sigma_i}=\frac{\sigma_i r_i}{\Omega_{ii}}$$
 
-$\hat e_i$ has the reading's units, such as amperes. The manuscript's $\hat b_i$ is dimensionless: the estimated error expressed in measurement standard deviations.
+$\hat e_i$ has the reading's units, such as amperes. The standardized estimate $\hat b_i$ is dimensionless: it expresses the estimated error in measurement standard deviations.
 
 Keep $r_i$ signed so the correction has the appropriate direction.
 
-<p class="reading-source">[BLC] §6.5.3, Eqs. (6.22)–(6.24), Observation 6.1, PDF p. 166.</p>
+<p class="reading-source">[1] §6.5.3, Eqs. (6.22)–(6.24), Observation 6.1, PDF p. 166.</p>
 
 ---
 
@@ -304,11 +304,11 @@ With the absolute-value definition of $r_i^N$:
 
 $$|\hat b_i|=\frac{\sigma_i}{\sqrt{\Omega_{ii}}}r_i^N=\frac{r_i^N}{\sqrt{S_{ii}}}$$
 
-The manuscript investigates the largest-residual channel using $|\hat b_i|>c$, with the cited choice $c=4$.
+For the channel with the largest normalized residual, the $\hat b$ test flags a suspected gross error when $|\hat b_i|>c$. A commonly used threshold is $c=4$.
 
 $c$ and $\beta$ apply to different statistics. A small $S_{ii}$ amplifies the error estimate and makes recovery sensitive to noise; at $S_{ii}=0$, recovery is unavailable.
 
-<p class="reading-source">[BLC] §6.5.3, Eqs. (6.24)–(6.26), PDF p. 166.</p>
+<p class="reading-source">[1] §6.5.3, Eqs. (6.24)–(6.26), PDF p. 166.</p>
 
 ---
 
@@ -320,7 +320,7 @@ A positive estimated error is subtracted; a negative estimated error increases t
 
 Recovery assumes a valid model and a credible single-error diagnosis. In an AC estimator, changes in the Jacobian and iterative refitting must also be considered.
 
-<p class="reading-source">[BLC] §6.5.3; [AE04] §§5.7–5.8. Signed correction made explicit.</p>
+<p class="reading-source">[1] §6.5.3; [2] §§5.7–5.8.</p>
 
 ---
 
@@ -335,7 +335,7 @@ The reconstructed datum matches the prediction from fitting the other readings. 
 
 It does not make the reconstructed value an independent new sensor reading. The formulas fail at $S_{ii}=0$, where deletion destroys observability.
 
-<p class="reading-source">[AE04] §§5.7–5.8; [M99] §§8.3.3–8.3.5. Linear identities rederived here.</p>
+<p class="reading-source">[2] §§5.7–5.8; [3] §§8.3.3–8.3.5.</p>
 
 ---
 
@@ -349,7 +349,7 @@ Its normalized residual is undefined, not reassuringly zero. For a critical pair
 
 Adding independent local information addresses these limitations; changing a threshold does not.
 
-<p class="reading-source">[BLC] §§6.3–6.5.2; [AE04] §§5.3–5.5.</p>
+<p class="reading-source">[1] §§6.3–6.5.2; [2] §§5.3–5.5.</p>
 
 ---
 
@@ -361,9 +361,9 @@ Adding independent local information addresses these limitations; changing a thr
 
 **Interacting, conforming:** errors partly mask one another, producing small residuals at contaminated channels or large residuals elsewhere.
 
-The manuscript's classification describes how errors combine through $r=Se$, rather than merely how many channels are corrupted.
+These configurations describe how errors combine through $r=Se$. Their interaction depends on the residual-sensitivity matrix and on the error magnitudes and signs.
 
-<p class="reading-source">[BLC] §6.5.2, PDF p. 165.</p>
+<p class="reading-source">[1] §6.5.2, PDF p. 165.</p>
 
 ---
 
@@ -375,26 +375,55 @@ Residuals are correlated. Selection of the maximum and repeated adaptive removal
 
 Report $\alpha$ for the $J$ test and $\beta$ for the residual test separately. A threshold of 3 does not specify a 0.27% false-alarm rate for the entire set.
 
-<p class="reading-source">[AE04] §§5.1–5.7; [BLC] §6.5.2.</p>
+<p class="reading-source">[2] §§5.1–5.7; [1] §6.5.2.</p>
 
 ---
 
 ## Assignment 3 · Direct-current circuit
 
-![Three-node resistive circuit with current and voltage readings](../assets/figuras/circuito-lista3.svg)
+<div class="circuit-matrix-layout">
+<div>
+
+![Three-node circuit with branch resistances and conductances](../assets/figuras/circuito-lista3-matriz.svg)
 
 States: $x=[V_1,V_2,V_3]^T$, in volts. Currents are in amperes.
 
-Branches 1–2, 1–3, and 2–3 have conductances of 10, 5, and 10 siemens, respectively.
-
----
-
-## Nine measurement equations
+</div>
+<div>
 
 $$H=\begin{bmatrix}
 10&-10&0\\-10&10&0\\5&0&-5\\-5&0&5\\
 0&10&-10\\0&-10&10\\1&0&0\\0&1&0\\0&0&1
 \end{bmatrix}$$
+
+</div>
+</div>
+
+Each current row follows $I_{ij}=g_{ij}(V_i-V_j)$, with $g_{ij}=1/R_{ij}$.
+
+---
+
+## Nine measurement equations
+
+<div class="circuit-matrix-layout">
+<div>
+
+![Three-node circuit with branch resistances and conductances](../assets/figuras/circuito-lista3-matriz.svg)
+
+$$I_{12}=10(V_1-V_2),\qquad I_{21}=10(V_2-V_1)$$
+
+Reversing the current direction reverses the signs of its matrix row. Voltage measurements select one state directly.
+
+</div>
+<div>
+
+$$H=\begin{bmatrix}
+10&-10&0\\-10&10&0\\5&0&-5\\-5&0&5\\
+0&10&-10\\0&-10&10\\1&0&0\\0&1&0\\0&0&1
+\end{bmatrix}$$
+
+</div>
+</div>
 
 Order: $I_{12},I_{21},I_{13},I_{31},I_{23},I_{32},V_1,V_2,V_3$.
 
@@ -532,15 +561,15 @@ An identification rate calculated only over converged cases can overstate overal
 
 ---
 
-## Textbook reading for this lesson
+## References
 
-**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). §§5.1–5.8.
+**[1]** N. G. Bretas, J. B. A. London Jr., and B. E. B. de Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência*, course manuscript, 2019, supplied version Sep. 18, 2020. §§6.4–6.5.3; PDF pp. 158–166.
 
-**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). §§8.2–8.3.
+**[2]** A. Abur and A. Gómez Expósito, *Power System State Estimation: Theory and Implementation*. Marcel Dekker, 2004. §§5.1–5.8.
 
-**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). §§6.4–6.5.3, PDF pp. 158–166. Primary notation for this lesson.
+**[3]** A. Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach*. Kluwer Academic Publishers, 1999. §§8.2–8.3.
 
-Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+PDF page numbers count file pages starting at 1.
 
 ---
 
@@ -550,15 +579,13 @@ Section numbers identify the original work; any PDF page numbers are 1-based fil
 - Aula 4 - Processamento de EG - EE linear b_chapeu e JX - 27 08 2024.pdf
 - Aula 4 - Sistemática para Teste e Simulação - 27 08 2024.pdf
 
-Educational adaptation in Markdown and LaTeX, with redrawn figures. The lesson and topic-block sequence is preserved; repeated animation steps are consolidated.
-
 ---
 
 ## Laboratory guide · Detection, identification, recovery
 
-1. **Original data:** compare $J$ with $\chi^2_{6,0.95}$ and $r_{\max}^N$ with $\beta=3$.
-2. **Remove suspect:** check the new state, $J$, and the updated five-degree-of-freedom threshold.
-3. **Recover suspect:** verify $I_{21}^{\mathrm{corr}}\simeq-51.108108$ A and distinguish $\hat e_{I_{21}}$ from $\hat b_{I_{21}}$.
-4. **Increase weight:** explain why a raw residual can decrease while its normalized value increases.
+1. **Inject errors:** use the sign-corrected baseline, add positive or negative errors with the sliders, and click Estimate. Current offsets are in amperes; voltage offsets are in volts.
+2. **Remove max rN & refit:** inspect the new state, $J$, updated degrees of freedom, and the largest residual of the retained set. Repeat if it still exceeds 3.
+3. **Assignment 3:** restore the original $I_{21}=+49$ A case. Compare $J$ with $\chi^2_{6,0.95}$; recovery gives $I_{21}^{\mathrm{corr}}\simeq-51.108108$ A.
+4. **Two-error extension:** choose the sign-corrected baseline, set the $I_{21}$ offset to +100 A and the $I_{13}$ offset to +40 A, then Estimate. Remove and refit twice. Undo removal restores the last excluded reading; Clear errors starts over.
 
 [All original Assignment 3 exercises (Portuguese)](../assets/listas/lista-03.pdf)

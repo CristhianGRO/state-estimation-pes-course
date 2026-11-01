@@ -218,7 +218,7 @@ Any nonzero solution is a state perturbation invisible to all available measurem
 
 With positive-definite $R$, whitening does not change this null space. Greater confidence in the same readings cannot repair a structurally missing direction.
 
-<p class="reading-source">Reading: [AE04] Chapter 4; [M99] §§2.4 and 7.1; [BLC] §5.1.</p>
+<p class="reading-source">Reading: [1] Chapter 4; [2] §§2.4 and 7.1; [3] §5.1.</p>
 
 ---
 
@@ -232,7 +232,7 @@ Adding the same angle to all buses in a connected observable island changes none
 
 A physically connected grid need not be observable: connectivity describes available electrical paths; observability also depends on where and what we measure.
 
-<p class="reading-source">Reading: [AE04] §§4.6–4.7; [BLC] §5.1.</p>
+<p class="reading-source">Reading: [1] §§4.6–4.7; [3] §5.1.</p>
 
 ---
 
@@ -244,7 +244,7 @@ An injection row combines several incident flows. Its outer product couples mult
 
 Therefore, counting metered branches alone can miss information supplied by injections. Topological methods need rules that assign injection information consistently to the network.
 
-<p class="reading-source">Reading: [AE04] §§4.2–4.7; [M99] §7.1.</p>
+<p class="reading-source">Reading: [1] §§4.2–4.7; [2] §7.1.</p>
 
 ---
 
@@ -258,19 +258,19 @@ A small singular value signals a weakly constrained direction, even if exact ran
 
 Report the model, reference convention, and numerical threshold with an observability result.
 
-<p class="reading-source">Reading: [AE04] §§4.6–4.7; [M99] §§7.1.5 and 7.1.11.</p>
+<p class="reading-source">Reading: [1] §§4.6–4.7; [2] §§7.1.5 and 7.1.11.</p>
 
 ---
 
-## Textbook reading for this lesson
+## References
 
-**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). Chapter 4.
+**[1]** A. Abur and A. Gómez Expósito, *Power System State Estimation: Theory and Implementation*. Marcel Dekker, 2004. Chapter 4.
 
-**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). §§2.4, 7.1.
+**[2]** A. Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach*. Kluwer Academic Publishers, 1999. §§2.4, 7.1.
 
-**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). §5.1.
+**[3]** N. G. Bretas, J. B. A. London Jr., and B. E. B. de Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência*, course manuscript, 2019, supplied version Sep. 18, 2020. §5.1.
 
-Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+PDF page numbers count file pages starting at 1.
 
 ---
 

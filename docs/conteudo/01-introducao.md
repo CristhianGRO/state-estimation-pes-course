@@ -852,7 +852,7 @@ Suggested reading:
 
 ## Source of the lesson structure
 
-**[4]** LONDON JR., J. B. A. *SEL-5717 — Estimação de Estado em Sistemas Elétricos de Potência*. Lesson 1: course overview. EESC/USP, supplied 2024 material; original in Portuguese.
+J. B. A. London Jr., *SEL-5717 — Estimação de Estado em Sistemas Elétricos de Potência*. Lesson 1: course overview. EESC/USP, supplied 2024 material; original in Portuguese.
 
 This lesson was **rewritten and expanded** for teaching, with original examples and explicit mathematical assumptions.
 
@@ -870,7 +870,7 @@ This lesson was **rewritten and expanded** for teaching, with original examples 
 
 A full-rank estimator can be inaccurate because of poor precision or an incorrect model. A small residual alone answers none of these questions completely.
 
-<p class="reading-source">Reading: [AE04] Chapters 2, 4, 7–8; [BLC] Chapters 2, 5–6.</p>
+<p class="reading-source">Reading: [3] Chapters 2, 4, 7–8; [1] Chapters 2, 5–6.</p>
 
 ---
 
@@ -885,7 +885,7 @@ This expression assumes full column rank and a correct model. For AC estimation 
 
 Unmodeled bias is not represented by merely reporting a smaller diagonal of this covariance.
 
-<p class="reading-source">Reading: [AE04] §§2.4–2.6; [BLC] §4.3.</p>
+<p class="reading-source">Reading: [3] §§2.4–2.6; [1] §4.3.</p>
 
 ---
 
@@ -897,7 +897,7 @@ $$\text{device status}\longrightarrow\text{network model}\longrightarrow h(x)\lo
 
 An analog residual can therefore indicate a faulty sensor, an incorrect parameter, or an incorrect topology. Diagnosis must compare these hypotheses rather than equating every mismatch with a bad analog reading.
 
-<p class="reading-source">Reading: [M99] Chapters 1 and 6; [BLC] §2.4.</p>
+<p class="reading-source">Reading: [2] Chapters 1 and 6; [1] §2.4.</p>
 
 ---
 
@@ -911,19 +911,19 @@ QR can improve a least-squares computation without protecting it from outliers. 
 
 These distinctions guide the numerical methods in Lessons 3–5 and the robust estimators in Lesson 12.
 
-<p class="reading-source">Reading: [AE04] Chapters 3 and 6; [M99] Chapters 9 and 13.</p>
+<p class="reading-source">Reading: [3] Chapters 3 and 6; [2] Chapters 9 and 13.</p>
 
 ---
 
-## Textbook reading for this lesson
+## References
 
-**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). Chapters 2, 4, 7–8.
+**[1]** N. G. Bretas, J. B. A. London Jr., and B. E. B. de Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência*, course manuscript, 2019, supplied version Sep. 18, 2020. Chapters 2, 5–6.
 
-**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). Chapters 1 and 6.
+**[2]** A. Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach*. Kluwer Academic Publishers, 1999. Chapters 1 and 6.
 
-**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). Chapters 2, 5–6.
+**[3]** A. Abur and A. Gómez Expósito, *Power System State Estimation: Theory and Implementation*. Marcel Dekker, 2004. Chapters 2, 4, 7–8.
 
-Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+PDF page numbers count file pages starting at 1.
 
 ---
 

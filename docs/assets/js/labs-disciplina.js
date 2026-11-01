@@ -55,33 +55,55 @@
   }
   const list2={H:[[-25,0],[25,0],[0,-20],[12.5,-12.5],[-25,-20],[37.5,-12.5]],z:[6.2452,-6.234,6.992,1.13,13.265,-5.0055],sigma:[.008,.008,.008,.008,.01,.01],names:['P12','P21','P13','P23','P1','P2']};
   const list3={H:[[10,-10,0],[-10,10,0],[5,0,-5],[-5,0,5],[0,10,-10],[0,-10,10],[1,0,0],[0,1,0],[0,0,1]],z:[52,49,-15,16,-82,80,11,6,14],sigma:[1,1,1,1,1,1,.1,.1,.1],names:['I12','I21','I13','I31','I23','I32','V1','V2','V3']};
+  function perturbList3({baseline='nominal',offsets=Array(9).fill(0)}={}) {
+    if(!['nominal','assignment'].includes(baseline)||offsets.length!==9||!offsets.every(Number.isFinite))throw new Error('Invalid baseline or gross-error offsets');
+    const base=list3.z.slice();if(baseline==='nominal')base[1]=-49;
+    return base.map((v,i)=>v+offsets[i]);
+  }
   const nrlCase={H:[[1,0,0,0,0],[0,1,0,0,0],[0,0,1,0,0],[0,0,0,1,0],[0,0,0,0,1],[1,1,0,0,0],[-1,1,0,0,0],[0,0,0,-1,0],[0,0,0,0,-1]],names:['F1','F2','I4','F4','F5','I1','F3','I5','I6']};
   function estimateList2({weighted=true,offset=0,sigma12=.008}={}) {
     const z=list2.z.slice(),sigma=weighted?list2.sigma.slice():Array(6).fill(1);
     z[0]+=offset;if(weighted)sigma[0]=sigma12;
     return {...linear(list2.H,z,sigma),z,sigma};
   }
-  function estimateList3({weight21=1,mode='all'}={}) {
-    const z=list3.z.slice(),sigma=list3.sigma.slice();sigma[1]=1/Math.sqrt(weight21);
-    const original=linear(list3.H,z,sigma);
-    const suspect=original.rn.reduce((best,v,i)=>Math.abs(v)>Math.abs(original.rn[best])?i:best,0);
-    let indices=list3.H.map((_,i)=>i),correction=null;
-    if(mode==='remove')indices=indices.filter(i=>i!==suspect);
+  function estimateList3({weight21=1,mode='all',excluded=[],measurements=list3.z}={}) {
+    if(!Number.isFinite(weight21)||weight21<=0||measurements.length!==9||!measurements.every(Number.isFinite))throw new Error('Enter nine finite readings and a positive weight');
+    if(!Array.isArray(excluded)||excluded.some(i=>!Number.isInteger(i)||i<0||i>=9))throw new Error('Invalid removed measurement');
+    const z=measurements.slice(),sigma=list3.sigma.slice();sigma[1]=1/Math.sqrt(weight21);
+    let indices=list3.H.map((_,i)=>i).filter(i=>!excluded.includes(i)),correction=null;
+    const original=linear(indices.map(i=>list3.H[i]),indices.map(i=>z[i]),indices.map(i=>sigma[i]));
+    const largest=result=>result.rn.reduce((best,v,j)=>Number.isFinite(v)&&(best===null||Math.abs(v)>Math.abs(result.rn[best]))?j:best,null);
+    const suspectLocal=largest(original),suspect=suspectLocal===null?null:indices[suspectLocal];
+    if(mode==='remove') {
+      if(suspect===null||Math.abs(original.rn[suspectLocal])<=3)throw new Error('No normalized residual exceeds β = 3. No further removal is indicated.');
+      const remaining=indices.filter(i=>i!==suspect);
+      if(rank(remaining.map(i=>list3.H[i]),3)<3)throw new Error('Removal blocked: the remaining system would be unobservable');
+      indices=remaining;
+    }
     if(mode==='recover') {
-      const sensitivity=original.omega[suspect]/sigma[suspect]**2;
+      if(suspect===null)throw new Error('No noncritical measurement is available for recovery');
+      const sensitivity=original.omega[suspectLocal]/sigma[suspect]**2;
       if(sensitivity<=1e-10)throw new Error('Measurement has insufficient redundancy for recovery');
-      correction=original.r[suspect]/sensitivity;z[suspect]-=correction;
+      correction=original.r[suspectLocal]/sensitivity;z[suspect]-=correction;
     }
     const result=linear(indices.map(i=>list3.H[i]),indices.map(i=>z[i]),indices.map(i=>sigma[i]));
-    const estimatedError=original.r[suspect]*sigma[suspect]**2/original.omega[suspect];
-    // Assignment 3 has 6 residual degrees of freedom, or 5 after one deletion.
+    const estimatedError=suspect===null?null:original.r[suspectLocal]*sigma[suspect]**2/original.omega[suspectLocal];
+    // 95% chi-square quantiles for the possible retained sets (N = 3).
     // A reconstructed datum is data-dependent, so do not claim a new chi-square law.
     const degreesOfFreedom=mode==='recover'?null:indices.length-3;
-    const criticalValue=({5:11.070497693516351,6:12.591587243743977})[degreesOfFreedom]??null;
+    const criticalValue=({1:3.841458820694124,2:5.991464547107979,3:7.814727903251179,4:9.487729036781154,5:11.070497693516351,6:12.591587243743977})[degreesOfFreedom]??null;
+    const nextLocal=largest(result),nextSuspect=nextLocal===null?null:indices[nextLocal];
+    const maxNormalizedResidual=nextLocal===null?null:Math.abs(result.rn[nextLocal]);
+    const aboveThreshold=maxNormalizedResidual!==null&&maxNormalizedResidual>3;
+    const preservesRank=nextSuspect!==null&&rank(indices.filter(i=>i!==nextSuspect).map(i=>list3.H[i]),3)===3;
     const diagnosis={degreesOfFreedom,criticalValue,rejected:criticalValue===null?null:result.cost>criticalValue,
-      maxNormalizedResidual:Math.max(...result.rn.filter(Number.isFinite).map(Math.abs))};
+      maxNormalizedResidual,nextSuspect,canRemove:mode!=='recover'&&aboveThreshold&&preservesRank,
+      stopReason:mode==='recover'?'Recovered data are dependent; re-estimate the retained raw readings before further removal.':
+        nextSuspect===null?'No testable residuals remain. Critical channels cannot be diagnosed by rN.':
+        !aboveThreshold?'No normalized residual exceeds β = 3. No further removal is indicated.':
+        !preservesRank?'Removal blocked: the remaining system would be unobservable.':null};
     return {...result,indices,z,sigma,suspect,correction,original,estimatedError,
-      standardizedError:estimatedError/sigma[suspect],diagnosis};
+      standardizedError:suspect===null?null:estimatedError/sigma[suspect],diagnosis};
   }
   function qualitative(H,n) {
     const r=rank(H,n),m=H.length;
@@ -127,7 +149,7 @@
   const row=values=>'<tr>'+values.map(v=>`<td>${v}</td>`).join('')+'</tr>';
   function mount(root) {
     const q=role=>root.querySelector(`[data-role="${role}"]`),kind=root.dataset.demo;
-    let mode='all';
+    let mode='all',excluded=[],measurements=list3.z.slice(),dirty=false,currentList3=null,offsets=Array(9).fill(0);
     function render() {
       try {
         if(kind==='lista-wls') {
@@ -139,14 +161,16 @@
           q('results').innerHTML=list2.names.map((name,i)=>row([name,fmt(result.z[i]),fmt(result.r[i]),fmt(result.rn[i],3)])).join('');
           q('summary').textContent=`${q('weighted').checked?'WLS':'LS'} · J = ${fmt(result.cost,4)} · 6 measurements, 2 states. LS and WLS objective values use different scales.`;
         } else if(kind==='lista-erros') {
-          const result=estimateList3({weight21:Number(q('weight').value),mode});
+          const result=estimateList3({weight21:Number(q('weight').value),mode,excluded,measurements});currentList3=result;
           q('states').innerHTML=result.x.map((v,i)=>row([`V${i+1} (V)`,fmt(v)])).join('');
-          q('results').innerHTML=list3.names.map((name,i)=>{const j=result.indices.indexOf(i);return row([name,fmt(result.z[i],3),j<0?'removed':fmt(Math.abs(result.rn[j]),3)]);}).join('');
+          q('results').innerHTML=list3.names.map((name,i)=>{const j=result.indices.indexOf(i),unit=i<6?'A':'V',limit=i<6?120:12,step=i<6?1:.1;return `<tr${j<0?' class="removed-reading"':i===result.diagnosis.nextSuspect&&result.diagnosis.maxNormalizedResidual>3?' class="suspect-reading"':''}><td>${name}</td><td><div class="error-slider"><input type="range" min="${-limit}" max="${limit}" step="${step}" value="${offsets[i]}" data-error="${i}" aria-label="Injected error ${name} (${unit})" aria-valuetext="${offsets[i]} ${unit}" ${j<0||mode==='recover'?'disabled':''}><output data-offset="${i}">${offsets[i]>0?'+':''}${fmt(offsets[i],1)}</output></div></td><td data-reading="${i}">${fmt(result.z[i],3)}</td><td data-residual="${i}">${j<0?'removed':Number.isFinite(result.rn[j])?fmt(Math.abs(result.rn[j]),3):'critical'}</td></tr>`;}).join('');
           const d=result.diagnosis;
           q('summary').textContent=mode==='recover'
-            ? `I21 recovery: estimated error = ${fmt(result.estimatedError,3)} A; b̂ = ${fmt(result.standardizedError,3)} standard deviations. J = ${fmt(result.cost,3)}. Reconstructed data are dependent: these refitted residuals are illustrative; use the independent retained set for formal tests.`
-            : `Suspect in the original set: ${list3.names[result.suspect]}. ${mode==='remove'?'Channel removed.':'Original readings retained.'} J = ${fmt(result.cost,3)}; m − N = ${d.degreesOfFreedom}; C = ${fmt(d.criticalValue,3)} at α = 0.05: ${d.rejected?'reject H₀':'do not reject H₀'}. Largest rN = ${fmt(d.maxNormalizedResidual,3)} (β = 3).`;
-          root.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===mode)));
+            ? `${list3.names[result.suspect]} recovery: estimated error = ${fmt(result.estimatedError,3)} ${result.suspect<6?'A':'V'}; b̂ = ${fmt(result.standardizedError,3)} standard deviations. J = ${fmt(result.cost,3)}. Reconstructed data are dependent; re-estimate the retained raw readings for further diagnosis.`
+            : `J = ${fmt(result.cost,3)}; m − N = ${d.degreesOfFreedom}; ${d.criticalValue===null?'no residual degrees of freedom':`C = ${fmt(d.criticalValue,3)} at α = 0.05: ${d.rejected?'reject H₀':'do not reject H₀'}`}. ${d.nextSuspect===null?'No testable rN.':`Largest rN: ${list3.names[d.nextSuspect]} = ${fmt(d.maxNormalizedResidual,3)} (β = 3).`} ${d.stopReason||'Remove the current suspect and refit to continue.'}`;
+          q('history').textContent=excluded.length?`Removal ${excluded.length} · Removed in order: ${excluded.map(i=>list3.names[i]).join(' → ')} · ${result.indices.length} readings retained.`:q('baseline').value==='nominal'?'Sign-corrected baseline: I21 = −49 A. Add errors with the sliders, then click Estimate.':'Assignment 3 baseline: I21 = +49 A already contains the original gross error.';
+          q('remove').disabled=!d.canRemove;q('recover').disabled=mode==='recover'||!d.canRemove;
+          q('undo').disabled=!excluded.length;
         } else if(kind==='plano-medicao' || kind==='criticidade') {
           const dataset=kind==='criticidade'?nrlCase:list2,n=dataset.H[0].length;
           const checks=[...root.querySelectorAll('[data-channel]')],indices=checks.filter(c=>c.checked).map(c=>Number(c.dataset.channel));
@@ -178,13 +202,48 @@
       q('channels').innerHTML=dataset.names.map((name,i)=>`<label><input type="checkbox" data-channel="${i}" checked>${name}</label>`).join('');
       q('all').addEventListener('click',()=>{root.querySelectorAll('[data-channel]').forEach(c=>c.checked=true);render();});
     }
-    root.querySelectorAll('input,select').forEach(el=>el.addEventListener(el.type==='checkbox'||el.tagName==='SELECT'?'change':'input',render));
-    root.querySelectorAll('[data-mode]').forEach(button=>button.addEventListener('click',()=>{mode=button.dataset.mode;render();}));
+    if(kind==='lista-erros') {
+      measurements=perturbList3({baseline:q('baseline').value,offsets});
+      function markDirty() {
+        dirty=true;q('remove').disabled=true;q('recover').disabled=true;q('undo').disabled=true;
+        q('states').innerHTML=[1,2,3].map(i=>row([`V${i} (V)`,'—'])).join('');
+        root.querySelectorAll('[data-residual]').forEach(cell=>{if(!excluded.includes(Number(cell.dataset.residual)))cell.textContent='—';});
+        root.querySelectorAll('.suspect-reading').forEach(tr=>tr.classList.remove('suspect-reading'));
+        q('summary').textContent='Gross-error offsets or weights changed. Click Estimate to calculate the state and residuals before removing a measurement.';
+      }
+      root.addEventListener('input',event=>{
+        if(!event.target.matches('[data-error]'))return;
+        const input=event.target,i=Number(input.dataset.error);offsets[i]=Number(input.value);
+        root.querySelector(`[data-offset="${i}"]`).textContent=(offsets[i]>0?'+':'')+fmt(offsets[i],1);
+        input.setAttribute('aria-valuetext',`${offsets[i]} ${i<6?'A':'V'}`);
+        root.querySelector(`[data-reading="${i}"]`).textContent=fmt(perturbList3({baseline:q('baseline').value,offsets})[i],3);
+        markDirty();
+      });
+      q('weight').addEventListener('change',()=>{if(mode==='recover'){mode='all';render();}markDirty();});
+      q('run').addEventListener('click',()=>{
+        measurements=perturbList3({baseline:q('baseline').value,offsets});
+        mode='all';dirty=false;render();
+      });
+      function resetScenario(baseline) {q('baseline').value=baseline;offsets=Array(9).fill(0);excluded=[];measurements=perturbList3({baseline,offsets});mode='all';dirty=false;render();}
+      root.querySelector('[data-mode="all"]').addEventListener('click',()=>{q('weight').value='1';resetScenario('assignment');});
+      q('clear-errors').addEventListener('click',()=>resetScenario(q('baseline').value));
+      q('baseline').addEventListener('change',()=>resetScenario(q('baseline').value));
+      q('remove').addEventListener('click',()=>{
+        if(dirty||!currentList3?.diagnosis.canRemove)return;
+        try {const step=estimateList3({weight21:Number(q('weight').value),excluded,measurements,mode:'remove'});excluded.push(step.suspect);mode='all';render();}
+        catch(error){q('summary').textContent=error.message;}
+      });
+      q('recover').addEventListener('click',()=>{if(!dirty&&currentList3?.diagnosis.canRemove){mode='recover';render();}});
+      q('undo').addEventListener('click',()=>{if(!dirty){excluded.pop();mode='all';render();}});
+    } else {
+      root.querySelectorAll('input,select').forEach(el=>el.addEventListener(el.type==='checkbox'||el.tagName==='SELECT'?'change':'input',render));
+      root.querySelectorAll('[data-mode]').forEach(button=>button.addEventListener('click',()=>{mode=button.dataset.mode;render();}));
+    }
     q('reset')?.addEventListener('click',()=>{mode='all';root.querySelectorAll('input[type="range"]').forEach(el=>el.value=el.defaultValue);root.querySelectorAll('input[type="checkbox"]').forEach(el=>el.checked=el.defaultChecked);render();});
     root.addEventListener('keydown',event=>{if(['INPUT','SELECT','BUTTON'].includes(event.target.tagName))event.stopPropagation();});
     render();
   }
-  const api={solve,rank,linear,list2,list3,nrlCase,estimateList2,estimateList3,qualitative,hybrid,demand,robust,mount};
+  const api={solve,rank,linear,list2,list3,nrlCase,estimateList2,estimateList3,perturbList3,qualitative,hybrid,demand,robust,mount};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;
   if(typeof window!=='undefined')window.SEPLabsDisciplina=api;
 })();

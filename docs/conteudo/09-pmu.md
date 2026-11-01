@@ -191,7 +191,7 @@ Synchronized absolute phasor angles provide an external time-based reference. A 
 
 The final laboratory uses relative-angle information aligned with its SCADA reference. Its state dimension must not be interpreted as the general absolute-angle hybrid formulation.
 
-<p class="reading-source">Reading: [BLC] §§4.5 and 5.3, PDF pp. 87–88 and 145.</p>
+<p class="reading-source">Reading: [1] §§4.5 and 5.3, PDF pp. 87–88 and 145.</p>
 
 ---
 
@@ -205,7 +205,7 @@ Even independent magnitude and angle errors can yield correlated rectangular com
 
 Using a diagonal rectangular covariance without checking these terms changes the statistical model.
 
-<p class="reading-source">Reading: [BLC] §4.5. First-order covariance transformation derived explicitly.</p>
+<p class="reading-source">Reading: [1] §4.5. First-order covariance transformation derived explicitly.</p>
 
 ---
 
@@ -220,7 +220,7 @@ Here $D$ describes independent channel noise. The common term cannot be averaged
 
 This covariance extension follows the same statistical principles as hybrid estimation; it is not an implemented timing estimator in the laboratory.
 
-<p class="reading-source">Reading: [BLC] §§4.3 and 4.5. Shared-clock model is an original covariance example.</p>
+<p class="reading-source">Reading: [1] §§4.3 and 4.5. Shared-clock model is an original covariance example.</p>
 
 ---
 
@@ -232,17 +232,17 @@ A processed state estimate and the raw readings used to compute it are dependent
 
 The laboratory centers synthetic PMU readings on the baseline solution to isolate the effect of additional precision. It is a controlled illustration, not an independent validation of the baseline against field PMU data.
 
-<p class="reading-source">Reading: [BLC] §§4.3–4.5; [M99] §11.1. Independence caveat applied to the course experiment.</p>
+<p class="reading-source">Reading: [1] §§4.3–4.5; [2] §11.1. Independence caveat applied to the course experiment.</p>
 
 ---
 
-## Textbook reading for this lesson
+## References
 
-**[BLC]** Bretas, London Jr. & Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência* (course manuscript; cover 2019, supplied file version 2020). §§4.3–4.5, 5.3.
+**[1]** N. G. Bretas, J. B. A. London Jr., and B. E. B. de Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência*, course manuscript, 2019, supplied version Sep. 18, 2020. §§4.3–4.5, 5.3.
 
-**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). §11.1.
+**[2]** A. Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach*. Kluwer Academic Publishers, 1999. §11.1.
 
-Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+PDF page numbers count file pages starting at 1.
 
 ---
 

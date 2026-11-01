@@ -1,6 +1,28 @@
 <section data-demo="lista-erros" class="course-lab" aria-label="Assignment 3 · Identify and recover">
   <div class="demo-head"><div><h2>Assignment 3 · Identify and recover</h2><p>Exercise 1 · resistive circuit · nine readings, three states</p></div><span class="lab-pill">GUIDED EXPERIMENT</span></div>
-  <div class="demo-layout"><div class="demo-box"><h3>Treating the suspect measurement</h3><label for="lab-weight">I21 weight</label><select id="lab-weight" data-role="weight"><option value="1" selected>1 · Exercise 1(a)</option><option value="10">10 · Exercise 1(b)</option></select><div class="demo-actions"><button data-mode="all" type="button">Original data</button><button data-mode="remove" type="button">Remove suspect</button><button data-mode="recover" type="button">Recover suspect</button></div><table class="grid-table"><thead><tr><th scope="col">State</th><th scope="col">Estimate</th></tr></thead><tbody data-role="states"></tbody></table></div><div class="demo-box"><h3>Readings and normalized residuals</h3><table class="grid-table"><thead><tr><th scope="col">Channel</th><th scope="col">Value (A or V)</th><th scope="col">rN</th></tr></thead><tbody data-role="results"></tbody></table></div></div>
+  <div class="demo-layout">
+    <div class="demo-box">
+      <h3>Sequential bad-data processing</h3>
+      <div class="error-settings">
+        <div><label for="lab-baseline">Baseline readings</label><select id="lab-baseline" data-role="baseline"><option value="nominal" selected>Sign-corrected · I21 = −49 A</option><option value="assignment">Assignment 3 · I21 = +49 A</option></select></div>
+        <div><label for="lab-weight">I21 weight</label><select id="lab-weight" data-role="weight"><option value="1" selected>1 · Exercise 1(a)</option><option value="10">10 · Exercise 1(b)</option></select></div>
+      </div>
+      <div class="demo-actions">
+        <button data-role="run" type="button">Estimate</button>
+        <button data-mode="remove" data-role="remove" type="button">Remove max rN &amp; refit</button>
+        <button data-role="undo" type="button" class="secondary">Undo removal</button>
+        <button data-role="clear-errors" type="button" class="secondary">Clear errors</button>
+        <button data-mode="recover" data-role="recover" type="button" class="secondary">Recover suspect</button>
+        <button data-mode="all" type="button" class="secondary">Assignment 3</button>
+      </div>
+      <p class="demo-note" data-role="history" aria-live="polite"></p>
+      <table class="grid-table"><thead><tr><th scope="col">State</th><th scope="col">Estimate</th></tr></thead><tbody data-role="states"></tbody></table>
+    </div>
+    <div class="demo-box">
+      <h3>Inject gross errors into the measurements</h3>
+      <table class="grid-table"><thead><tr><th scope="col">Channel</th><th scope="col">Added error</th><th scope="col">Reading</th><th scope="col">rN</th></tr></thead><tbody data-role="results"></tbody></table>
+    </div>
+  </div>
   <p class="demo-note lab-summary" data-role="summary" role="status" aria-live="polite"></p>
-  <p class="demo-note">Assignment 3: I21 = +49 A. As in the manuscript, rN = |r|/√Ωii. The signed physical correction ê = σb̂ is in amperes; b̂ is in standard deviations. Recovered data are not new independent measurements.</p>
+  <p class="demo-note">Sliders add −120…+120 A to currents or −12…+12 V to voltages. Click Estimate, then remove max rN &gt; 3 and refit; repeat if needed. The sign-corrected baseline keeps the other assignment readings unchanged. Assignment 3 restores the original sign error.</p>
 </section>

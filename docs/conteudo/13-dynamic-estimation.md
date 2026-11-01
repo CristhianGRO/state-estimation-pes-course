@@ -327,7 +327,7 @@ $$P_k^+=\left((P_k^-)^{-1}+H_k^TR_k^{-1}H_k\right)^{-1}$$
 
 This is WLS with an uncertain state prior. Monticelli develops tracking through an augmented model combining a new scan with information from the preceding estimate.
 
-<p class="reading-source">Reading: [M99] §§11.1.1–11.1.2, including PDF p. 296.</p>
+<p class="reading-source">Reading: [1] §§11.1.1–11.1.2, including PDF p. 296.</p>
 
 ---
 
@@ -341,7 +341,7 @@ For positive-definite covariances, sequential Gaussian elimination yields the fi
 
 The filter and a correctly specified batch problem fuse the same information. Appending an already-used scan as if it were new double-counts it.
 
-<p class="reading-source">Reading: [M99] §§11.1–11.2. Batch formulation is a derivation connecting its multiple-scan model to least squares.</p>
+<p class="reading-source">Reading: [1] §§11.1–11.2. Batch formulation is a derivation connecting its multiple-scan model to least squares.</p>
 
 ---
 
@@ -355,7 +355,7 @@ Repeated identical scans improve precision only in the directions measured by $H
 
 For known deterministic transitions, the measurement-only observability test instead stacks $H_k\Phi_{k,0}$, where $\Phi_{k,0}=F_k\cdots F_1$. This distinguishes measurement information from prior regularization.
 
-<p class="reading-source">Reading: [M99] §§2.4 and 11.1; measurement-only rank criterion derived for the stated transition model.</p>
+<p class="reading-source">Reading: [1] §§2.4 and 11.1; measurement-only rank criterion derived for the stated transition model.</p>
 
 ---
 
@@ -370,17 +370,17 @@ This uses the pre-update innovation covariance, not the post-fit residual covari
 
 For an iterated EKF, repeated linearization of one scan refines the same update; it must not assimilate that scan repeatedly as independent data.
 
-<p class="reading-source">Reading: [M99] §§11.1.2–11.1.3; [AE04] §§2.4 and 7.6.2. Consistency statistic derived for the stated Gaussian model.</p>
+<p class="reading-source">Reading: [1] §§11.1.2–11.1.3; [2] §§2.4 and 7.6.2. Consistency statistic derived for the stated Gaussian model.</p>
 
 ---
 
-## Textbook reading for this lesson
+## References
 
-**[M99]** Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach* (1999). §§2.4, 11.1–11.2.
+**[1]** A. Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach*. Kluwer Academic Publishers, 1999. §§2.4, 11.1–11.2.
 
-**[AE04]** Abur & Gómez Expósito, *Power System State Estimation: Theory and Implementation* (2004). §§2.4, 7.6.2.
+**[2]** A. Abur and A. Gómez Expósito, *Power System State Estimation: Theory and Implementation*. Marcel Dekker, 2004. §§2.4, 7.6.2.
 
-Section numbers identify the original work; any PDF page numbers are 1-based file pages. Added explanations and derivations use this site’s notation. Explicitly labeled extensions are teaching examples.
+PDF page numbers count file pages starting at 1.
 
 ---
 

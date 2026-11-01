@@ -16,6 +16,15 @@ assert.equal(lab.rank([lab.list2.H[0],lab.list2.H[1]],2),1);
 assert.equal(lab.rank([lab.list2.H[0],lab.list2.H[2]],2),2);
 assert.throws(()=>lab.linear([[1,0],[2,0]],[1,2],[1,1]),/Unobservable/);
 const original=lab.estimateList3();
+const nominalReadings=lab.perturbList3();
+assert.equal(nominalReadings[1],-49);
+assert.equal(lab.list3.z[1],49,'Baseline construction must not change the assignment');
+assert.equal(lab.estimateList3({measurements:nominalReadings}).diagnosis.canRemove,false);
+const offsets=[0,100,40,0,0,0,-2.5,0,0],injected=lab.perturbList3({offsets});
+assert.equal(injected[1],51);assert.equal(injected[2],25);assert.equal(injected[6],8.5);
+assert.deepEqual(lab.perturbList3({baseline:'assignment'}),lab.list3.z);
+assert.equal(offsets[6],-2.5);
+assert.throws(()=>lab.perturbList3({offsets:[NaN]}),/Invalid baseline/);
 assert.equal(original.suspect,1);
 assert.equal(original.diagnosis.degreesOfFreedom,6);
 assert.equal(original.diagnosis.rejected,true);
@@ -25,6 +34,42 @@ const removed=lab.estimateList3({mode:'remove'}),recovered=lab.estimateList3({mo
 assert.equal(removed.diagnosis.degreesOfFreedom,5);
 assert.equal(removed.diagnosis.rejected,false);
 close(removed.diagnosis.criticalValue,11.070497693516351);
+assert.equal(removed.diagnosis.canRemove,false);
+assert.throws(()=>lab.estimateList3({excluded:[1],mode:'remove'}),/No normalized residual exceeds/);
+// Two contaminated channels: re-rank residuals after each deletion, not on the original fit.
+const twoBad=lab.list3.z.slice();twoBad[2]+=40;
+const first=lab.estimateList3({measurements:twoBad,mode:'remove'});
+assert.equal(first.suspect,1);
+assert.equal(first.diagnosis.nextSuspect,2);
+assert.equal(first.diagnosis.canRemove,true);
+const second=lab.estimateList3({measurements:twoBad,excluded:[1],mode:'remove'});
+assert.equal(second.suspect,2);
+assert.deepEqual(second.indices,[0,3,4,5,6,7,8]);
+assert.equal(second.diagnosis.degreesOfFreedom,4);
+close(second.diagnosis.criticalValue,9.487729036781154);
+assert.equal(second.diagnosis.canRemove,false);
+close(first.cost-second.cost,first.diagnosis.maxNormalizedResidual**2,1e-8);
+close(second.cost,292/63,1e-9);
+// The retained raw readings still satisfy WLS stationarity after both removals.
+for(let j=0;j<3;j++)close(second.indices.reduce((s,i,k)=>s+lab.list3.H[i][j]*second.r[k]/second.sigma[i]**2,0),0,1e-9);
+assert.equal(twoBad[1],49,'Inputs must not be mutated');
+const criticalOnly=lab.estimateList3({excluded:[0,1,2,3,4,5]});
+assert.equal(criticalOnly.diagnosis.degreesOfFreedom,0);
+assert.equal(criticalOnly.diagnosis.nextSuspect,null);
+assert.equal(criticalOnly.diagnosis.canRemove,false);
+assert.throws(()=>lab.estimateList3({excluded:[0,1,2,3,4,5,8]}),/Unobservable/);
+assert.throws(()=>lab.estimateList3({measurements:[...lab.list3.z.slice(0,8),NaN]}),/finite/);
+// Verify every sequential-test quantile by integrating after x = u².
+for(let df=1;df<=6;df++) {
+ const excluded=Array.from({length:6-df},(_,i)=>df+i);
+ const d=lab.estimateList3({excluded}).diagnosis;
+ assert.equal(d.degreesOfFreedom,df);
+ const gamma=({1:Math.sqrt(Math.PI),2:1,3:Math.sqrt(Math.PI)/2,4:1,5:3*Math.sqrt(Math.PI)/4,6:2})[df];
+ const f=u=>2*u**(df-1)*Math.exp(-u*u/2)/(2**(df/2)*gamma);
+ const n=10000,h=Math.sqrt(d.criticalValue)/n;let sum=f(0)+f(n*h);
+ for(let i=1;i<n;i++)sum+=(i%2?4:2)*f(i*h);
+ close(sum*h/3,.95,2e-9);
+}
 assert.equal(recovered.diagnosis.criticalValue,null,'Do not calibrate dependent reconstructed data as fresh observations');
 assert.equal(recovered.diagnosis.rejected,null);
 close(recovered.estimatedError,3704/37);
