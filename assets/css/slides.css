@@ -68,3 +68,10 @@
 .reveal section[data-demo="lista-erros"] .removed-reading td{color:#7b8995}
 .reveal section[data-demo="lista-erros"] .suspect-reading td{background:#fff0d7}
 .reveal section[data-demo="lista-erros"] [data-role="history"]{min-height:32px;margin:10px 0!important}
+
+/* The interactive iframe is the slide background. Keep the empty slide clear. */
+.reveal .slides section[data-demo][data-background-iframe] {
+  background: transparent;
+  padding: 0;
+  pointer-events: none;
+}

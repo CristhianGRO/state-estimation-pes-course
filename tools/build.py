@@ -110,7 +110,16 @@ def output_files():
         if demo:
             if not isinstance(demo, str) or '/' in demo or '\\' in demo or demo in {'.', '..'}:
                 raise ValueError(f'Demo inválida: {demo!r}')
-            section = (ROOT / 'componentes' / f'{demo}.html').read_text(encoding='utf-8')
+            component = (ROOT / 'componentes' / f'{demo}.html').read_bytes()
+            if lesson.get('standalone_demo'):
+                demo_path = f'assets/labs/{demo}.html'
+                result[demo_path] = component
+                section = (
+                    f'<section data-demo="{esc(demo)}" data-background-iframe="../{esc(demo_path)}" '
+                    f'data-background-interactive aria-label="{esc(lesson["title"])} laboratory"></section>'
+                )
+            else:
+                section = component.decode('utf-8')
         prev_slug = published[index - 1]['slug'] if index else None
         next_slug = published[index + 1]['slug'] if index + 1 < len(published) else None
         slide = render(template, {

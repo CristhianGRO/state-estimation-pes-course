@@ -128,19 +128,14 @@
     ],
     "06": [
       {
-        "book": "AE04",
-        "sections": "Chapter 4",
+        "book": "BLC",
+        "sections": "§§5.1–5.2, 5.4 and 6.3",
         "number": 1
       },
       {
         "book": "M99",
-        "sections": "§§2.4, 7.1",
+        "sections": "Chapters 7–8",
         "number": 2
-      },
-      {
-        "book": "BLC",
-        "sections": "§5.1",
-        "number": 3
       }
     ],
     "07": [

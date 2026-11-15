@@ -93,7 +93,8 @@
         "Restoration"
       ],
       "minutes": 100,
-      "demo": "plano-medicao",
+      "demo": "observabilidade",
+      "standalone_demo": true,
       "published": true
     },
     {

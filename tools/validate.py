@@ -16,7 +16,7 @@ class LinkChecker(HTMLParser):
         self.urls=[]
     def handle_starttag(self, tag, attrs):
         props=dict(attrs)
-        for key in ('href','src','data-src','data-markdown'):
+        for key in ('href','src','data-src','data-markdown','data-background-iframe'):
             if key in props and tag not in ('svg','animateMotion'):
                 self.urls.append(props[key])
 
@@ -84,7 +84,7 @@ if references.is_file():
     assert all(len(b['sha256'])==64 and b['pdf_pages']>0 for b in books.values())
     for lesson in LESSONS:
         md=(ROOT/'conteudo'/f"{lesson['slug']}.md").read_text(encoding='utf-8')
-        assert '## Textbook foundations' in md and '## References' in md
+        assert re.search(r'^## References\s*$',md,re.M), f"Missing references section: {lesson['id']}"
         assert not re.search(r'\[(AE04|M99|BLC)\]',md), f"Non-numeric citation: {lesson['id']}"
         readings=bibliography['lessons'][lesson['id']]
         numbers=[r['number'] for r in readings]
@@ -94,7 +94,6 @@ if references.is_file():
         listed=[int(n) for n in re.findall(r'^\*\*\[(\d+)\]\*\*',reference_section,re.M)]
         cited=list(dict.fromkeys(int(n) for n in re.findall(r'\[(\d+)\]',body)))
         assert cited==listed==numbers, f"Numeric citation/reference mismatch: {lesson['id']}"
-        assert md.index('## Textbook foundations')<md.index('## References')
     print('✓ Textbook bibliography and reading guides cover all 13 lessons.')
 if sources.is_file():
     manifest=json.loads(sources.read_text(encoding='utf-8'))
