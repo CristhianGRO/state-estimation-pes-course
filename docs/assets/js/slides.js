@@ -14,6 +14,7 @@
     document.querySelectorAll('[data-demo]').forEach(section => {
       if (section.dataset.demo === 'wls-ca' && window.SEPWLSCA) window.SEPWLSCA.mount(section);
       else if (section.dataset.demo === 'dynamic' && window.SEPDynamic) window.SEPDynamic.mount(section);
+      else if (section.dataset.demo === 'map-fusion' && window.SEPMapFusion) window.SEPMapFusion.mount(section);
       else if (window.SEPLabsDisciplina) window.SEPLabsDisciplina.mount(section);
     });
     window.SEPMath.render();

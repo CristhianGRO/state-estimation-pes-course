@@ -1,0 +1,23 @@
+<section data-demo="map-fusion" class="course-lab" aria-label="Bayesian MAP fusion and intermittent PV laboratory">
+  <div class="demo-head"><div><h2>Bayesian MAP fusion · intermittent PV</h2><p>Explore prior uncertainty, slow SCADA-like measurements, and fast PMU-like updates.</p></div><span class="lab-pill">GUIDED EXPERIMENT</span></div>
+  <div class="demo-layout">
+    <div class="demo-box">
+      <h3>Experiment controls</h3>
+      <label>PV variability <select data-role="pv"><option value="0">Base · no PV</option><option value="1">Low PV</option><option value="2">Medium PV</option><option value="3" selected>High PV</option></select></label>
+      <label>Power factor <select data-role="pf"><option value="1">1.0</option><option value="0.8">0.8 capacitive</option></select></label>
+      <label>Measurement plan <select data-role="plan"><option value="0">Slow conventional only</option><option value="1" selected>Slow + PMU 1 (angle proxy)</option><option value="2">Slow + PMU 2 (angle + voltage proxies)</option></select></label>
+      <label>Transition uncertainty Q <input data-role="q" type="range" min="0" max="100" step="1" value="40"><output data-role="qvalue"></output></label>
+      <label><input data-role="outlier" type="checkbox"> Inject a single fast-measurement outlier</label>
+      <button type="button" data-role="run">Run reproducible experiment</button>
+      <p class="demo-note">Teaching surrogate. Each time step is 20 s, conventional measurements refresh every 45 steps (15 min), and fast channels are assimilated at every simulation step. The paper's PMU acquisition period is 100 ms; this laboratory does not resolve 100 ms timestamps or simulate the full IEEE 14-bus AC system.</p>
+    </div>
+    <div class="demo-box">
+      <h3>Time-varying state estimates</h3>
+      <div class="map-lab-legend"><span>● True state</span><span>● Held-data WLS</span><span>● Sequential MAP</span></div>
+      <svg data-role="plot" viewBox="0 0 640 300" role="img" aria-label="Angle and voltage estimation time series" style="width:100%;max-height:310px;background:#f8fafc;border-radius:10px"></svg>
+      <table class="grid-table"><thead><tr><th>Quantity</th><th>Held-data WLS MAE</th><th>MAP MAE</th></tr></thead><tbody data-role="metrics"></tbody></table>
+      <p class="demo-note" data-role="diagnosis" aria-live="polite"></p>
+    </div>
+  </div>
+  <p class="demo-note">The held-data WLS baseline incorrectly treats the latest slow observation as fresh; MAP uses the slow scan only when it actually arrives and propagates a growing prior covariance between updates. These comparison choices are deliberately simplified for teaching. The reported MAEs are synthetic and must not be cited as results from Rondon et al. (CBA 2026).</p>
+</section>

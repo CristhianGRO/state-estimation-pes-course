@@ -104,6 +104,30 @@ class IncrementalBuildTests(unittest.TestCase):
         self.assertEqual('existing', path.read_text(encoding='utf-8'))
         self.assertFalse(list(self.root.glob('.build-*.tmp')))
 
+    def test_updated_references_and_citations_after_reference_section(self):
+        lesson = self.root / 'conteudo/13-dynamic-estimation.md'
+        markdown = '# Reference validation\n' + '\n---\n\n## Theory\n\nSee [1], [2], and [3].\n' * 5
+        markdown += '\n$\\hat{x}=[9]$\n\n<!-- Draft [8] -->\n\n```python\narray[7]\n```\n'
+        markdown += '\n---\n\n## References\n\n' + '\n\n'.join(
+            f'**[{number}]** Reference {number}.' for number in range(1, 5)
+        )
+        markdown += '\n\n---\n\n## Source provenance\n\nThe original lecture is cited here [4].\n'
+        lesson.write_text(markdown, encoding='utf-8')
+        self.run_script('build.py')
+        self.run_script('validate.py')
+
+        # Invalid prose citations still fail, with a useful diagnostic.
+        lesson.write_text(markdown + '\nUnknown source [5].\n', encoding='utf-8')
+        self.run_script('build.py')
+        result = self.run_script('validate.py', should_succeed=False)
+        self.assertIn('Undefined references in lesson 13: [5]', result.stderr)
+
+        # A missing number is also a bibliography error.
+        lesson.write_text(markdown.replace('**[3]**', '**[5]**'), encoding='utf-8')
+        self.run_script('build.py')
+        result = self.run_script('validate.py', should_succeed=False)
+        self.assertIn('References must be numbered consecutively', result.stderr)
+
 
 if __name__ == '__main__':
     unittest.main()

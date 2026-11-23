@@ -1,8 +1,8 @@
 # Observability analysis and restoration
 
-### Lesson 06 · From measurement information to observable islands
+### Lesson 06 
 
-Graduate course · EESC–USP · Based on Prof. João Bosco A. London Junior's 2024 lectures
+EESC–USP · Based on Prof. João Bosco A. London Junior's 2024 lectures
 
 ---
 
@@ -469,5 +469,3 @@ The laboratory's direct rank and loss-set enumeration are **small-system teachin
 **[1]** N. G. Bretas, J. B. A. London Jr., and B. E. B. de Carvalho, *Estimação de Estado em Sistemas Elétricos de Potência*, 2019 manuscript, supplied version dated 18 Sep. 2020, §§5.1–5.2, 5.4 and 6.3 (PDF pp. 100–~128).
 
 **[2]** A. Monticelli, *State Estimation in Electric Power Systems: A Generalized Approach*, Kluwer, 1999, Chapter 7 (printed pp. 161–198; PDF pagination differs), particularly §§7.1 and 7.3.
-
-Original teaching inputs: 2024 Lesson 6 (observability and restoration), Lesson 7 (methods and redundancy), Lesson 8 (critical sets, redundancy levels, and measurement planning). Equations and explanatory language here are newly written for the course. This lesson's laboratory is a direct-rank teaching implementation, not a reproduction of the named historical methods.

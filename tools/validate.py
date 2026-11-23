@@ -86,14 +86,31 @@ if references.is_file():
         md=(ROOT/'conteudo'/f"{lesson['slug']}.md").read_text(encoding='utf-8')
         assert re.search(r'^## References\s*$',md,re.M), f"Missing references section: {lesson['id']}"
         assert not re.search(r'\[(AE04|M99|BLC)\]',md), f"Non-numeric citation: {lesson['id']}"
-        readings=bibliography['lessons'][lesson['id']]
-        numbers=[r['number'] for r in readings]
-        assert numbers==list(range(1,len(readings)+1)), f"Non-sequential references: {lesson['id']}"
-        assert all(r['book'] in books for r in readings)
-        body,reference_section=md.split('## References',1)
+        # The authored Markdown defines current references. The source inventory
+        # may describe earlier readings and must not freeze the lesson's bibliography.
+        body,reference_tail=re.split(r'^## References[ \t]*$',md,maxsplit=1,flags=re.M)
+        reference_parts=re.split(r'^(?:---[ \t]*|##[ \t]+[^\n]+)$',reference_tail,maxsplit=1,flags=re.M)
+        reference_section=reference_parts[0]
+        following_text=reference_parts[1] if len(reference_parts)>1 else ''
         listed=[int(n) for n in re.findall(r'^\*\*\[(\d+)\]\*\*',reference_section,re.M)]
-        cited=list(dict.fromkeys(int(n) for n in re.findall(r'\[(\d+)\]',body)))
-        assert cited==listed==numbers, f"Numeric citation/reference mismatch: {lesson['id']}"
+        assert listed and listed==list(range(1,len(listed)+1)), f"References must be numbered consecutively from [1] in lesson {lesson['id']}: {listed}"
+        citation_text=body+'\n'+following_text
+        # Numeric vectors, code examples, and comments are not prose citations.
+        literal_patterns=(
+            r'<!--.*?-->',
+            r'^```[^\n]*\n.*?^```[ \t]*$',
+            r'^~~~[^\n]*\n.*?^~~~[ \t]*$',
+            r'`[^`\n]+`',
+            r'\$\$.*?\$\$|\$(?:\\.|[^$\\])+\$',
+        )
+        for pattern in literal_patterns:
+            citation_text=re.sub(pattern,'',citation_text,flags=re.M|re.S)
+        cited=list(dict.fromkeys(int(n) for n in re.findall(r'\[(\d+)\]',citation_text)))
+        undefined=sorted(set(cited)-set(listed))
+        assert not undefined, f"Undefined references in lesson {lesson['id']}: {undefined}"
+        uncited=sorted(set(listed)-set(cited))
+        assert not uncited, f"References without a citation in lesson {lesson['id']}: {uncited}"
+        assert cited==listed, f"References must follow first citation order in lesson {lesson['id']}: cited {cited}, listed {listed}"
     print('✓ Textbook bibliography and reading guides cover all 13 lessons.')
 if sources.is_file():
     manifest=json.loads(sources.read_text(encoding='utf-8'))
