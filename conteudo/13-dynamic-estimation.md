@@ -167,6 +167,16 @@ It lies between the two observations of information; the smaller measurement var
 
 ---
 
+## Effect of uncertainty on the posterior distribution
+
+![Gaussian prior, likelihood, and posterior under two measurement-uncertainty scenarios](../assets/figuras/map-posterior-uncertainty.svg)
+
+The prior and measured value are unchanged. A more precise measurement moves the posterior toward $z$; a less precise measurement leaves it closer to $\mu^-$. In this Gaussian example, **MAP = posterior mean**.
+
+Note: Ask students to compare the two posterior peaks before revealing the explanation. Both cases use $\mu^-=1.00$ pu, $\sigma_p=0.02$ pu, and $z=1.08$ pu. Case A has $\sigma_z=0.01$ pu ($\hat x_{MAP}=1.0640$ pu); Case B has $\sigma_z=0.03$ pu ($\hat x_{MAP}\approx1.0246$ pu). The curves are probability densities, not independent voltage measurements.
+
+---
+
 ## Gaussian MAP: general linear solution
 
 For $z=Hx+e$ with $e\sim\mathcal N(0,R)$:
